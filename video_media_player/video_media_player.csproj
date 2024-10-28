@@ -171,6 +171,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AlbumsWindow.xaml.cs">
+      <DependentUpon>AlbumsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ArtistsWindow.xaml.cs">
+      <DependentUpon>ArtistsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ForYouWindow.xaml.cs">
+      <DependentUpon>ForYouWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MusicVideosWindow.xaml.cs">
+      <DependentUpon>MusicVideosWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlaylistsWindow.xaml.cs">
+      <DependentUpon>PlaylistsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SongsWindow.xaml.cs">
+      <DependentUpon>SongsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StoreWindow.xaml.cs">
+      <DependentUpon>StoreWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Playlist.xaml.cs">
       <DependentUpon>Playlist.xaml</DependentUpon>
     </Compile>
@@ -180,6 +201,18 @@
     <Compile Include="UserControls\SongItem.xaml.cs">
       <DependentUpon>SongItem.xaml</DependentUpon>
     </Compile>
+    <Page Include="AlbumsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ArtistsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ForYouWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,6 +225,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MusicVideosWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlaylistsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SongsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StoreWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Playlist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

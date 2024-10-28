@@ -22,9 +22,27 @@
                 <StackPanel Margin="0 30 0 0">
                     <!-- Ellipses-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="63 10 0 10">
-                        <Ellipse Fill="#ff6258" Width="10" Height="10"/>
-                        <Ellipse Fill="#ffbf2f" Width="10" Height="10" Margin="7 0"/>
-                        <Ellipse Fill="#2acb42" Width="10" Height="10"/>
+                        <Button Background="#ff6258" Width="10" Height="10" Click="CloseButton_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button Background="#ffbf2f" Width="10" Height="10" Margin="7 0" Click="MinimizeButton_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button Background="#2acb42" Width="10" Height="10" Click="HideButton_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </StackPanel>
 
                     <TextBlock Text="LIBRARY" Style="{StaticResource menuTitle}"/>
@@ -36,51 +54,51 @@
                         </Grid>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
-                        <Grid>
-                            <TextBlock Text="Home" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="PlaylistsButton_Click">
                         <Grid>
                             <TextBlock Text="PlayLists" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="ArtistsButton_Click">
                         <Grid>
                             <TextBlock Text="Artists" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="AlbumsButton_Click">
                         <Grid>
                             <TextBlock Text="Albums" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
 
+                    <Button Style="{StaticResource menuButton}" Click="SongsButton_Click">
+                        <Grid>
+                            <TextBlock Text="Songs" Margin="0 0 0 2"/>
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}" Click="MusicVideosButton_Click">
+                        <Grid>
+                            <TextBlock Text="Music Video" Margin="0 0 0 2"/>
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                        </Grid>
+                    </Button>
+
                     <TextBlock Text="DISCOVER" Style="{StaticResource menuTitle}"/>
 
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="StoreButton_Click">
                         <Grid>
                             <TextBlock Text="Store" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}">
-                        <Grid>
-                            <TextBlock Text="Radio" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-
-                    <Button Style="{StaticResource menuButton}">
+                    <Button Style="{StaticResource menuButton}" Click="ForYouButton_Click">
                         <Grid>
                             <TextBlock Text="For You" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
@@ -186,7 +204,6 @@
                 </StackPanel>
 
             </Border>
-
         </Grid>
     </Border>
 </Window>
