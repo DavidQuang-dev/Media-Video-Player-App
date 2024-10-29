@@ -15,19 +15,19 @@
         </Grid.ColumnDefinitions>
 
         <!-- First Layout -->
-        <Grid Grid.Column="0" Background="White" Margin="40,60,40,0">
+        <Grid Grid.Column="0" Background="White" Margin="30,60,35,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource titleText}" Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Style="{StaticResource titleText}" Grid.Row="0" Margin="0,0,865,20">
                 <Run Language="vi-vn" Text="Songs"/>
                 <LineBreak/>
                 <Run Language="vi-vn"/>
             </TextBlock>
 
-            <Border CornerRadius="20" Margin="0,65,205,3" Grid.RowSpan="2">
+            <Border CornerRadius="20" Margin="0,65,0,3" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#30ad9a" Offset="0"/>

@@ -8,6 +8,7 @@ namespace video_media_player
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new HomePage());
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
