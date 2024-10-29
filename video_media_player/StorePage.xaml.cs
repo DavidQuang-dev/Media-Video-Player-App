@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace video_media_player
 {
     /// <summary>
-    /// Interaction logic for StoreWindow.xaml
+    /// Interaction logic for StorePage.xaml
     /// </summary>
-    public partial class StoreWindow : Window
+    public partial class StorePage : Page
     {
-        public StoreWindow()
+        public StorePage()
         {
             InitializeComponent();
         }

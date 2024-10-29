@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 
 namespace video_media_player
@@ -30,46 +31,30 @@ namespace video_media_player
             this.Hide();
             this.ShowInTaskbar = false;
         }
-
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new HomePage());
+        }
         private void PlaylistsButton_Click(object sender, RoutedEventArgs e)
         {
-            PlaylistsWindow playlistsWindow = new PlaylistsWindow();
-            playlistsWindow.Show();
+            MainFrame.Navigate(new PlaylistsPage());
 
         }
-
-        private void ArtistsButton_Click(object sender, RoutedEventArgs e)
-        {
-            ArtistsWindow artistsWindow = new ArtistsWindow();
-            artistsWindow.Show();
-        }
-
         private void AlbumsButton_Click(object sender, RoutedEventArgs e)
         {
-            AlbumsWindow albumsWindow = new AlbumsWindow();
-            albumsWindow.Show();
+            MainFrame.Navigate(new AlbumsPage());
         }
         private void SongsButton_Click(object sender, RoutedEventArgs e)
         {
-            SongsWindow songsWindow = new SongsWindow();
-            songsWindow.Show();
+            MainFrame.Navigate(new SongsPage());
         }
         private void MusicVideosButton_Click(object sender, RoutedEventArgs e)
         {
-            MusicVideosWindow musicVideosWindow = new MusicVideosWindow();
-            musicVideosWindow.Show();
+            MainFrame.Navigate(new MusicVideosPage());
         }
-
         private void StoreButton_Click(object sender, RoutedEventArgs e)
         {
-            StoreWindow storeWindow = new StoreWindow();
-            storeWindow.Show();
-        }
-
-        private void ForYouButton_Click(object sender, RoutedEventArgs e)
-        {
-            ForYouWindow forYouWindow = new ForYouWindow();
-            forYouWindow.Show();
+            MainFrame.Navigate(new StorePage());
         }
     }
 }

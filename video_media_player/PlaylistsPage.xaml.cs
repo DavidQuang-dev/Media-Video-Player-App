@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace video_media_player
 {
     /// <summary>
-    /// Interaction logic for MusicVideosWindow.xaml
+    /// Interaction logic for PlaylistsPage.xaml
     /// </summary>
-    public partial class MusicVideosWindow : Window
+    public partial class PlaylistsPage : Page
     {
-        public MusicVideosWindow()
+        public PlaylistsPage()
         {
             InitializeComponent();
         }

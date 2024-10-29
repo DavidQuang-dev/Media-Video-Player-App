@@ -8,8 +8,9 @@
         <Grid Margin="-10,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="109*" />
+                <ColumnDefinition Width="311*"/>
+                <ColumnDefinition Width="420*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -47,23 +48,16 @@
 
                     <TextBlock Text="LIBRARY" Style="{StaticResource menuTitle}"/>
 
-                    <Button Style="{StaticResource menuButton}" Background="#02be68" Foreground="White">
+                    <Button Style="{StaticResource menuButton}" Click="HomeButton_Click">
                         <Grid>
                             <TextBlock Text="Home" Margin="0,0,0,2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}" Visibility="Visible"/>
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
 
                     <Button Style="{StaticResource menuButton}" Click="PlaylistsButton_Click">
                         <Grid>
                             <TextBlock Text="PlayLists" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-
-                    <Button Style="{StaticResource menuButton}" Click="ArtistsButton_Click">
-                        <Grid>
-                            <TextBlock Text="Artists" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
@@ -98,19 +92,12 @@
                         </Grid>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}" Click="ForYouButton_Click">
-                        <Grid>
-                            <TextBlock Text="For You" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-
                 </StackPanel>
 
             </Border>
 
             <!--Music Section-->
-            <StackPanel Grid.Column="1" Background="White" Margin="40 60 10 0">
+            <StackPanel Grid.Column="1" Background="White" Margin="40 60 10 0" Grid.ColumnSpan="2">
                 <TextBlock Text="Home" Style="{StaticResource titleText}"/>
 
                 <Border CornerRadius="20" Margin="0 20 0 0">
@@ -150,7 +137,7 @@
             </StackPanel>
 
             <!--Right Section-->
-            <Border Grid.Column="2" CornerRadius="0 40 0 0" Background="White" Margin="0 22 0 0">
+            <Border Grid.Column="3" CornerRadius="0 40 0 0" Background="White" Margin="0,22,0,0">
                 <StackPanel Margin=" 30 50 30 0">
                     <TextBlock Text="Popular" Style="{StaticResource titleText}" Margin="0 0 0 10" FontSize="28"/>
 
@@ -170,7 +157,7 @@
             </Border>
 
             <!--Player-->
-            <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#03bf69" CornerRadius="40 0 40 0" Margin="40,0,0,0" Grid.Column="1">
+            <Border Grid.Row="1" Grid.ColumnSpan="3" Background="#03bf69" CornerRadius="40 0 40 0" Margin="40,0,0,0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <Ellipse Width="60" Height="60" Margin="30 0 0 0">
                         <Ellipse.Fill>
@@ -202,8 +189,9 @@
                     </Button>
 
                 </StackPanel>
-
             </Border>
+            <!--Main Content Area-->
+            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Border>
 </Window>

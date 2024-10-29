@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace video_media_player
 {
     /// <summary>
-    /// Interaction logic for AlbumsWindow.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class AlbumsWindow : Window
+    public partial class HomePage : Page
     {
-        public AlbumsWindow()
+        public HomePage()
         {
             InitializeComponent();
         }
