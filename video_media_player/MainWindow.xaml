@@ -30,14 +30,14 @@
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        <Button Background="#ffbf2f" Width="10" Height="10" Margin="7 0" Click="MinimizeButton_Click">
+                        <Button Background="#ffbf2f" Width="10" Height="10" Margin="7 0" Click="ToggleWindowStateButton_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        <Button Background="#2acb42" Width="10" Height="10" Click="HideButton_Click">
+                        <Button Background="#2acb42" Width="10" Height="10" Click="MinimizeButton_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="{TemplateBinding Background}" CornerRadius="5"/>

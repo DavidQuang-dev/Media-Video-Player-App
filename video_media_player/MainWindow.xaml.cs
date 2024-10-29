@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
-
 
 namespace video_media_player
 {
@@ -21,16 +19,18 @@ namespace video_media_player
             Application.Current.Shutdown();
         }
 
+        private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+                this.WindowState = WindowState.Normal;
+            else 
+                this.WindowState = WindowState.Maximized;
+        }
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
-
-        private void HideButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            this.ShowInTaskbar = false;
-        }
+        
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new HomePage());

@@ -40,10 +40,43 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="17*"/>
                         <ColumnDefinition Width="55*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <!--Music List-->
-                    <StackPanel Margin="30,30,30,30" Grid.ColumnSpan="2">
-                        <TextBlock Text="Một Vạn Năm" Foreground="White" FontSize="26" FontWeight="Bold"/>
+                    <StackPanel Margin="30,30,30,30" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Một Vạn Năm" Foreground="White" FontSize="26" FontWeight="Bold"/>
+                            <Button Width="30" Height="30" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse x:Name="ellipse" Width="30" Height="30">
+                                                <Ellipse.Fill>
+                                                    <LinearGradientBrush>
+                                                        <GradientStop Color="#30ad9a" Offset="0"/>
+                                                        <GradientStop Color="#18c274" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <Icon:PackIconMaterial x:Name="icon" Kind="Play" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ellipse" Property="Fill">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush>
+                                                            <GradientStop Color="#18c274" Offset="0"/>
+                                                            <GradientStop Color="#30ad9a" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter TargetName="icon" Property="Foreground" Value="#c0e6de"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
                         <TextBlock Text="Vũ" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
 
                         <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
@@ -78,9 +111,45 @@
                 </Border.Effect>
 
                 <Grid Margin="0,0,15,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <!-- Duplicated Music List -->
-                    <StackPanel Margin="30,30,30,30">
-                        <TextBlock Text="Suýt" Foreground="White" FontSize="26" FontWeight="Bold"/>
+                    <StackPanel Margin="30,30,30,30" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Suýt" Foreground="White" FontSize="26" FontWeight="Bold"/>
+                            <Button Width="30" Height="30" Margin="10,0,0,0" Background="Transparent" BorderThickness="0">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse x:Name="ellipse" Width="30" Height="30">
+                                                <Ellipse.Fill>
+                                                    <LinearGradientBrush>
+                                                        <GradientStop Color="#30ad9a" Offset="0"/>
+                                                        <GradientStop Color="#18c274" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <Icon:PackIconMaterial x:Name="icon" Kind="Play" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ellipse" Property="Fill">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush>
+                                                            <GradientStop Color="#18c274" Offset="0"/>
+                                                            <GradientStop Color="#30ad9a" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter TargetName="icon" Property="Foreground" Value="#c0e6de"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
                         <TextBlock Text="Ngọt" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
 
                         <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
