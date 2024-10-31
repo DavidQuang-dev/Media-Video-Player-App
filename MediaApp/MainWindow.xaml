@@ -74,7 +74,7 @@
                         </Grid>
                     </Button>
 
-                    <TextBlock Text="DISCOVER" Style="{StaticResource menuTitle}"/>
+                    <TextBlock Text="Customize" Style="{StaticResource menuTitle}"/>
 
                     <Button Style="{StaticResource menuButton}" Click="StoreButton_Click">
                         <Grid>
