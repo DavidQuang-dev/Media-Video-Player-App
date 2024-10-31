@@ -16,13 +16,15 @@ using System.Windows.Shapes;
 namespace video_media_player
 {
     /// <summary>
-    /// Interaction logic for AlbumsPage.xaml
+    /// Interaction logic for SongsPage.xaml
     /// </summary>
-    public partial class AlbumsPage : Page
+    public partial class SongsPage : Page
     {
-        public AlbumsPage()
+        public SongsPage()
         {
             InitializeComponent();
         }
+
+        public string Artist { get; internal set; }
     }
 }

@@ -9,8 +9,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
                 <ColumnDefinition Width="109*" />
-                <ColumnDefinition Width="311*"/>
-                <ColumnDefinition Width="420*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -76,14 +74,7 @@
                         </Grid>
                     </Button>
 
-                    <Button Style="{StaticResource menuButton}" Click="MusicVideosButton_Click">
-                        <Grid>
-                            <TextBlock Text="Music Video" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-
-                    <TextBlock Text="DISCOVER" Style="{StaticResource menuTitle}"/>
+                    <TextBlock Text="Customize" Style="{StaticResource menuTitle}"/>
 
                     <Button Style="{StaticResource menuButton}" Click="StoreButton_Click">
                         <Grid>
@@ -97,7 +88,7 @@
             </Border>
 
             <!--Player-->
-            <Border Grid.Row="1" Grid.ColumnSpan="3" Background="#03bf69" CornerRadius="40 0 40 0" Margin="40,0,0,0" Grid.Column="1">
+            <Border Grid.Row="1" Background="#03bf69" CornerRadius="40 0 40 0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <Ellipse Width="60" Height="60" Margin="30 0 0 0">
                         <Ellipse.Fill>
@@ -131,7 +122,7 @@
                 </StackPanel>
             </Border>
             <!--Main Content Area-->
-            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Border>
 </Window>
