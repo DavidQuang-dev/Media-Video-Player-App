@@ -78,10 +78,10 @@
             </Grid.RowDefinitions>
 
             <!--Music Section-->
-            <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Background="White" Margin="11,60,10,0">
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Background="White" Margin="11,40,10,0">
                 <TextBlock Text="Home" Style="{StaticResource titleText}" Width="580"/>
 
-                <Border CornerRadius="20" Margin="0 20 0 0" Width="586">
+                <Border CornerRadius="20" Margin="0 20 0 0" Width="586" Height="437">
                     <Border.Background>
                         <LinearGradientBrush>
                             <GradientStop Color="#30ad9a" Offset="0"/>
@@ -94,7 +94,7 @@
                     </Border.Effect>
 
                     <Grid>
-                        <Border Opacity="0.07" CornerRadius="20" Margin="30,0,0,0">
+                        <Border Opacity="0.07" CornerRadius="20" Margin="30,0,0,-30">
                             <!--<Border.Background>
                 <ImageBrush ImageSource=""/>
             </Border.Background>-->
@@ -104,12 +104,15 @@
                             <StackPanel Margin="30,30,20,30">
                             <TextBlock Text="Daily Singer" Foreground="White" FontSize="26" FontWeight="Bold"/>
                             <TextBlock Text="Taylor Swift" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
-                            <ScrollViewer Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="290">
-                                <StackPanel>
+                            <ScrollViewer Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="290" Height="303">
+                                <StackPanel Margin="0, 10, 0, 0">
                                     <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
                                     <uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
                                     <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
                                     <uc:SongItem Number="04" Title="Me" Time="03:33"/>
+                                    <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
+                                    <uc:SongItem Number="06" Title="Red" Time="04:47"/>
+                                    <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
                                     <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
                                     <uc:SongItem Number="06" Title="Red" Time="04:47"/>
                                     <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
