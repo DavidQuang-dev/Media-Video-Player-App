@@ -8,7 +8,87 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="StorePage">
 
-    <Grid>
-        
+    <!-- Grid chính chia layout -->
+    <Grid Background="White">
+        <!-- Sidebar đơn giản ở bên trái -->
+        <!--<StackPanel Background="LightGreen" Width="100" HorizontalAlignment="Left">
+            <TextBlock Text="File Store" FontWeight="Bold" Foreground="Green" Margin="10"/>
+            -->
+        <!-- Các dòng ngang thể hiện phần sidebar item -->
+        <!--
+            <Rectangle Height="2" Fill="Black" Margin="10,5"/>
+            <Rectangle Height="2" Fill="Black" Margin="10,5"/>
+            <Rectangle Height="2" Fill="Black" Margin="10,5"/>
+            <Rectangle Height="2" Fill="Black" Margin="10,5"/>
+            <Rectangle Height="2" Fill="Black" Margin="10,5"/>
+        </StackPanel>-->
+
+        <!-- Khu vực phát nhạc/video -->
+        <Grid Margin="120,20,20,20">
+            <!-- Viền ngoài để tạo khung -->
+            <DockPanel LastChildFill="False">
+                <Border BorderBrush="Transparent" BorderThickness="2" CornerRadius="10">
+                    <!-- StackPanel để đặt các phần tử theo chiều dọc -->
+                    <StackPanel Orientation="Horizontal" >
+                        <StackPanel Width="484">
+                            <!-- Khu vực hiển thị nội dung video hoặc hình ảnh của bài hát -->
+                            <Border BorderBrush="Black" BorderThickness="1" Height="200" Margin="10" Width="460">
+                                <!-- Thêm nội dung phát nhạc/video ở đây -->
+                                <!--<TextBlock Text="Video/Audio Content Display Area" 
+   HorizontalAlignment="Center" VerticalAlignment="Center"
+   Foreground="Gray"/>-->
+                                <MediaElement Margin="135,274,65,108"/>
+                            </Border>
+
+                            <!-- Thanh điều khiển phát nhạc -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                <TextBlock Text="1:31/2:30" Margin="5"/>
+                                <!-- Thanh trượt điều chỉnh tiến độ phát -->
+                                <Slider Width="200" Margin="5"/>
+                                <Button Content="⏪" FontSize="16" Width="30" Height="30" Margin="5"/>
+                                <Button Content="⏯️" FontSize="16" Width="30" Height="30" Margin="5"/>
+                                <Button Content="⏩" FontSize="16" Width="30" Height="30" Margin="5"/>
+                            </StackPanel>
+                            <TextBlock Text="Tên bài hát"/>
+
+                            <!-- Tên bài hát -->
+
+                            <!-- Khu vực lưu playlist -->
+                            <StackPanel Margin="10" Background="#f5f5f5" Height="115" RenderTransformOrigin="0.5,0.5" Width="453">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform AngleX="0.527"/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="0.391"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <!-- Các item playlist -->
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <TextBlock Text="Bài 1" Width="150" VerticalAlignment="Center"/>
+                                    <Button Content="Save" Width="50" RenderTransformOrigin="2.476,0.503"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <TextBlock Text="Bài 2" Width="150" VerticalAlignment="Center"/>
+                                    <Button Content="Save" Width="50" Margin="5"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <TextBlock Text="Bài 3" Width="150" VerticalAlignment="Center"/>
+                                    <Button Content="Save" Width="50" Margin="5"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <!-- Các nút thao tác (Upload và Add Playlist) ở bên phải -->
+                        <StackPanel Width="183" Margin="0 10 0 0">
+                            <Button Content="Upload" Style="{StaticResource defaultButton}" Click="Button_Click"/>
+                            <Button Content="Playlist" Style="{StaticResource defaultButton}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+
+        </Grid>
     </Grid>
 </Page>
+
+
