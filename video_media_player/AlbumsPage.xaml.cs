@@ -24,5 +24,6 @@ namespace video_media_player
         {
             InitializeComponent();
         }
+
     }
 }

@@ -49,10 +49,6 @@ namespace video_media_player
         {
             MainFrame.Navigate(new SongsPage());
         }
-        private void MusicVideosButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new MusicVideosPage());
-        }
         private void StoreButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new StorePage());

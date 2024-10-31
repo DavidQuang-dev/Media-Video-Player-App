@@ -3,30 +3,83 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
-      Height="700" Width="1050" Background="Transparent">
+      Background="Transparent">
+
+    <Page.Resources>
+        <!-- Style cho ScrollBar -->
+        <!-- Existing ScrollViewer Styles -->
+        <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid>
+                            <Border CornerRadius="5" Background="Transparent" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CustomScrollBar" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Width" Value="8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid>
+                            <Rectangle Width="8" Fill="Transparent" RadiusX="4" RadiusY="4"/>
+                            <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource ScrollBarThumb}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CustomScrollViewer" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ScrollContentPresenter Grid.Column="0"/>
+                            <ScrollBar x:Name="PART_VerticalScrollBar"
+                             Grid.Column="1"
+                             Value="{TemplateBinding VerticalOffset}"
+                             Maximum="{TemplateBinding ScrollableHeight}"
+                             ViewportSize="{TemplateBinding ViewportHeight}"
+                             Style="{StaticResource CustomScrollBar}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="565" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <!-- First Layout -->
-        <Grid Grid.Column="0" Background="White" Margin="30,60,35,0">
+        
+        <Grid Background="White" Margin="30,60,35,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" MinHeight="115.767" />
+                <RowDefinition/>
             </Grid.RowDefinitions>
-
             <TextBlock Style="{StaticResource titleText}" Grid.Row="0" Margin="0,0,865,20">
                 <Run Language="vi-vn" Text="Songs"/>
                 <LineBreak/>
                 <Run Language="vi-vn"/>
             </TextBlock>
-
             <Border CornerRadius="20" Margin="0,65,0,3" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush>
@@ -34,29 +87,43 @@
                         <GradientStop Color="#18c274" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-
                 <Border.Effect>
                     <DropShadowEffect Color="#1fae7e" Direction="320" ShadowDepth="0" BlurRadius="20" Opacity="0.4"/>
                 </Border.Effect>
-
                 <Grid Margin="0,0,15,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="17*"/>
                         <ColumnDefinition Width="55*"/>
                     </Grid.ColumnDefinitions>
                     <!--Music List-->
-                    <StackPanel Margin="30,30,30,30" Grid.ColumnSpan="2">
-                        <TextBlock Text="Một Vạn Năm" Foreground="White" FontSize="26" FontWeight="Bold"/>
-                        <TextBlock Text="Vũ" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
-
-                        <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
-                        <uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
-                        <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
-                        <uc:SongItem Number="04" Title="Me" Time="03:33"/>
-                        <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
-                        <uc:SongItem Number="06" Title="Red" Time="04:47"/>
-                        <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
-                    </StackPanel>
+                    <ScrollViewer Grid.ColumnSpan="2" 
+                                Style="{StaticResource CustomScrollViewer}"
+                                VerticalScrollBarVisibility="Auto"
+                                MaxHeight="420"
+                                Margin="0,0,10,0">
+                        <StackPanel Margin="30,30,30,30">
+                            <ItemsControl x:Name="SongsList">
+                                <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
+                                <uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
+                                <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
+                                <uc:SongItem Number="04" Title="Me" Time="03:33"/>
+                                <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
+                                <uc:SongItem Number="06" Title="Red" Time="04:47"/>
+                                <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
+                                <uc:SongItem Number="08" Title="Test Scroll" Time="06:20"/>
+                                <uc:SongItem Number="09" Title="Test Scroll 2" Time="06:20"/>
+                                <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
+                                <uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
+                                <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
+                                <uc:SongItem Number="04" Title="Me" Time="03:33"/>
+                                <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
+                                <uc:SongItem Number="06" Title="Red" Time="04:47"/>
+                                <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
+                                <uc:SongItem Number="08" Title="Test Scroll" Time="06:20"/>
+                                <uc:SongItem Number="09" Title="Test Scroll 2" Time="06:20"/>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </Border>
         </Grid>

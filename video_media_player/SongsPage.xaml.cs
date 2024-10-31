@@ -24,5 +24,7 @@ namespace video_media_player
         {
             InitializeComponent();
         }
+
+        public string Artist { get; internal set; }
     }
 }
