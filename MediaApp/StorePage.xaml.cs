@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using MediaApp;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +29,24 @@ namespace video_media_player
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = true;
+            OpenFileDialog _openFileDialog = new()
+            {
+                Multiselect = true
+            };
+        }
+
+        private void ImportButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManageSong manageSong = new();
+            manageSong.ShowDialog();
+            //DetailSong _detailSong = new();
+            //_detailSong.ShowDialog();
+        }
+
+        private void import_Click(object sender, RoutedEventArgs e)
+        {
+            ManageSong manageSong = new();
+            manageSong.ShowDialog();
         }
     }
 }

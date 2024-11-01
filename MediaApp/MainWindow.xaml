@@ -4,7 +4,7 @@
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls"
         Height="700" Width="1050" ResizeMode="NoResize" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
-    <Border Background="White" CornerRadius="40" MouseDown="Border_MouseDown">
+    <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown">
         <Grid Margin="-10,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
