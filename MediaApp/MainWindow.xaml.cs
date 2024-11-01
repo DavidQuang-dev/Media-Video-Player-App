@@ -24,14 +24,18 @@ namespace video_media_player
         {
             if (this.WindowState == WindowState.Maximized)
                 this.WindowState = WindowState.Normal;
-            else 
+            else
+            {
                 this.WindowState = WindowState.Maximized;
+                MainBorder.CornerRadius = new CornerRadius(0);
+                PlayerBorder.CornerRadius = new CornerRadius(40, 0, 0, 0);
+            }
         }
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
-        
+
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new HomePage());
