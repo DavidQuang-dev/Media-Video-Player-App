@@ -128,6 +128,18 @@ namespace video_media_player
             AlbumManage albumManage = new AlbumManage();
             albumManage.ShowDialog();
         }
+
+        private void ManageSongButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManageSong manageSong = new();
+            manageSong.ShowDialog();
+        }
+
+        private void ArtistManageButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManageArtist manageArtist = new();
+            manageArtist.ShowDialog();
+        }
     }
 }
 

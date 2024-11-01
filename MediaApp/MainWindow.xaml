@@ -78,7 +78,7 @@
 
                     <Button Style="{StaticResource menuButton}" Click="StoreButton_Click">
                         <Grid>
-                            <TextBlock Text="Store" Margin="0 0 0 2"/>
+                            <TextBlock Text="Storage" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>

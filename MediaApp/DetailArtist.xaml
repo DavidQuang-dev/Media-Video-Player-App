@@ -204,7 +204,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border Background="White" CornerRadius="40" >
+    <Border Background="White" CornerRadius="40" Padding="20" BorderBrush="Black" BorderThickness="2">
         <Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -269,7 +269,7 @@
                     Height="35"
                     Background="#007ACC"
                     Foreground="White"
-                    Click="SaveButton_Click"/>
+                    />
             </StackPanel>
         </Grid>
     </Border>

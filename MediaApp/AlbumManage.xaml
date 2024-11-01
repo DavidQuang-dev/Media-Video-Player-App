@@ -8,7 +8,6 @@
     mc:Ignorable="av" 
     x:Class="MediaApp.AlbumManage"
     Height="700" Width="1050" 
-    ResizeMode="NoResize" 
     AllowsTransparency="True" 
     WindowStartupLocation="CenterScreen" 
     WindowStyle="None" 

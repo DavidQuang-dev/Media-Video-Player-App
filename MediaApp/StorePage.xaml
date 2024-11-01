@@ -28,7 +28,7 @@ Source="https://t3.ftcdn.net/jpg/09/65/84/62/360_F_965846221_Yww17Tsy0YBAbyFAOxH
                     <Label Content="Songs" HorizontalAlignment="Center" Height="57" Width="109" 
                    VerticalAlignment="Top" Style="{StaticResource TitleLabel}" />
                     <Button x:Name="ManageSongButton" Content="Manage" HorizontalAlignment="Center" Height="80" 
-                    Width="218" VerticalAlignment="Top" Style="{StaticResource defaultButton}" />
+                    Width="218" VerticalAlignment="Top" Style="{StaticResource defaultButton}" Click="ManageSongButton_Click" />
                 </StackPanel>
 
                 <!-- StackPanel for Albums -->
@@ -54,7 +54,7 @@ Source="https://cdn.tuoitre.vn/zoom/700_525/471584752817336320/2023/4/25/son-tun
                     VerticalAlignment="Top" Style="{StaticResource TitleLabel}" />
                     <Button x:Name="ArtistManageButton" Content="Manage" HorizontalAlignment="Center" Height="80" 
                      Width="217" VerticalAlignment="Top" Style="{StaticResource defaultButton}" 
-                    Click="ManageAlbumButton_Click" />
+                    Click="ArtistManageButton_Click" />
                 </StackPanel>
             </Grid>
         </StackPanel>
