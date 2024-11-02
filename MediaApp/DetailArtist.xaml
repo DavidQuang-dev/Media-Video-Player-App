@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls"
-        Height="700" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
+        Height="700" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded">
 
     <Window.Resources>
         <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -233,15 +233,9 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="Date Of Birth:" 
-                         FontWeight="SemiBold"/>
-                    <TextBox x:Name="txtDateOfBirth" 
-                        Height="30"
-                        Padding="5"
-                        />
-                    <TextBlock x:Name="txtDateError" 
-                         Foreground="Red" 
-                         FontSize="12"/>
+                    <DatePicker Text="" 
+                         FontWeight="SemiBold" x:Name="date"/>
+
                 </StackPanel>
 
                 <StackPanel>
@@ -264,11 +258,11 @@
                     Height="35"
                     Margin="0,0,10,0" Click="CancelButton_Click"
                     />
-                <Button Content="Save" 
+                <Button x:Name="SaveButton" Content="Save" 
                     Width="100" 
                     Height="35"
                     Background="#007ACC"
-                    Foreground="White"
+                    Foreground="White" Click="SaveButton_Click"
                     />
             </StackPanel>
         </Grid>

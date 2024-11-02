@@ -12,7 +12,7 @@
     AllowsTransparency="True" 
     WindowStartupLocation="CenterScreen" 
     WindowStyle="None" 
-    Background="Transparent">
+    Background="Transparent" Loaded="Window_Loaded">
 
     <Window.Resources>
         <Style x:Key="ModernButton" TargetType="Button">

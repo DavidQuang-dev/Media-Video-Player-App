@@ -5,11 +5,11 @@ namespace MediaApp.DAL.Entities;
 
 public partial class TbArtist
 {
-    public int ArtistId { get; set; }
+    public int? ArtistId { get; set; }
 
     public string ArtistName { get; set; } = null!;
 
-    public DateOnly DataOfBirth { get; set; }
+    public DateTime DataOfBirth { get; set; }
 
     public string Description { get; set; } = null!;
 

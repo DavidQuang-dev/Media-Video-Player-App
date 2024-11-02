@@ -12,7 +12,7 @@
     AllowsTransparency="True" 
     WindowStartupLocation="CenterScreen" 
     WindowStyle="None" 
-    Background="Transparent">
+    Background="Transparent" Loaded="Window_Loaded">
 
     <Window.Resources>
         <Style x:Key="ModernButton" TargetType="Button">
@@ -102,7 +102,7 @@
             <!-- DataGrid -->
             <DataGrid 
     Grid.Row="1" 
-    x:Name="SongsDataGrid"
+    x:Name="ArtistsDataGrid"
     AutoGenerateColumns="False"
     SelectionMode="Single"
     IsReadOnly="True"
@@ -147,7 +147,7 @@
                     Content="Update" 
                     Style="{StaticResource ModernButton}"
                     Background="#2196F3"
-                    x:Name="UpdateButton">
+                    x:Name="UpdateButton" Click="UpdateButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding UpdateCommand}"/>
                     </Button.InputBindings>
@@ -157,7 +157,7 @@
                     Content="Delete" 
                     Style="{StaticResource ModernButton}"
                     Background="#F44336"
-                    x:Name="DeleteButton">
+                    x:Name="DeleteButton" Click="DeleteButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding DeleteCommand}"/>
                     </Button.InputBindings>

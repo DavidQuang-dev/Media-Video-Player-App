@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MediaApp.BLL.Services;
+using MediaApp.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -19,6 +22,7 @@ namespace MediaApp
     /// </summary>
     public partial class ManageSong : Window
     {
+        private SongService _service = new();
         public ManageSong()
         {
             InitializeComponent();
@@ -33,6 +37,56 @@ namespace MediaApp
         {
             DetailSong _detailSong = new();
             _detailSong.ShowDialog();
+            FillData(_service.GetAll());
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            TbSong? selected = SongsDataGrid.SelectedItem as TbSong;
+            if (selected != null)
+            {
+                DetailSong _detailSong = new();
+                _detailSong._editSong = selected;
+                _detailSong.ShowDialog();
+                FillData(_service.GetAll());
+            }
+            else
+            {
+                MessageBoxResult message = System.Windows.MessageBox.Show("Please select a song to update", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                if(message == MessageBoxResult.OK)
+                {
+                    return;
+                }
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            TbSong? selected = SongsDataGrid.SelectedItem as TbSong;
+            if (selected != null)
+            {
+                _service.Delete(selected);
+                FillData(_service.GetAll());
+            }
+            else
+            {
+                MessageBoxResult message = System.Windows.MessageBox.Show("Please select a song to delete", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                if (message == MessageBoxResult.OK)
+                {
+                    return;
+                }
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SongsDataGrid.ItemsSource = _service.GetAll();
+        }
+
+        private void FillData(List<TbSong> tbSongs)
+        {
+            SongsDataGrid.ItemsSource = null;
+            SongsDataGrid.ItemsSource = tbSongs;
         }
     }
 }
