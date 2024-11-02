@@ -11,12 +11,12 @@
     AllowsTransparency="True" 
     WindowStartupLocation="CenterScreen" 
     WindowStyle="None" 
-    Background="Transparent">
+    Background="Transparent" Loaded="Window_Loaded">
 
     <Window.Resources>
         <Style x:Key="ModernButton" TargetType="Button">
             <Setter Property="Margin" Value="10"/>
-            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Padding" Value="1000"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -96,12 +96,12 @@
                 FontSize="24" 
                 FontWeight="Bold" 
                 Margin="0,0,0,20" 
-                HorizontalAlignment="Center" Foreground="Yellow"/>
+                HorizontalAlignment="Center" Foreground="#000080"/>
 
             <!-- DataGrid -->
             <DataGrid 
     Grid.Row="1" 
-    x:Name="SongsDataGrid"
+    x:Name="AlbumDataGrid"
     AutoGenerateColumns="False"
     SelectionMode="Single"
     IsReadOnly="True"
@@ -114,7 +114,7 @@
                     <DataGridTextColumn Header="Album Name" Binding="{Binding Title}" Width="2*"/>
                     <DataGridTextColumn Header="CoverImage" Binding="{Binding CoverImage}" Width="2*"/>
                     <DataGridTextColumn Header="Artist ID" Binding="{Binding ArtistId}" Width="*"/>
-                    <DataGridTextColumn Header="Artist Name" Binding="{Binding ArtistName}" Width="2*"/>
+                    <DataGridTextColumn Header="Artist Name" Binding="{Binding Artist.ArtistName}" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -129,7 +129,7 @@
                     Content="Create" 
                     Style="{StaticResource ModernButton}"
                     Background="#4CAF50"
-                    x:Name="CreateButton" Click="CreateButton_Click">
+                    x:Name="CreateButton" Click="CreateButton_Click" Height="46" Width="93">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding CreateCommand}"/>
                     </Button.InputBindings>
@@ -139,17 +139,18 @@
                     Content="Update"
 Style="{StaticResource ModernButton}"
                     Background="#2196F3"
-                    x:Name="UpdateButton">
+                    x:Name="UpdateButton" Width="90" Click="UpdateButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding UpdateCommand}"/>
                     </Button.InputBindings>
                 </Button>
 
                 <Button 
+                    x:Name="DeleteButton"
                     Content="Delete" 
                     Style="{StaticResource ModernButton}"
                     Background="#F44336"
-                    x:Name="DeleteButton">
+                     Width="90" Height="46" Click="DeleteButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding DeleteCommand}"/>
                     </Button.InputBindings>

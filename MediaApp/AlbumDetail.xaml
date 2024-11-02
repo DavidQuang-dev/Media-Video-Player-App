@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls"
-        Height="700" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
+        Height="700" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded">
 
     <Window.Resources>
         <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -66,66 +66,6 @@
                 </Setter>
             </Style>
 
-            <!-- ComboBox Style -->
-            <Style TargetType="ComboBox">
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Padding" Value="8"/>
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ComboBox">
-                            <Grid>
-                                <ToggleButton x:Name="ToggleButton"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    Background="{TemplateBinding Background}"
-                                    IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
-                                    <ToggleButton.Template>
-                                        <ControlTemplate TargetType="ToggleButton">
-                                            <Border x:Name="Border" 
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="1"
-                                            Background="{TemplateBinding Background}"
-                                            CornerRadius="6">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition Width="30"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <ContentPresenter Grid.Column="0"
-                                                            Margin="8,0,0,0"
-                                                            HorizontalAlignment="Left"
-                                                            VerticalAlignment="Center"/>
-                                                    <Path Grid.Column="1"
-                                                  HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"
-                                                  Data="M0,0 L8,8 L16,0"
-Stroke="{StaticResource TextColor}"
-                                                  StrokeThickness="2"/>
-                                                </Grid>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </ToggleButton.Template>
-                                </ToggleButton>
-                                <Popup IsOpen="{TemplateBinding IsDropDownOpen}"
-                               Placement="Bottom"
-                               PopupAnimation="Slide">
-                                    <Border Background="White"
-                                    BorderBrush="{StaticResource BorderColor}"
-                                    BorderThickness="1"
-                                    CornerRadius="6"
-                                    Margin="0,2,0,0">
-                                        <ScrollViewer MaxHeight="200">
-                                            <StackPanel IsItemsHost="True"/>
-                                        </ScrollViewer>
-                                    </Border>
-                                </Popup>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
             <!-- Button Base Style -->
             <Style TargetType="Button">
@@ -213,7 +153,7 @@ Stroke="{StaticResource TextColor}"
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <TextBlock Text="Add/Update Album" 
+            <TextBlock x:Name="TitleTextBlock" Text="Add/Update Album" 
                  FontSize="24" 
                  FontWeight="Bold" 
                  Margin="0,0,0,20"/>
@@ -224,7 +164,7 @@ Stroke="{StaticResource TextColor}"
                 <StackPanel>
                     <TextBlock Text="Title :" 
                          FontWeight="SemiBold"/>
-                    <TextBox x:Name="txtSongName" 
+                    <TextBox x:Name="TitleTextBox" 
                         Height="30"
                         Padding="5"/>
                     <TextBlock x:Name="txtSongNameError" 
@@ -238,19 +178,20 @@ Stroke="{StaticResource TextColor}"
                          FontWeight="SemiBold"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="18*"/>
-                            <ColumnDefinition Width="97*"/>
+                            <ColumnDefinition Width="116*"/>
+                            <ColumnDefinition Width="27*"/>
+                            <ColumnDefinition Width="773*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="txtFilePath" 
+                        <TextBox x:Name="FilePathTextBox" 
                             Height="30"
                             Padding="5"
-                            IsReadOnly="True" Grid.ColumnSpan="2"/>
-                        <Button Grid.Column="2" 
-                            Content="Browse" 
+                            IsReadOnly="True" Grid.ColumnSpan="3"/>
+                        <Button Grid.Column="3" 
+                  x:Name="BrowseButton"          Content="Browse" 
                             Width="80"
                             Height="30"
-                            Margin="10,0,0,0"
+                            Margin="10,0,0,0" Click="BrowseButton_Click" 
                             />
                     </Grid>
                     <TextBlock x:Name="txtFilePathError" 
@@ -260,30 +201,86 @@ Stroke="{StaticResource TextColor}"
 
                 <!-- Artist Selection -->
                 <StackPanel>
-                    <TextBlock Text="Artist:" 
+                    <TextBlock x:Name="ArtistTextBlock" Text="Artist:" 
                          FontWeight="SemiBold"/>
-                    <ComboBox x:Name="cmbArtist" 
+                    <!--<ComboBox x:Name="ArtistComboBox"
                          Height="30"
                          Padding="5"
-                         DisplayMemberPath="ArtistName"
-                         SelectedValuePath="ArtistId"/>
+                              FontSize="15"
+                           />-->
+                    <ComboBox x:Name="ArtistComboBox" Background="#f8f8ff" FontSize="18" />
                     <TextBlock x:Name="txtArtistError" 
                          Foreground="Red" 
                          FontSize="12"/>
                 </StackPanel>
 
+                <!--<StackPanel>
+                    <TextBlock x:Name="ArtistTextBlock" Text="Artist:" 
+         FontWeight="SemiBold"/>
+                    <ComboBox x:Name="ArtistComboBox"
+         Height="30"
+         Padding="5"
+              FontSize="15"
+           />
+                    <TextBlock x:Name="txtArtistError" 
+         Foreground="Red" 
+         FontSize="12"/>
+                </StackPanel>-->
+
                 <!-- Album Selection -->
                 <StackPanel>
-                    <TextBlock Text="Song:" 
-                         FontWeight="SemiBold"/>
-                    <ComboBox x:Name="cmbAlbum" 
-                         Height="30"
-                         Padding="5"
-                         DisplayMemberPath="AlbumName"
-                         SelectedValuePath="AlbumId"/>
-                    <TextBlock x:Name="txtAlbumError" 
-                         Foreground="Red" 
-                         FontSize="12"/>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock x:Name="SongTextBlock" Text="Song" 
+                                            FontWeight="ExtraBold" 
+                                           VerticalAlignment="Top" 
+                                           Margin="-1" FontSize="25"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <ComboBox x:Name="SongComboBox" 
+                                            Height="35"
+                                            Padding="5"
+                                            FontSize="18"
+                                            Background="#e9967a">
+                                    <ComboBox.Style>
+                                        <Style TargetType="ComboBox">
+                                            <Setter Property="BorderThickness" Value="2"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </Style>
+                                    </ComboBox.Style>
+                                </ComboBox>
+                                <TextBlock x:Name="txtAlbumError" 
+                                    Foreground="Red" 
+                                    FontSize="12"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Button Content="Add"
+                                        x:Name="AddButton"
+                                        Background="#4169e1"
+                                        Foreground="White" Click="AddButton_Click" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3">
+                                <Button Content="Delete" 
+                               Background="#ff4500"
+                               Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+
+                    </StackPanel>
+                    <DataGrid x:Name="SongDataGrid" AutoGenerateColumns="False" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="150" FontSize="17" Height="150">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Song ID" Binding="{Binding SongId}" Width="*"/>
+                            <DataGridTextColumn Header="Song Name" Binding="{Binding SongName}" Width="2*"/>
+                            <DataGridTextColumn Header="Artist Name" Binding="{Binding Artist.ArtistName}" Width="2*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
             </StackPanel>
 
@@ -295,13 +292,14 @@ Stroke="{StaticResource TextColor}"
                 <Button x:Name="CancelButton" Content="Cancel" 
                     Width="100" 
                     Height="35"
-Margin="0,0,10,0" Click="CancelButton_Click"  
+                    Margin="0,0,10,0" Click="CancelButton_Click"  
                     />
-                <Button Content="Save" 
+                <Button         x:Name="SaveButton"
+                    Content="Save" 
                     Width="100" 
                     Height="35"
                     Background="#007ACC"
-                    Foreground="White"
+                    Foreground="White" Click="SaveButton_Click" 
                     />
             </StackPanel>
         </Grid>
