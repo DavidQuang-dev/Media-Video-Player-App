@@ -30,5 +30,10 @@ namespace MediaApp.BLL.Services
         {
             _songRepository.DeleteSong(song);
         }
+        
+        public List<TbSong> GetSongsByAlbum(TbAlbum album)
+        {
+            return _repository.GetSongByAlbum(album);
+        }
     }
 }

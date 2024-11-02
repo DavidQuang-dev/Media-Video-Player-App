@@ -1,0 +1,58 @@
+﻿<Window x:Class="MediaApp.TestMediaElement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaApp"
+        mc:Ignorable="d"
+        Title="TestMediaElement" Height="450" Width="800">
+    <!-- Grid chính chia layout -->
+    <Grid Background="White">
+        <!--<Border BorderBrush="Black" BorderThickness="1" Margin="140,30,179,166">
+         
+     </Border>-->
+        <MediaElement x:Name="MediaTest" Margin="41,38,383,333" LoadedBehavior="Manual" UnloadedBehavior="Stop" RenderTransformOrigin="0.375,0.317">
+            <MediaElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.177"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </MediaElement.RenderTransform>
+        </MediaElement>
+        <StackPanel Margin="317,388,83,10">
+            <TextBox x:Name="FilePathTextBox" Width="200" Height="30" IsReadOnly="True" />
+            <Slider x:Name="TimeSlider" Minimum="0" Maximum="100" Width="300" ValueChanged="TimeSlider_ValueChanged" />
+        </StackPanel>
+
+        <TextBox x:Name="OutputTextBlock" Margin="19,271,98,129" Height="50"/>
+        <Button x:Name="PauseButtonClick" Content="Pause" HorizontalAlignment="Left" Height="43" Margin="61,342,0,0" VerticalAlignment="Top" Width="76" Click="PauseButtonClick_Click"/>
+        <Button x:Name="PlayButtonClick" Content="Play" HorizontalAlignment="Left" Height="43" Margin="156,340,0,0" VerticalAlignment="Top" Width="75" Click="PlayButtonClick_Click"/>
+        <Button x:Name="StopButtonClick" Content="Stop" HorizontalAlignment="Left" Height="44" Margin="61,404,0,0" VerticalAlignment="Top" Width="76" Click="StopButtonClick_Click" RenderTransformOrigin="0.5,0.5"/>
+        <Slider x:Name="VolumnSlider" HorizontalAlignment="Left" Margin="662,353,0,0" VerticalAlignment="Top" Width="120" Value="50" Minimum="0" Maximum="100" ValueChanged="Slider_ValueChanged" RenderTransformOrigin="0.5,0.5">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90.347"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Button Content="Upload File" HorizontalAlignment="Left" Height="43" Margin="250,340,0,0" VerticalAlignment="Top" Width="96" Click="Button_Click_1"/>
+        <Label Content="Volume" HorizontalAlignment="Left" Height="39" Margin="636,349,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label x:Name="DurationLabel" Content="Thời lượng" HorizontalAlignment="Left" Height="32" Margin="370,349,0,0" VerticalAlignment="Top" Width="175"/>
+        <DataGrid HorizontalAlignment="Left" Height="118" Margin="61,137,0,0" VerticalAlignment="Top" Width="443"  RenderTransformOrigin="0.5,0.5">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.227"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+            <DataGrid.Columns />
+        </DataGrid>
+    </Grid>
+</Window>

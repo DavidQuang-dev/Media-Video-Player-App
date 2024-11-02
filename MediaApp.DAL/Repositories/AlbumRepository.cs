@@ -32,5 +32,12 @@ namespace MediaApp.DAL.Repositories
             _context.TbAlbums.Update(album);
             _context.SaveChanges();
         }
+
+        public void Delete(TbAlbum album)
+        {
+            _context = new VideoMediaPlayerContext();
+            _context.Remove(album);
+            _context.SaveChanges();
+        }
     }
 }

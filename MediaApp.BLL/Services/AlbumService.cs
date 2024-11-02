@@ -27,5 +27,10 @@ namespace MediaApp.BLL.Services
         {
             _repository.Update(album);
         }
+
+        public void DeleteAlbum(TbAlbum album)
+        {
+            _repository.Delete(album);
+        }
     }
 }
