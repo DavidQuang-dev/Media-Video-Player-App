@@ -61,11 +61,11 @@ namespace MediaApp
                 TitleTextBox.Text = EditOne.Title;
                 FilePathTextBox.Text = EditOne.CoverImage;
                 ArtistComboBox.SelectedValue = EditOne.ArtistId;
-                //SongDataGrid.ItemsSource = _songService.GetSongsByAlbum(EditOne);
-                foreach (TbSong song in _songService.GetSongsByAlbum(EditOne))
-                {
-                    SongDataGrid.Items.Add(song);
-                }
+                SongDataGrid.ItemsSource = _songService.GetSongsByAlbum(EditOne);
+                //foreach (TbSong song in _songService.GetSongsByAlbum(EditOne))
+                //{
+                //    SongDataGrid.Items.Add(song);
+                //}
             }
         }
 
@@ -107,8 +107,8 @@ namespace MediaApp
         {
             if (SongComboBox != null)
             {
-                if (!SongDataGrid.Items.Contains((TbSong) SongComboBox.SelectedItem))
-                    SongDataGrid.Items.Add(SongComboBox.SelectedItem);
+                if (!SongDataGrid.Items.Contains((TbSong)SongComboBox.SelectedItem))
+                    SongDataGrid.ItemsSource = RemoveDupSong();
             }
             else
             {
@@ -116,6 +116,29 @@ namespace MediaApp
             }
         }
 
-
+        private List<TbSong> RemoveDupSong()
+        {
+            List<TbSong> list = new List<TbSong>();
+            var selectedItem = SongComboBox.SelectedItem as TbSong;
+            MessageBox.Show($"selected item : {selectedItem.SongId} | {selectedItem.SongName} ");
+            bool flag = false;
+            foreach (var item in SongComboBox.ItemsSource)
+            {
+                TbSong song = item as TbSong;
+                //MessageBox.Show("Item song : " + song.SongId);
+                if (song.SongId != selectedItem.SongId)
+                    list.Add(song);
+                else
+                {
+                    if (flag == false)
+                    {
+                        list.Add(song);
+                        flag = true;
+                    }
+                }
+            }
+            SongDataGrid.ItemsSource = null;
+            return list;
+        }
     }
 }
