@@ -59,7 +59,9 @@ public partial class VideoMediaPlayerContext : DbContext
             entity.Property(e => e.ArtistName)
                 .HasMaxLength(250)
                 .HasColumnName("Artist_Name");
-            entity.Property(e => e.DataOfBirth).HasColumnName("Data_Of_Birth");
+            entity.Property(e => e.DataOfBirth)
+                .HasColumnType("datetime")
+                .HasColumnName("Data_Of_Birth");
             entity.Property(e => e.Description).HasColumnType("text");
         });
 
@@ -103,13 +105,13 @@ public partial class VideoMediaPlayerContext : DbContext
             entity.Property(e => e.SongId).HasColumnName("Song_Id");
             entity.Property(e => e.AlbumId).HasColumnName("Album_Id");
             entity.Property(e => e.ArtistId).HasColumnName("Artist_Id");
+            entity.Property(e => e.Duration).HasColumnType("decimal(18, 10)");
             entity.Property(e => e.SongName)
                 .HasMaxLength(250)
                 .HasColumnName("Song_Name");
 
             entity.HasOne(d => d.Album).WithMany(p => p.TbSongs)
                 .HasForeignKey(d => d.AlbumId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tb_Songs_tb_Albums");
 
             entity.HasOne(d => d.Artist).WithMany(p => p.TbSongs)

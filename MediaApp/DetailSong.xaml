@@ -23,14 +23,6 @@
                 <Setter Property="Foreground" Value="{StaticResource TextColor}"/>
             </Style>
 
-            <!-- Error TextBlock Style -->
-            <Style TargetType="TextBlock" x:Key="ErrorMessage">
-                <Setter Property="Foreground" Value="{StaticResource ErrorColor}"/>
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="Margin" Value="0,4,0,0"/>
-                <Setter Property="FontStyle" Value="Italic"/>
-            </Style>
-
             <!-- TextBox Style -->
             <Style TargetType="TextBox">
                 <Setter Property="Height" Value="30"/>
@@ -65,67 +57,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <!-- ComboBox Style -->
-            <!--<Style TargetType="ComboBox">
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Padding" Value="8"/>
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ComboBox">
-                            <Grid>
-                                <ToggleButton x:Name="ToggleButton"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    Background="{TemplateBinding Background}"
-                                    IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
-                                    <ToggleButton.Template>
-                                        <ControlTemplate TargetType="ToggleButton">
-                                            <Border x:Name="Border" 
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="1"
-                                            Background="{TemplateBinding Background}"
-                                            CornerRadius="6">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition Width="30"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <ContentPresenter Grid.Column="0"
-                                                            Margin="8,0,0,0"
-                                                            HorizontalAlignment="Left"
-                                                            VerticalAlignment="Center"/>
-                                                    <Path Grid.Column="1"
-                                                  HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"
-                                                  Data="M0,0 L8,8 L16,0"
-                                                  Stroke="{StaticResource TextColor}"
-                                                  StrokeThickness="2"/>
-                                                </Grid>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </ToggleButton.Template>
-                                </ToggleButton>
-                                <Popup IsOpen="{TemplateBinding IsDropDownOpen}"
-                               Placement="Bottom"
-                               PopupAnimation="Slide">
-                                    <Border Background="White"
-                                    BorderBrush="{StaticResource BorderColor}"
-                                    BorderThickness="1"
-                                    CornerRadius="6"
-                                    Margin="0,2,0,0">
-                                        <ScrollViewer MaxHeight="200">
-                                            <StackPanel IsItemsHost="True"/>
-                                        </ScrollViewer>
-                                    </Border>
-                                </Popup>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>-->
 
             <!-- Button Base Style -->
             <Style TargetType="Button">
@@ -227,9 +158,6 @@
                     <TextBox x:Name="txtSongName" 
                         Height="30"
                         Padding="5"/>
-                    <TextBlock x:Name="txtSongNameError" 
-                         Foreground="Red" 
-                         FontSize="12"/>
                 </StackPanel>
 
                 <!-- Duration -->
@@ -239,10 +167,8 @@
                     <TextBox x:Name="txtDuration" 
                         Height="30"
                         Padding="5"
+                        IsReadOnly="True"
                         />
-                    <TextBlock x:Name="txtDurationError" 
-                         Foreground="Red" 
-                         FontSize="12"/>
                 </StackPanel>
 
                 <!-- File Selection -->
@@ -265,9 +191,6 @@
                             Margin="10,0,0,0" Click="ImportFileButton_Click"
                             />
                     </Grid>
-                    <TextBlock x:Name="txtFilePathError" 
-                         Foreground="Red" 
-                         FontSize="12"/>
                 </StackPanel>
 
                 <!-- Artist Selection -->
@@ -279,9 +202,6 @@
                          Padding="5"
                          DisplayMemberPath="ArtistName"
                          SelectedValuePath="ArtistId"/>
-                    <TextBlock x:Name="txtArtistError" 
-                         Foreground="Red" 
-                         FontSize="12"/>
                 </StackPanel>
 
                 <!-- Album Selection -->
@@ -291,11 +211,8 @@
                     <ComboBox x:Name="AlbumCombobox" 
                          Height="30"
                          Padding="5"
-                         
                          />
-                    <TextBlock x:Name="txtAlbumError" 
-                         Foreground="Red" 
-                         FontSize="12"/>
+
                 </StackPanel>
             </StackPanel>
 

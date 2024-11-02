@@ -33,7 +33,9 @@ namespace MediaApp.BLL.Services
         
         public List<TbSong> GetSongsByAlbum(TbAlbum album)
         {
-            return _repository.GetSongByAlbum(album);
+            return _songRepository.GetSongByAlbum(album);
         }
+
+        
     }
 }

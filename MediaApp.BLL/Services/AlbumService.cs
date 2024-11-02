@@ -18,6 +18,10 @@ namespace MediaApp.BLL.Services
             return _repository.GetAll();
         }
 
+        public TbAlbum GetAlbumsById(int id)
+        {
+            return _repository.GetAlbumById(id);
+        }
         public void CreateAlbum(TbAlbum album)
         {
             _repository.Create(album);

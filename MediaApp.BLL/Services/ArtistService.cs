@@ -16,6 +16,10 @@ namespace MediaApp.BLL.Services
         {
             return _repo.GetAllArtists();
         }
+        public TbArtist GetArtistById(int id)
+        {
+            return _repo.GetArtistById(id);
+        }
         public void Create(TbArtist artist)
         {
             _repo.CreateArtist(artist);

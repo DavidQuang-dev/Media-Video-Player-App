@@ -9,15 +9,15 @@ public partial class TbSong
 
     public string SongName { get; set; } = null!;
 
-    public int Duration { get; set; }
+    public decimal Duration { get; set; }
 
     public string FilePath { get; set; } = null!;
 
     public int ArtistId { get; set; }
 
-    public int AlbumId { get; set; }
+    public int? AlbumId { get; set; }
 
-    public virtual TbAlbum Album { get; set; } = null!;
+    public virtual TbAlbum? Album { get; set; }
 
     public virtual TbArtist Artist { get; set; } = null!;
 

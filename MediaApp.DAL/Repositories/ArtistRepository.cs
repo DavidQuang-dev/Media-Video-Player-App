@@ -15,6 +15,12 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             return _context.TbArtists.ToList();
         }
+        public TbArtist GetArtistById(int id)
+        {
+            _context = new();
+            var obj = _context.TbArtists.FirstOrDefault(a => a.ArtistId == id);
+            return obj;
+        }
         public void CreateArtist(TbArtist artist)
         {
             _context = new();
