@@ -46,9 +46,16 @@ namespace MediaApp
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            if (AlbumDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn album trước khi cập nhật");
+                return;
+            } 
+
             AlbumDetail albumDetail = new AlbumDetail();
             albumDetail.EditOne = AlbumDataGrid.SelectedItem as TbAlbum;
             albumDetail.ShowDialog();
+            Helper(_albumService.GetAllAlbums());
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
