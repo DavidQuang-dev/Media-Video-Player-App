@@ -2,9 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:video_media_player"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+        <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
         <Style x:Key="menuTitle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#97e6c1"/>
             <Setter Property="FontSize" Value="22"/>
@@ -236,6 +237,46 @@
             <Setter Property="Foreground" Value="{StaticResource SliderThumb.Static.Foreground}"/>
             <Setter Property="Template" Value="{StaticResource SliderHorizontal}"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Padding" Value="0, 0, 10, 0"/>
+        </Style>
+        
+        <Style x:Key="VerticalSliderStyle" TargetType="{x:Type Slider}" BasedOn="{StaticResource SliderStyle1}">
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Slider}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*" MinHeight="{TemplateBinding MinHeight}"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Track Background for Vertical Slider -->
+                                <Border x:Name="TrackBackground" Background="White" BorderThickness="0" CornerRadius="2.5" Width="4" Margin="0,15" Grid.Row="1" HorizontalAlignment="Center">
+                                    <Border x:Name="PART_SelectionRange" Background="#49d092" CornerRadius="1" VerticalAlignment="Bottom"
+                                    Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Converter={StaticResource SliderValueToHeightConverter}, ConverterParameter=150}"/>
+                                </Border>
+
+                                <!-- Track for Vertical Slider -->
+                                <Track x:Name="PART_Track" Grid.Row="1" Orientation="Vertical">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource RepeatButtonTransparent}"/>
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}"/>
+                                    </Track.IncreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb x:Name="Thumb" Focusable="False" Width="30" Height="30" OverridesDefaultStyle="True"
+                                       Template="{StaticResource SliderThumbHorizontalDefault}" HorizontalAlignment="Center"/>
+                                    </Track.Thumb>
+                                </Track>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <!--#endregion-->
 
