@@ -114,7 +114,7 @@
                     <DataGridTextColumn Header="Song ID" Binding="{Binding SongId}" Width="*"/>
                     <DataGridTextColumn Header="Song Name" Binding="{Binding SongName}" Width="2*"/>
                     <DataGridTextColumn Header="Artist" Binding="{Binding Artist.ArtistName}" Width="2*"/>
-                    <DataGridTextColumn Header="Album" Binding="{Binding Album.AlbumName}" Width="2*"/>
+                    <DataGridTextColumn Header="Album" Binding="{Binding Album.Title}" Width="2*"/>
                     <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="*"/>
                     <DataGridTextColumn Header="File Path" Binding="{Binding FilePath}" Width="2*"/>
                 </DataGrid.Columns>
@@ -141,7 +141,7 @@
                     Content="Update" 
                     Style="{StaticResource ModernButton}"
                     Background="#2196F3"
-                    x:Name="UpdateButton">
+                    x:Name="UpdateButton" Click="UpdateButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding UpdateCommand}"/>
                     </Button.InputBindings>
@@ -151,7 +151,7 @@
                     Content="Delete" 
                     Style="{StaticResource ModernButton}"
                     Background="#F44336"
-                    x:Name="DeleteButton">
+                    x:Name="DeleteButton" Click="DeleteButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding DeleteCommand}"/>
                     </Button.InputBindings>

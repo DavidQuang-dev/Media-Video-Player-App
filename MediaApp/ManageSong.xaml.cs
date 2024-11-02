@@ -65,7 +65,18 @@ namespace MediaApp
             TbSong? selected = SongsDataGrid.SelectedItem as TbSong;
             if (selected != null)
             {
+                MessageBoxResult message = System.Windows.MessageBox.Show("Are You Sure ?", "Error", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (message == MessageBoxResult.No)
+                {
+                    return;
+                }
                 _service.Delete(selected);
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Songs Deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (messageBoxResult == MessageBoxResult.OK)
+                {
+                    FillData(_service.GetAll());
+                }
+
                 FillData(_service.GetAll());
             }
             else

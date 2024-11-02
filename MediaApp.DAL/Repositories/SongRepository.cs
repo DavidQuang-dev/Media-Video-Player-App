@@ -1,4 +1,5 @@
-﻿using MediaApp.DAL.Entities;
+﻿//using MediaApp.DAL.Entities;
+using MediaApp.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MediaApp.DAL.Repositories
         public List<TbSong> GetAllSongs()
         {
             _context = new();
-            return _context.TbSongs.ToList();
+            return _context.TbSongs.Include(song => song.Artist).Include(al => al.Album).ToList();
         }
 
         public void CreateSong(TbSong song)
@@ -44,6 +45,12 @@ namespace MediaApp.DAL.Repositories
             _context = new VideoMediaPlayerContext();
             var songs = _context.TbSongs.Where(song => song.Album == album).Include(o => o.Artist);
             return songs.ToList();
+        }
+
+        public TbArtist GetArtist(int id)
+        {
+            _context = new();
+            return _context.TbArtists.Find(id);
         }
     }
 }

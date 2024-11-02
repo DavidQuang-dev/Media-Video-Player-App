@@ -18,6 +18,12 @@ namespace MediaApp.DAL.Repositories
             var orders = _context.TbAlbums.Include(o => o.Artist).ToList();
             return orders;
         }
+        public TbAlbum GetAlbumById(int id)
+        {
+            _context = new VideoMediaPlayerContext();
+            var obj = _context.TbAlbums.FirstOrDefault(a => a.AlbumId == id);
+            return obj;
+        }
 
         public void Create(TbAlbum album)
         {

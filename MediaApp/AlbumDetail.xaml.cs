@@ -47,10 +47,10 @@ namespace MediaApp
             //songs.Add(new TbSong { SongId = 1, SongName = "Bài ca tuổi trẻ", Duration = 230, FilePath = "File path 1" });
             //songs.Add(new TbSong { SongId = 2, SongName = "Bầu trời mới", Duration = 270, FilePath = "File path 1" });
             //songs.Add(new TbSong { SongId = 3, SongName = "Phải chăng em đã yêu", Duration = 210, FilePath = "File path 1" });
-            ArtistComboBox.ItemsSource = _artistService.GetAllArtists();
+            ArtistComboBox.ItemsSource = _artistService.GetAll();
             ArtistComboBox.DisplayMemberPath = "ArtistName";
             ArtistComboBox.SelectedValuePath = "ArtistId";
-            SongComboBox.ItemsSource = _songService.GetAllSongs();
+            SongComboBox.ItemsSource = _songService.GetAll();
             SongComboBox.DisplayMemberPath = "SongName";
             SongComboBox.SelectedValuePath = "SongId";
             if (EditOne == null)

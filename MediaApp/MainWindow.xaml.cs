@@ -25,7 +25,11 @@ namespace video_media_player
         private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
+            { 
                 this.WindowState = WindowState.Normal;
+                MainBorder.CornerRadius = new CornerRadius(40);
+                PlayerBorder.CornerRadius = new CornerRadius(40, 0, 40, 0);
+            }
             else
             {
                 this.WindowState = WindowState.Maximized;
