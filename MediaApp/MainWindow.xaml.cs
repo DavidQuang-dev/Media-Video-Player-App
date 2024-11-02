@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using MediaApp.BLL.Services;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace video_media_player
@@ -56,6 +58,21 @@ namespace video_media_player
         private void StoreButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new StorePage());
+        }
+
+        private void VolumeButton_Click(object sender, RoutedEventArgs e)
+        {
+            volumePopup.IsOpen = !volumePopup.IsOpen;
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Kiểm tra nếu MediaElement tồn tại
+            if (mediaElement != null)
+            {
+                // Đặt âm lượng của MediaElement bằng với giá trị của Slider
+                mediaElement.Volume = e.NewValue / 100; // Chuyển đổi từ 0-100 về 0-1 cho MediaElement
+            }
         }
     }
 }
