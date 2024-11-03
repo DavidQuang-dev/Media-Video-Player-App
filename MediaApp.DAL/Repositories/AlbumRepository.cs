@@ -45,5 +45,12 @@ namespace MediaApp.DAL.Repositories
             _context.Remove(album);
             _context.SaveChanges();
         }
+
+        public TbAlbum? GetCreatedAlbum()
+        {
+            return _context.TbAlbums
+                 .OrderByDescending(album => album.AlbumId)
+                 .FirstOrDefault();
+        }
     }
 }

@@ -36,5 +36,10 @@ namespace MediaApp.BLL.Services
         {
             _repository.Delete(album);
         }
+
+        public TbAlbum? GetCreatedAlbum()
+        {
+            return _repository.GetCreatedAlbum();
+        }
     }
 }
