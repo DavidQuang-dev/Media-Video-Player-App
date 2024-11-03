@@ -37,5 +37,19 @@ namespace MediaApp.BLL.Services
         }
 
         
+        public List<TbSong> GetAllSongs()
+        {
+            return _repository.GetAll();
+        }
+
+        public TbSong GetSong(int id)
+        {
+            return _repository.GetSong(id);
+        }
+
+        public void Update(TbSong song)
+        {
+            _repository.UpdateSong(song);
+        }
     }
 }

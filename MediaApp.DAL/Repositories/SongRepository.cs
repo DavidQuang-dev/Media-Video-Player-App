@@ -43,7 +43,16 @@ namespace MediaApp.DAL.Repositories
         public List<TbSong> GetSongByAlbum(TbAlbum album)
         {
             _context = new VideoMediaPlayerContext();
-            var songs = _context.TbSongs.Where(song => song.Album == album).Include(o => o.Artist);
+            var songs = _context.TbSongs.Where(song => song.Album == album).Include(o => o.Artist)
+                .Select(song => new TbSong
+                {
+                    SongId = song.SongId,
+                    ArtistId = song.ArtistId,
+                    Duration = song.Duration,
+                    FilePath = song.FilePath,
+                    SongName = song.SongName,
+                    Artist = song.Artist
+                });
             return songs.ToList();
         }
 
@@ -51,6 +60,44 @@ namespace MediaApp.DAL.Repositories
         {
             _context = new();
             return _context.TbArtists.Find(id);
+        }
+        
+        public List<TbSong> GetAll()
+        {
+            _context = new VideoMediaPlayerContext();
+            var songs = _context.TbSongs
+            .Include(song => song.Artist)
+            .Where(song => song.AlbumId == null) // Lọc những bài hát có AlbumId là null
+            .Select(song => new TbSong
+            {
+                SongId = song.SongId,
+                ArtistId = song.ArtistId,
+                Duration = song.Duration,
+                FilePath = song.FilePath,
+                SongName = song.SongName,
+                Artist = song.Artist
+            });
+            return songs.ToList();
+        }
+
+
+        public List<TbSong> GetSongWithArtist(TbSong tbSong)
+        {
+            _context = new VideoMediaPlayerContext();
+            return _context.TbSongs.ToList();
+        }
+
+        public TbSong GetSong(int songId)
+        {
+            _context = new();
+            return _context.TbSongs.Find(songId);
+        }
+
+        public void UpdateSong(TbSong song)
+        {
+            _context = new();
+            _context.TbSongs.Update(song);
+            _context.SaveChanges();
         }
     }
 }
