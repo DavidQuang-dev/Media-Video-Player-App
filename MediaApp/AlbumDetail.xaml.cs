@@ -116,6 +116,19 @@ namespace MediaApp
             }
         }
 
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SongDataGrid.SelectedItem == null)
+                MessageBox.Show("Vui lòng chọn bài hát trước khi xóa !!");
+            else
+            {
+                TbSong tbSong = SongDataGrid.SelectedItem as TbSong;
+                tbSong.AlbumId = null;
+                _songService.Update(tbSong);
+                SongDataGrid.Items.Remove(SongDataGrid.SelectedItem);
+                SongComboBox.ItemsSource = _songService.GetAllSongs();
+            }
 
+        }
     }
 }

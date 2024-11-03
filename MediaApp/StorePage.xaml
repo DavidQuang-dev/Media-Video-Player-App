@@ -4,59 +4,74 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:video_media_player"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="StorePage">
+      mc:Ignorable="d" d:DesignWidth="800"
+      Title="StorePage" Height="554">
 
     <!-- Grid chính chia layout -->
 
     <Grid Background="White">
-        <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-                <!-- StackPanel for Songs -->
-                <StackPanel Grid.Column="0" Margin="20">
-                    <StackPanel Height="250">
-                        <Image HorizontalAlignment="Center" Height="200" Width="300" VerticalAlignment="Top" 
-Source="https://t3.ftcdn.net/jpg/09/65/84/62/360_F_965846221_Yww17Tsy0YBAbyFAOxH0uJyH1CB6Jk4a.jpg" Stretch="Fill" />
-                    </StackPanel>
-                    <Label Content="Songs" HorizontalAlignment="Center" Height="57" Width="109" 
-                   VerticalAlignment="Top" Style="{StaticResource TitleLabel}" />
-                    <Button x:Name="ManageSongButton" Content="Manage" HorizontalAlignment="Center" Height="80" 
-                    Width="218" VerticalAlignment="Top" Style="{StaticResource defaultButton}" Click="ManageSongButton_Click" />
-                </StackPanel>
+        <!-- StackPanel for Songs -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+            <StackPanel Height="148">
+                <Image HorizontalAlignment="Center" Height="150
+                       " Width="247" 
+                   Source="https://t3.ftcdn.net/jpg/09/65/84/62/360_F_965846221_Yww17Tsy0YBAbyFAOxH0uJyH1CB6Jk4a.jpg" 
+                   Stretch="Fill" />
+            </StackPanel>
+            <Label Content="Songs" Height="48" Width="108" Style="{StaticResource TitleLabel}" />
+            <Button x:Name="ManageSongButton" Content="Manage"
+                    HorizontalAlignment="Center" Height="43" 
+                Width="112" Style="{StaticResource defaultButton}" 
+                Click="ManageSongButton_Click" />
+        </StackPanel>
 
-                <!-- StackPanel for Albums -->
-                <StackPanel Grid.Column="1" Margin="20">
-                    <StackPanel Height="250">
-                        <Image HorizontalAlignment="Center" Height="200" Width="300" VerticalAlignment="Top" 
-Source="https://img.freepik.com/free-vector/realistic-music-record-label-disk-mockup_1017-33906.jpg" Stretch="Fill"/>
-                    </StackPanel>
+        <!-- StackPanel for Albums -->
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
+            <StackPanel Height="152">
+                <Image HorizontalAlignment="Center" Height="150" Width="252" 
+                   Source="https://img.freepik.com/free-vector/realistic-music-record-label-disk-mockup_1017-33906.jpg" 
+                   Stretch="Fill"/>
+            </StackPanel>
+            <Label Content="Albums" HorizontalAlignment="Center" Height="43" Width="108
+                   " Style="{StaticResource TitleLabel}" />
+            <Button x:Name="ManageAlbumButton" Content="Manage" HorizontalAlignment="Center" Height="43" 
+                Width="112" Style="{StaticResource defaultButton}" 
+                Click="ManageAlbumButton_Click" />
+        </StackPanel>
 
-                    <Label Content="Albums" HorizontalAlignment="Center" Height="57" Width="133" 
-                   VerticalAlignment="Top" Style="{StaticResource TitleLabel}" />
-                    <Button x:Name="ManageAlbumButton" Content="Manage" HorizontalAlignment="Center" Height="80" 
-                    Width="217" VerticalAlignment="Top" Style="{StaticResource defaultButton}" 
-                    Click="ManageAlbumButton_Click" />
-                </StackPanel>
+        <!-- StackPanel for Artist -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+            <StackPanel Height="181">
+                <Image HorizontalAlignment="Center" Height="180" Width="300" VerticalAlignment="Top" 
+                   Source="https://cdn.tuoitre.vn/zoom/700_525/471584752817336320/2023/4/25/son-tung-1682429100141711717000-181-0-1080-1717-crop-16824291249331603053151.jpg" />
+            </StackPanel>
+            <Label Content="Artists" HorizontalAlignment="Center" Height="49" Width="133" 
+               VerticalAlignment="Top" Style="{StaticResource TitleLabel}" />
+            <Button x:Name="ArtistManageButton" Content="Manage" HorizontalAlignment="Center" Height="43" 
+                Width="112" VerticalAlignment="Top" Style="{StaticResource defaultButton}" 
+                Click="ArtistManageButton_Click" />
+        </StackPanel>
 
-                <StackPanel Grid.Column="2" Margin="20">
-                    <StackPanel Height="250">
-                        <Image HorizontalAlignment="Center" Height="200" Width="300" VerticalAlignment="Top" 
-Source="https://cdn.tuoitre.vn/zoom/700_525/471584752817336320/2023/4/25/son-tung-1682429100141711717000-181-0-1080-1717-crop-16824291249331603053151.jpg" />
-                    </StackPanel>
-                    <Label Content="Artist" HorizontalAlignment="Center" Height="57" Width="133" 
-                    VerticalAlignment="Top" Style="{StaticResource TitleLabel}" />
-                    <Button x:Name="ArtistManageButton" Content="Manage" HorizontalAlignment="Center" Height="80" 
-                     Width="217" VerticalAlignment="Top" Style="{StaticResource defaultButton}" 
-                    Click="ArtistManageButton_Click" />
-                </StackPanel>
-            </Grid>
+        <!-- StackPanel for the Fourth Item -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+            <StackPanel Height="181">
+                <Image HorizontalAlignment="Center" Height="190" Width="300" VerticalAlignment="Top" 
+                   Source="https://img.freepik.com/free-psd/landing-page-template-streaming-music-online-with-woman-wearing-headphones_23-2148987857.jpg" />
+            </StackPanel>
+            <Label Content="Playlists" HorizontalAlignment="Center" Height="49" Width="133" 
+               VerticalAlignment="Top" Style="{StaticResource TitleLabel}" />
+            <Button x:Name="PlaylistsManageButton" Content="Manage" HorizontalAlignment="Center" Height="43" 
+                Width="112" VerticalAlignment="Top" Style="{StaticResource defaultButton}" 
+                Click="PlaylistsManageButton_Click" />
         </StackPanel>
     </Grid>
 </Page>

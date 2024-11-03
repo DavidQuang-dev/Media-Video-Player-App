@@ -1,4 +1,5 @@
 ﻿using MediaApp.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,11 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             _context.TbPlaylists.Add(obj);
             _context.SaveChanges();
+        }
+        public List<TbPlaylist> GetAlltWithSongs()
+        {
+            return [.. _context.TbPlaylists.Include(p => p.TbPlaylistSongs).ThenInclude(ps => ps.Song)];
+
         }
         public List<TbPlaylist> GetAll()
         {

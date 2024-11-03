@@ -140,6 +140,12 @@ namespace video_media_player
             ManageArtist manageArtist = new();
             manageArtist.ShowDialog();
         }
+
+        private void PlaylistsManageButton_Click(object sender, RoutedEventArgs e)
+        {
+            PlaylistManage playlistManage = new();
+            playlistManage.ShowDialog();
+        }
     }
 }
 
