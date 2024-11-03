@@ -11,7 +11,7 @@
             <Setter Property="Foreground" Value="#97e6c1"/>
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="63 30 0 15"/>
+            <Setter Property="Margin" Value="10 30 0 15"/>
         </Style>
         <!--Font default for button : color:#97e6c1, foreground:white, fontsize : 17, extra bold -->
         <Style x:Key="defaultButton" TargetType="Button">
@@ -282,7 +282,43 @@
         </Style>
 
         <!--#endregion-->
-
-
+        <Style TargetType="Label" x:Key="TitleLabel">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#000080"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="Margin" Value="3 3 3 3"/>
+        </Style>
+        <!-- ADD Button Style for "+" -->
+        <Style x:Key="AddButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#30ad9a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"/>
+                            <TextBlock Text="+" Foreground="{TemplateBinding Foreground}" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#18c274"/>
+                                <Setter Property="Foreground" Value="#e0f7f1"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#1fae7e"/>
+                                <Setter Property="Foreground" Value="#c0e6de"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

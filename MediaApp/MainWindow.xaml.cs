@@ -25,15 +25,23 @@ namespace video_media_player
         private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
+            { 
                 this.WindowState = WindowState.Normal;
-            else 
+                MainBorder.CornerRadius = new CornerRadius(40);
+                PlayerBorder.CornerRadius = new CornerRadius(40, 0, 40, 0);
+            }
+            else
+            {
                 this.WindowState = WindowState.Maximized;
+                MainBorder.CornerRadius = new CornerRadius(0);
+                PlayerBorder.CornerRadius = new CornerRadius(40, 0, 0, 0);
+            }
         }
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
-        
+
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new HomePage());

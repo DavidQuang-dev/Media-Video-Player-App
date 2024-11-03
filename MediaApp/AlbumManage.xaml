@@ -1,0 +1,161 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:uc="clr-namespace:video_media_player.UserControls"
+    xmlns:av="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="av" 
+    x:Class="MediaApp.AlbumManage"
+    Height="700" Width="1050" 
+    AllowsTransparency="True" 
+    WindowStartupLocation="CenterScreen" 
+    WindowStyle="None" 
+    Background="Transparent" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="1000"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                            Background="{TemplateBinding Background}" 
+                            CornerRadius="10" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BackButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <Path 
+                                Data="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" 
+                                Fill="#333333" 
+                                Stretch="Uniform" 
+                                Width="24" 
+                                Height="24" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="White" CornerRadius="40" Padding="20" BorderBrush="Black" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Back Button -->
+            <Button 
+                Style="{StaticResource BackButton}" 
+                x:Name="BackButton" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Grid.Row="0" Click="BackButton_Click">
+                <Button.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding BackCommand}"/>
+                </Button.InputBindings>
+            </Button>
+
+            <!-- Title -->
+            <TextBlock 
+                Text="Albums" 
+                Grid.Row="0" 
+                FontSize="24" 
+                FontWeight="Bold" 
+                Margin="0,0,0,20" 
+                HorizontalAlignment="Center" Foreground="#000080"/>
+
+            <!-- DataGrid -->
+            <DataGrid 
+    Grid.Row="1" 
+    x:Name="AlbumDataGrid"
+    AutoGenerateColumns="False"
+    SelectionMode="Single"
+    IsReadOnly="True"
+    RowHeight="40"
+    HeadersVisibility="Column"
+    Background="Transparent"
+    BorderThickness="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ALbum ID" Binding="{Binding AlbumId}" Width="*"/>
+                    <DataGridTextColumn Header="Album Name" Binding="{Binding Title}" Width="2*"/>
+                    <DataGridTextColumn Header="CoverImage" Binding="{Binding CoverImage}" Width="2*"/>
+                    <DataGridTextColumn Header="Artist ID" Binding="{Binding ArtistId}" Width="*"/>
+                    <DataGridTextColumn Header="Artist Name" Binding="{Binding Artist.ArtistName}" Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Action Buttons -->
+            <StackPanel 
+                Grid.Row="2" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Center" 
+                Margin="0,20,0,0">
+
+                <Button 
+                    Content="Create" 
+                    Style="{StaticResource ModernButton}"
+                    Background="#4CAF50"
+                    x:Name="CreateButton" Click="CreateButton_Click" Height="46" Width="93">
+                    <Button.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" Command="{Binding CreateCommand}"/>
+                    </Button.InputBindings>
+                </Button>
+
+                <Button 
+                    Content="Update"
+Style="{StaticResource ModernButton}"
+                    Background="#2196F3"
+                    x:Name="UpdateButton" Width="90" Click="UpdateButton_Click">
+                    <Button.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" Command="{Binding UpdateCommand}"/>
+                    </Button.InputBindings>
+                </Button>
+
+                <Button 
+                    x:Name="DeleteButton"
+                    Content="Delete" 
+                    Style="{StaticResource ModernButton}"
+                    Background="#F44336"
+                     Width="90" Height="46" Click="DeleteButton_Click">
+                    <Button.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" Command="{Binding DeleteCommand}"/>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

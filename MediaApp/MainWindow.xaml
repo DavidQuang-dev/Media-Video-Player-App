@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls"
-        Height="700" Width="1050" ResizeMode="NoResize" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
-    <Border Background="White" CornerRadius="40" MouseDown="Border_MouseDown">
-        <Grid Margin="-10,0,0,0">
+        Height="710" Width="1050" ResizeMode="NoResize" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
+    <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
+        <Grid Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
                 <ColumnDefinition Width="109*" />
@@ -19,10 +19,10 @@
             <MediaElement x:Name="mediaElement" Width="0" Height="0" LoadedBehavior="Manual" />
 
             <!--Menu-->
-            <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="2">
+            <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="2" Margin="0,0,10,0">
                 <StackPanel Margin="0 30 0 0">
                     <!-- Ellipses-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="63 10 0 10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="35 10 0 10">
                         <Button Background="#ff6258" Width="10" Height="10" Click="CloseButton_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
@@ -80,7 +80,7 @@
 
                     <Button Style="{StaticResource menuButton}" Click="StoreButton_Click">
                         <Grid>
-                            <TextBlock Text="Store" Margin="0 0 0 2"/>
+                            <TextBlock Text="Storage" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
@@ -90,7 +90,7 @@
             </Border>
 
             <!--Player-->
-            <Border Grid.Row="1" Background="#03bf69" CornerRadius="40 0 30 0" Grid.Column="1">
+            <Border x:Name="PlayerBorder" Grid.Row="1" Background="#03bf69" CornerRadius="40 0 40 0" Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <Ellipse Width="60" Height="60" Margin="30 0 0 0">
                         <Ellipse.Fill>
@@ -166,7 +166,7 @@
                 </StackPanel>
             </Border>
             <!--Main Content Area-->
-            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" NavigationUIVisibility="Hidden" Margin="0,10,15,0"/>
         </Grid>
     </Border>
 </Window>
