@@ -54,7 +54,6 @@ namespace MediaApp
             {
                 MessageBoxResult message = System.Windows.MessageBox.Show("Please select a song to update", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-
             }
         }
 
@@ -69,7 +68,6 @@ namespace MediaApp
                     return;
                 }
                 _service.Delete(selected);
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Songs Deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 FillData(_service.GetAll());
             }
             else

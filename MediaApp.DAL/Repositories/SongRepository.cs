@@ -39,7 +39,7 @@ namespace MediaApp.DAL.Repositories
             _context.TbSongs.Remove(song);
             _context.SaveChanges();
         }
-        
+
         public List<TbSong> GetSongByAlbum(TbAlbum album)
         {
             _context = new VideoMediaPlayerContext();
@@ -63,7 +63,7 @@ namespace MediaApp.DAL.Repositories
             return obj;
         }
         
-        public List<TbSong> GetAll()
+        public List<TbSong> GetAllSongWithOutAlbum()
         {
             _context = new VideoMediaPlayerContext();
             var songs = _context.TbSongs
@@ -88,17 +88,10 @@ namespace MediaApp.DAL.Repositories
             return _context.TbSongs.ToList();
         }
 
-        public TbSong GetSong(int songId)
+        public TbSong GetSongById(int songId)
         {
             _context = new();
             return _context.TbSongs.Find(songId);
-        }
-
-        public void UpdateSong(TbSong song)
-        {
-            _context = new();
-            _context.TbSongs.Update(song);
-            _context.SaveChanges();
         }
     }
 }

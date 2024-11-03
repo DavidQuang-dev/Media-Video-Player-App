@@ -144,7 +144,7 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <TextBlock Text="Add New Song" 
+            <TextBlock x:Name="Header" Text="Add New Song" 
                  FontSize="24" 
                  FontWeight="Bold" 
                  Margin="0,0,0,20"/>

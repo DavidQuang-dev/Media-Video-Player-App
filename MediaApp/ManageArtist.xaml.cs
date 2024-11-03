@@ -22,6 +22,7 @@ namespace MediaApp
     public partial class ManageArtist : Window
     {
         private ArtistService _service = new ();
+        private SongService songService = new();
         public ManageArtist()
         {
             InitializeComponent();

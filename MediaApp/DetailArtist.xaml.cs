@@ -66,6 +66,7 @@ namespace MediaApp
                 txtArtistName.Text = EditArtist.ArtistName;
                 date.Text = EditArtist.DataOfBirth.ToString();
                 txtDescription.Text = EditArtist.Description;
+                Header.Text = $"Update Artist {EditArtist.ArtistName}";
             }
         }
     }

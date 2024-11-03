@@ -36,6 +36,11 @@ namespace MediaApp.DAL.Repositories
         public void DeleteArtist(TbArtist artist)
         {
             _context = new();
+            var songs = _context.TbSongs.Where(song => song.ArtistId == artist.ArtistId);
+            foreach (var song in songs)
+            {
+                _context.TbSongs.Remove(song);
+            }
             _context.TbArtists.Remove(artist);
             _context.SaveChanges();
         }

@@ -50,7 +50,7 @@ namespace MediaApp
             ArtistComboBox.ItemsSource = _artistService.GetAll();
             ArtistComboBox.DisplayMemberPath = "ArtistName";
             ArtistComboBox.SelectedValuePath = "ArtistId";
-            SongComboBox.ItemsSource = _songService.GetAll();
+            SongComboBox.ItemsSource = _songService.GetAllSongWithOutAlbum();
             SongComboBox.DisplayMemberPath = "SongName";
             SongComboBox.SelectedValuePath = "SongId";
             if (EditOne == null)
@@ -148,7 +148,7 @@ namespace MediaApp
                 tbSong.AlbumId = null;
                 _songService.Update(tbSong);
                 SongDataGrid.Items.Remove(SongDataGrid.SelectedItem);
-                SongComboBox.ItemsSource = _songService.GetAllSongs();
+                SongComboBox.ItemsSource = _songService.GetAllSongWithOutAlbum();
             }
 
         }

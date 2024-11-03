@@ -22,6 +22,7 @@ namespace MediaApp
     public partial class AlbumManage : Window
     {
         private AlbumService _albumService = new();
+        private SongService _songService = new();
         public AlbumManage()
         {
             InitializeComponent();
@@ -70,6 +71,13 @@ namespace MediaApp
                     return;
                 else
                 {
+                    List<TbSong> deleteSongs = _songService.GetSongsByAlbum(AlbumDataGrid.SelectedItem as TbAlbum);
+                    foreach (var item in deleteSongs)
+                    {
+                        TbSong song = item as TbSong;
+                        song.AlbumId = null;
+                        _songService.Update(song);
+                    }
                     _albumService.DeleteAlbum(AlbumDataGrid.SelectedItem as TbAlbum);
                     Helper(_albumService.GetAllAlbums());
                 }
