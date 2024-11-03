@@ -50,7 +50,7 @@ namespace MediaApp
             {
                 MessageBox.Show("Vui lòng chọn album trước khi cập nhật");
                 return;
-            } 
+            }
 
             AlbumDetail albumDetail = new AlbumDetail();
             albumDetail.EditOne = AlbumDataGrid.SelectedItem as TbAlbum;
