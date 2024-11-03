@@ -261,13 +261,15 @@
                                     FontSize="12"/>
                             </StackPanel>
                             <StackPanel Grid.Column="2">
-                                <Button Content="Add"
+                                <Button                                 
+        Content="Add"
                                         x:Name="AddButton"
                                         Background="#4169e1"
                                         Foreground="White" Click="AddButton_Click" />
                             </StackPanel>
                             <StackPanel Grid.Column="3">
-                                <Button x:Name="DeleteButton" Content="Delete" 
+                                <Button
+     x:Name="DeleteButton"                               Content="Delete" 
                                Background="#ff4500"
                                Foreground="White" Click="DeleteButton_Click"/>
                             </StackPanel>

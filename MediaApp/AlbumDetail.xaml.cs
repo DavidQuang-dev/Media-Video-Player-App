@@ -50,7 +50,7 @@ namespace MediaApp
             ArtistComboBox.ItemsSource = _artistService.GetAll();
             ArtistComboBox.DisplayMemberPath = "ArtistName";
             ArtistComboBox.SelectedValuePath = "ArtistId";
-            SongComboBox.ItemsSource = _songService.GetAll();
+            SongComboBox.ItemsSource = _songService.GetAllSongWithOutAlbum();
             SongComboBox.DisplayMemberPath = "SongName";
             SongComboBox.SelectedValuePath = "SongId";
             if (EditOne == null)
@@ -80,7 +80,6 @@ namespace MediaApp
             tbAlbum.Title = TitleTextBox.Text;
             tbAlbum.CoverImage = FilePathTextBox.Text;
             tbAlbum.ArtistId = int.Parse(ArtistComboBox.SelectedValue.ToString());
-
             if (EditOne == null)
             {
                 _service.CreateAlbum(tbAlbum);
@@ -88,7 +87,16 @@ namespace MediaApp
             }
             else
             {
+                tbAlbum.AlbumId = EditOne.AlbumId;
                 _service.UpdateAlbum(tbAlbum);
+            }
+
+            int createdAlbumId = _service.GetCreatedAlbum().AlbumId;
+            foreach (var item in SongDataGrid.Items)
+            {
+                TbSong song = item as TbSong;
+                song.AlbumId = createdAlbumId;
+                _songService.Update(song);
             }
             this.Close();
         }
@@ -105,10 +113,24 @@ namespace MediaApp
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SongComboBox != null)
+            if (SongComboBox.SelectedItem != null)
             {
-                if (!SongDataGrid.Items.Contains((TbSong) SongComboBox.SelectedItem))
-                    SongDataGrid.Items.Add(SongComboBox.SelectedItem);
+                var selectedItem = SongComboBox.SelectedItem as TbSong;
+                bool flag = false;
+                if (!SongDataGrid.Items.Contains(selectedItem))
+                {
+                    foreach (var item in SongDataGrid.Items)
+                    {
+                        TbSong song = item as TbSong;
+                        if (song.SongId == selectedItem.SongId)
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                        SongDataGrid.Items.Add(selectedItem);
+                }
             }
             else
             {
@@ -126,8 +148,35 @@ namespace MediaApp
                 tbSong.AlbumId = null;
                 _songService.Update(tbSong);
                 SongDataGrid.Items.Remove(SongDataGrid.SelectedItem);
-                SongComboBox.ItemsSource = _songService.GetAllSongs();
+                SongComboBox.ItemsSource = _songService.GetAllSongWithOutAlbum();
             }
+
+        }
+
+        //private List<TbSong> RemoveDupSong()
+        //{
+        //    List<TbSong> list = new List<TbSong>();
+        //    var selectedItem = SongComboBox.SelectedItem as TbSong;
+        //    MessageBox.Show($"selected item : {selectedItem.SongId} | {selectedItem.SongName} ");
+        //    bool flag = false;
+        //    foreach (var item in SongComboBox.ItemsSource)
+        //    {
+        //        TbSong song = item as TbSong;
+        //        //MessageBox.Show("Item song : " + song.SongId);
+        //        if (song.SongId != selectedItem.SongId)
+        //            list.Add(song);
+        //        else
+        //        {
+        //            if (flag == false)
+        //            {
+        //                list.Add(song);
+        //                flag = true;
+        //            }
+        //        }
+        //    }
+        //    SongDataGrid.ItemsSource = null;
+        //    return list;
+        //}
 
         }
     }
