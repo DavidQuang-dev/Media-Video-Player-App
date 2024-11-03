@@ -145,9 +145,10 @@ namespace MediaApp
             else
             {
                 TbSong tbSong = SongDataGrid.SelectedItem as TbSong;
-                // tbSong.AlbumId = null;
+                tbSong.AlbumId = null;
                 _songService.Update(tbSong);
                 SongDataGrid.Items.Remove(SongDataGrid.SelectedItem);
+                SongComboBox.ItemsSource = _songService.GetAllSongs();
             }
 
         }

@@ -31,7 +31,9 @@ namespace MediaApp.DAL.Repositories
         public List<TbSong> GetAll()
         {
             _context = new VideoMediaPlayerContext();
-            var songs = _context.TbSongs.Include(o => o.Artist)
+            var songs = _context.TbSongs
+                .Include(song => song.Artist)
+                .Where(song => song.AlbumId == null) // Lọc những bài hát có AlbumId là null
                 .Select(song => new TbSong
                 {
                     SongId = song.SongId,
@@ -41,8 +43,10 @@ namespace MediaApp.DAL.Repositories
                     SongName = song.SongName,
                     Artist = song.Artist
                 });
+
             return songs.ToList();
         }
+
 
         public List<TbSong> GetSongWithArtist(TbSong tbSong)
         {

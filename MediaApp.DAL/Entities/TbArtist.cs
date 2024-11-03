@@ -9,7 +9,7 @@ public partial class TbArtist
 
     public string ArtistName { get; set; } = null!;
 
-    public DateOnly DataOfBirth { get; set; }
+    public DateTime DataOfBirth { get; set; }
 
     public string Description { get; set; } = null!;
 
