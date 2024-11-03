@@ -160,17 +160,6 @@
                         Padding="5"/>
                 </StackPanel>
 
-                <!-- Duration -->
-                <StackPanel>
-                    <TextBlock Text="Duration (seconds):" 
-                         FontWeight="SemiBold"/>
-                    <TextBox x:Name="txtDuration" 
-                        Height="30"
-                        Padding="5"
-                        IsReadOnly="True"
-                        />
-                </StackPanel>
-
                 <!-- File Selection -->
                 <StackPanel>
                     <TextBlock Text="Audio File:" 
@@ -193,6 +182,17 @@
                     </Grid>
                 </StackPanel>
 
+                <!-- Duration -->
+                <StackPanel>
+                    <TextBlock Text="Duration (seconds):" 
+                         FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtDuration" 
+                        Height="30"
+                        Padding="5"
+                        IsReadOnly="True"
+                        />
+                </StackPanel>
+                
                 <!-- Artist Selection -->
                 <StackPanel>
                     <TextBlock Text="Artist:" 
