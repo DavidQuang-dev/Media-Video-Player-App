@@ -22,7 +22,7 @@ namespace MediaApp
     public partial class DetailArtist : Window
     {
         private readonly ArtistService _service = new();
-        public TbArtist _editArtist { get; set; }
+        public TbArtist EditArtist { get; set; }
         public DetailArtist()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace MediaApp
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are You Sure ?", "Cancel", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 this.Close();
             }
@@ -39,29 +39,33 @@ namespace MediaApp
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            TbArtist artist = new () 
+
+            if (EditArtist == null)
             {
-                ArtistName = txtArtistName.Text,
-                DataOfBirth = date.DisplayDate,
-                Description = txtDescription.Text
-            };
-            _service.Create(artist);
-            MessageBoxResult result = MessageBox.Show("Artist Created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            if (result == MessageBoxResult.OK)
+                TbArtist artist = new();
+                artist.ArtistName = txtArtistName.Text;
+                artist.DataOfBirth = date.SelectedDate.HasValue? date.SelectedDate.Value : DateTime.MinValue;
+                artist.Description = txtDescription.Text;
+                _service.Create(artist);
+            } else
             {
-                txtArtistName.Text = "";
-                date.DisplayDate = DateTime.Now;
-                txtDescription.Text = "";
+                TbArtist updateArtist = EditArtist;
+                updateArtist.ArtistName = txtArtistName.Text;
+                updateArtist.DataOfBirth = date.SelectedDate.HasValue ? date.SelectedDate.Value : DateTime.MinValue;
+                updateArtist.Description = txtDescription.Text;
+                _service.Update(updateArtist);
             }
+            MessageBox.Show("Artist has been saved", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if(_editArtist != null)
+            if (EditArtist != null)
             {
-                txtArtistName.Text = _editArtist.ArtistName;
-                date.Text = _editArtist.DataOfBirth.Date.ToString();
-                txtDescription.Text = _editArtist.Description;
+                txtArtistName.Text = EditArtist.ArtistName;
+                date.Text = EditArtist.DataOfBirth.ToString();
+                txtDescription.Text = EditArtist.Description;
             }
         }
     }

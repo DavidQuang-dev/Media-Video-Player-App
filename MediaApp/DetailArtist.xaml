@@ -233,9 +233,8 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <DatePicker Text="" 
+                    <DatePicker
                          FontWeight="SemiBold" x:Name="date"/>
-
                 </StackPanel>
 
                 <StackPanel>

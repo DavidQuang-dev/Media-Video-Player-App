@@ -57,7 +57,7 @@ namespace MediaApp
             }
 
             DetailArtist detailArtist = new();
-            detailArtist._editArtist = selected;
+            detailArtist.EditArtist = selected;
             detailArtist.ShowDialog();
             FillData(_service.GetAll());
         }
@@ -78,11 +78,7 @@ namespace MediaApp
             if (result == MessageBoxResult.Yes)
             {
                 _service.Delete(selected);
-                MessageBoxResult messageBoxResult = MessageBox.Show("Artist Deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                if (messageBoxResult == MessageBoxResult.OK)
-                {
-                    FillData(_service.GetAll());
-                }
+                FillData(_service.GetAll());
             }
         }
 
