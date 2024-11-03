@@ -22,6 +22,7 @@ namespace MediaApp
     public partial class AlbumManage : Window
     {
         private AlbumService _albumService = new();
+        private SongService _songService = new();
         public AlbumManage()
         {
             InitializeComponent();
@@ -46,9 +47,16 @@ namespace MediaApp
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            if (AlbumDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn album trước khi cập nhật");
+                return;
+            }
+
             AlbumDetail albumDetail = new AlbumDetail();
             albumDetail.EditOne = AlbumDataGrid.SelectedItem as TbAlbum;
             albumDetail.ShowDialog();
+            Helper(_albumService.GetAllAlbums());
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -63,6 +71,13 @@ namespace MediaApp
                     return;
                 else
                 {
+                    List<TbSong> deleteSongs = _songService.GetSongsByAlbum(AlbumDataGrid.SelectedItem as TbAlbum);
+                    foreach (var item in deleteSongs)
+                    {
+                        TbSong song = item as TbSong;
+                        song.AlbumId = null;
+                        _songService.Update(song);
+                    }
                     _albumService.DeleteAlbum(AlbumDataGrid.SelectedItem as TbAlbum);
                     Helper(_albumService.GetAllAlbums());
                 }

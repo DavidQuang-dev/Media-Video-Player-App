@@ -46,17 +46,14 @@ namespace MediaApp
             if (selected != null)
             {
                 DetailSong _detailSong = new();
-                _detailSong._editSong = selected;
+                _detailSong.EditSong = selected;
                 _detailSong.ShowDialog();
                 FillData(_service.GetAll());
             }
             else
             {
                 MessageBoxResult message = System.Windows.MessageBox.Show("Please select a song to update", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                if(message == MessageBoxResult.OK)
-                {
-                    return;
-                }
+                return;
             }
         }
 
@@ -71,21 +68,12 @@ namespace MediaApp
                     return;
                 }
                 _service.Delete(selected);
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Songs Deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                if (messageBoxResult == MessageBoxResult.OK)
-                {
-                    FillData(_service.GetAll());
-                }
-
                 FillData(_service.GetAll());
             }
             else
             {
                 MessageBoxResult message = System.Windows.MessageBox.Show("Please select a song to delete", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                if (message == MessageBoxResult.OK)
-                {
-                    return;
-                }
+                return;
             }
         }
 

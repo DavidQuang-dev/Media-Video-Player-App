@@ -144,7 +144,7 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <TextBlock Text="Add New Song" 
+            <TextBlock x:Name="Header" Text="Add New Song" 
                  FontSize="24" 
                  FontWeight="Bold" 
                  Margin="0,0,0,20"/>
@@ -158,17 +158,6 @@
                     <TextBox x:Name="txtSongName" 
                         Height="30"
                         Padding="5"/>
-                </StackPanel>
-
-                <!-- Duration -->
-                <StackPanel>
-                    <TextBlock Text="Duration (seconds):" 
-                         FontWeight="SemiBold"/>
-                    <TextBox x:Name="txtDuration" 
-                        Height="30"
-                        Padding="5"
-                        IsReadOnly="True"
-                        />
                 </StackPanel>
 
                 <!-- File Selection -->
@@ -193,6 +182,17 @@
                     </Grid>
                 </StackPanel>
 
+                <!-- Duration -->
+                <StackPanel>
+                    <TextBlock Text="Duration (seconds):" 
+                         FontWeight="SemiBold"/>
+                    <TextBox x:Name="txtDuration" 
+                        Height="30"
+                        Padding="5"
+                        IsReadOnly="True"
+                        />
+                </StackPanel>
+                
                 <!-- Artist Selection -->
                 <StackPanel>
                     <TextBlock Text="Artist:" 
