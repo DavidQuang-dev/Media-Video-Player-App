@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using video_media_player.UserControls;
 
 namespace video_media_player
 {
@@ -30,10 +31,9 @@ namespace video_media_player
         }
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            PlaylistDetailWindow detail = new();
-            detail.ShowDialog();
-
             //f5 lưới
+            PlaylistDetail detail = new();
+            detail.ShowDialog();
             FillListBox(_playlistService.GetAllPlayList());
         }
 
@@ -46,16 +46,6 @@ namespace video_media_player
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            TbPlaylist? selected = PlaylistsListBox.SelectedItem as TbPlaylist;
-            if (selected == null)
-            {
-                MessageBox.Show("Please select a playlist before editing!!", "Select One", MessageBoxButton.OK, MessageBoxImage.Question);
-                return;
-            }
-            PlaylistDetailWindow detail = new();
-            detail.EditedOne = selected;
-            detail.ShowDialog();
-
             FillListBox(_playlistService.GetAllPlayList());
         }
 
@@ -81,5 +71,22 @@ namespace video_media_player
             PlaylistsListBox.ItemsSource = null;
             PlaylistsListBox.ItemsSource = list;
         }
+
+        private void PlaylistsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Get the selected playlist
+            var selectedPlaylist = PlaylistsListBox.SelectedItem as Playlist; // Make sure to replace 'Playlist' with the actual type you are using for your playlists.
+
+            if (selectedPlaylist != null)
+            {
+                // Assuming that your Playlist class has a property that gives you the list of songs.
+                //var songs = selectedPlaylist.Songs; // Replace with your actual property that holds the song list.
+
+                // Update the ItemsControl with the songs
+                // Assuming your ItemsControl is called 'PlaylistDetail' and it has been set to show songs.
+                //PlaylistDetail.ItemsSource = songs; // You may need to set the DataContext if you are binding
+            }
+        }
+
     }
 }

@@ -55,8 +55,8 @@ namespace MediaApp.BLL.Services
         }
         public List<TbSong> GetAvailableSongsForPlaylist(List<int> excludedSongIds)
         {
-            // Fetch all songs, then filter out the ones in the excludedSongIds list
-            return _songRepository.GetAllSongs() // Assuming _songRepository is your data access layer
+            //Chỉ lấy những bài hát chưa có trong songdatagrid trong trang playlistDetail
+            return _songRepository.GetAllSongs()
                    .Where(song => !excludedSongIds.Contains(song.SongId))
                    .ToList();
         }
