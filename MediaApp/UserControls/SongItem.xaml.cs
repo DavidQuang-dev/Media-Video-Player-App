@@ -26,13 +26,31 @@ namespace video_media_player.UserControls
 
         public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(string), typeof(SongItem));
 
+        //public string Time
+        //{
+        //    get { return (string)GetValue(TimeProperty); }
+        //    set { SetValue(TimeProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(string), typeof(SongItem));
+
         public string Time
         {
-            get { return (string)GetValue(TimeProperty); }
-            set { SetValue(TimeProperty, value); }
+            get { return convertTimeFormat((decimal)GetValue(TimeProperty)); }
+            set { SetValue(TimeProperty, convertTimeFormat(decimal.Parse(value))); }
         }
 
-        public static readonly DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(string), typeof(SongItem));
+        public static readonly DependencyProperty TimeProperty = DependencyProperty.Register(
+            "Time", typeof(string), typeof(SongItem));
+
+        // Hàm để chuyển đổi giây sang định dạng phút:giây
+        private string convertTimeFormat(decimal value)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds((double)value);
+            string timeFormatted = string.Format("{0}:{1:D2}", (int)timeSpan.TotalMinutes, timeSpan.Seconds);
+            MessageBox.Show("Time : " + timeFormatted);
+            return timeFormatted;
+        }
 
         public bool IsActive
         {

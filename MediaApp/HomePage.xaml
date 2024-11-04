@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
-      Background="Transparent">
+      Background="Transparent" Loaded="Page_Loaded">
 
     <Page.Resources>
         <!-- Existing ScrollViewer Styles -->
