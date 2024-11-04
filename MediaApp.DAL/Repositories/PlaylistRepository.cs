@@ -35,5 +35,11 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             return _context.TbPlaylists.ToList();
         }
+
+    public List<TbPlaylist> Get2Playlist()
+        {
+            _context = new();
+            return _context.TbPlaylists.Take(2).ToList();
+        }
     }
 }

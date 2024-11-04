@@ -18,6 +18,11 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             return _context.TbSongs.Include(song => song.Artist).Include(al => al.Album).ToList();
         }
+        public List<TbSong> GetPopularSongs()
+        {
+            _context = new();
+            return _context.TbSongs.Take(4).ToList();
+        }
 
         public void CreateSong(TbSong song)
         {
