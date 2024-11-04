@@ -27,7 +27,7 @@ public partial class VideoMediaPlayerContext : DbContext
     public virtual DbSet<TbSong> TbSongs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-LLJOB7R;uid=sa;pwd=123456;database=video_media_player;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=video_media_player;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
