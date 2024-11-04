@@ -1,366 +1,4 @@
-﻿//using MahApps.Metro.IconPacks;
-//using MediaApp.BLL.Services;
-//using MediaApp.DAL.Entities;
-//using NAudio.Gui;
-//using NAudio.Wave;
-//using System.Windows;
-//using System.Windows.Controls;
-//using System.Windows.Input;
-//using System.Windows.Threading;
-
-//namespace video_media_player
-//{
-//    public enum PlaybackMode
-//    {
-//        RepeatOff,
-//        RepeatOn,
-//        RepeatOne
-//        //Loop,
-//        //LoopInList
-//    }
-
-//    public enum PlayMode
-//    {
-//        Sequential,
-//        Shuffle
-//    }
-//    public partial class MainWindow : Window
-//    {
-//        public List<TbSong> ListSongs { get; set; }
-//        private SongService _songService = new();
-//        private PlaybackMode backMode = PlaybackMode.RepeatOff;
-//        private PlayMode playMode = PlayMode.Sequential;
-//        //private bool isRandom = false;
-//        private int currentIndex = 1;
-//        private DispatcherTimer _timer;
-//        private Mp3FileReader _reader;
-//        //private bool isPlayed = false;
-
-
-//        public MainWindow()
-//        {
-//            InitializeComponent();
-//            ListSongs = new();
-//            MainFrame.Navigate(new HomePage());
-//            _timer = new DispatcherTimer
-//            {
-//                Interval = TimeSpan.FromMilliseconds(1000)
-//            };
-//            _timer.Tick += Timer_Tick;
-//        }
-
-//        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-//        {
-//            if (e.ChangedButton == MouseButton.Left)
-//                this.DragMove();
-//        }
-//        private void CloseButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            Application.Current.Shutdown();
-//        }
-
-//        private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            if (this.WindowState == WindowState.Maximized)
-//            {
-//                this.WindowState = WindowState.Normal;
-//                MainBorder.CornerRadius = new CornerRadius(40);
-//                PlayerBorder.CornerRadius = new CornerRadius(40, 0, 40, 0);
-//            }
-//            else
-//            {
-//                this.WindowState = WindowState.Maximized;
-//                MainBorder.CornerRadius = new CornerRadius(0);
-//                PlayerBorder.CornerRadius = new CornerRadius(40, 0, 0, 0);
-//            }
-//        }
-//        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            this.WindowState = WindowState.Minimized;
-//        }
-
-//        private void HomeButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            MainFrame.Navigate(new HomePage());
-//        }
-//        private void PlaylistsButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            MainFrame.Navigate(new PlaylistsPage());
-
-//        }
-//        private void AlbumsButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            MainFrame.Navigate(new AlbumsPage());
-//        }
-//        private void SongsButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            MainFrame.Navigate(new SongsPage());
-//        }
-//        private void StoreButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            MainFrame.Navigate(new StorePage());
-//        }
-
-//        private void VolumeButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            volumePopup.IsOpen = !volumePopup.IsOpen;
-//        }
-
-//        private void Button_Click(object sender, RoutedEventArgs e)
-//        {
-
-//        }
-
-//        private void PlayButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            if (PlayIcon.Kind == PackIconMaterialKind.Pause)
-//            {
-//                PlayIcon.Kind = PackIconMaterialKind.Play;
-//                PlayerMediaElement.Pause();
-//                _timer.Stop();
-//                return;
-//            }
-
-//            if (ListSongs.Count == 0)
-//            {
-//                PlayFirstSong();
-//            }
-//            else
-//            {
-//                PlayerMediaElement.Play();
-//            }
-
-//            PlayIcon.Kind = PackIconMaterialKind.Pause;
-//            _timer.Start();
-//        }
-
-//        public void PlayFirstSong()
-//        {
-//            ListSongs = _songService.GetAll();
-//            string source = GetSongByIndex(currentIndex, out double duration).FilePath;
-//            TimeSlider.Maximum = duration;
-//            MaxTimeTextBlock.Text = convertTimeFormat(duration);
-//            PlayerMediaElement.Source = new Uri(source);
-//            PlayerMediaElement.MediaOpened += MediaElement_MediaOpened;
-//            _reader = new Mp3FileReader(source);
-//        }
-//        public void PlayNextSong()
-//        {
-//            if (ListSongs.Count == 0)
-//                return;
-
-//            Random random = new Random();
-//            switch (backMode)
-//            {
-//                case PlaybackMode.RepeatOff:
-//                    {
-//                        if (playMode == PlayMode.Sequential)
-//                        {
-//                            currentIndex = (currentIndex + 1) % ListSongs.Count;
-//                            if (currentIndex == 0) // Nếu đã phát hết danh sách
-//                            {
-//                                _timer.Stop();
-//                                PlayIcon.Kind = PackIconMaterialKind.Play;
-//                                return;
-//                            }
-//                        }
-//                        else if (playMode == PlayMode.Shuffle)
-//                        {
-//                            currentIndex = random.Next(ListSongs.Count);
-//                        }
-//                        break;
-//                    }
-//                case PlaybackMode.RepeatOn:
-//                    {
-//                        if (playMode == PlayMode.Sequential)
-//                        {
-//                            currentIndex = (currentIndex + 1) % ListSongs.Count;
-//                        }
-//                        else if (playMode == PlayMode.Shuffle)
-//                        {
-//                            currentIndex = random.Next(ListSongs.Count);
-//                        }
-//                        break;
-//                    }
-//                case PlaybackMode.RepeatOne:
-//                    // currentIndex giữ nguyên
-//                    break;
-//            }
-
-//            string source = GetSongByIndex(currentIndex, out double duration)?.FilePath;
-//            if (string.IsNullOrEmpty(source))
-//            {
-//                _timer.Stop();
-//                return;
-//            }
-
-//            TimeSlider.Maximum = duration;
-//            MaxTimeTextBlock.Text = convertTimeFormat(duration);
-//            PlayerMediaElement.Source = new Uri(source);
-//            PlayerMediaElement.Play();
-//            PlayIcon.Kind = PackIconMaterialKind.Pause;
-//            _timer.Start();
-//        }
-
-//        //public void PlayNextSong()
-//        //{
-//        //    Random random = new Random();
-//        //    switch (backMode)
-//        //    {
-//        //        case PlaybackMode.RepeatOff:
-//        //            {
-//        //                if (playMode == PlayMode.Sequential)
-//        //                {
-//        //                    if (currentIndex + 1 == ListSongs.Count)
-//        //                        currentIndex = ListSongs.Count;
-//        //                    else if (currentIndex + 1 < ListSongs.Count)
-//        //                        currentIndex = (currentIndex + 1) % ListSongs.Count;
-//        //                }
-//        //                else
-//        //                    currentIndex = random.Next(ListSongs.Count);
-//        //                break;
-//        //            }
-//        //        case PlaybackMode.RepeatOn:
-//        //            {
-//        //                if (playMode == PlayMode.Sequential)
-//        //                {
-//        //                    if (currentIndex + 1 == ListSongs.Count)
-//        //                        currentIndex = ListSongs.Count;
-//        //                    else if (currentIndex + 1 < ListSongs.Count)
-//        //                        currentIndex = (currentIndex + 1) % ListSongs.Count;
-//        //                }
-//        //                else
-//        //                    currentIndex = random.Next(ListSongs.Count);
-//        //                break;
-//        //            }
-//        //        case PlaybackMode.RepeatOne:
-//        //            // currentIndex stays the same
-//        //            break;
-//        //    }
-//        //    MessageBox.Show("current index : " + currentIndex);
-//        //    string source = GetSongByIndex(currentIndex, out double duration).FilePath;
-//        //    TimeSlider.Maximum = duration;
-//        //    MaxTimeTextBlock.Text = convertTimeFormat(duration);
-//        //    PlayerMediaElement.Source = new Uri(source);
-//        //    PlayerMediaElement.MediaOpened += MediaElement_MediaOpened;
-//        //    _reader = new Mp3FileReader(source);
-//        //}
-
-//        private void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
-//        {
-//            if (PlayerMediaElement.NaturalDuration.HasTimeSpan)
-//            {
-//                TimeSlider.Maximum = PlayerMediaElement.NaturalDuration.TimeSpan.TotalSeconds;
-//                //MessageBox.Show($"Duration: {MediaTest.NaturalDuration.TimeSpan}");
-//            }
-//        }
-
-
-//        private TbSong? GetSongByIndex(int index, out double duration)
-//        {
-//            int count = 1;
-//            foreach (TbSong song in ListSongs)
-//            {
-//                if (count == index)
-//                {
-//                    duration = (double)song.Duration;
-//                    return song;
-//                }
-//                count++;
-//            }
-//            duration = 0;
-//            return null;
-//        }
-
-//        private void Timer_Tick(object? sender, EventArgs e)
-//        {
-//            if (_reader != null)
-//            {
-//                if (_reader.CurrentTime < _reader.TotalTime)
-//                {
-//                    TimeSlider.Value = PlayerMediaElement.Position.TotalSeconds;
-//                    string currentTimeFM = convertTimeFormat(PlayerMediaElement.Position.TotalSeconds);
-//                    CurrentTimeTextBlock.Text = currentTimeFM;
-//                }
-//                else
-//                {
-//                    _timer.Stop();
-//                }
-//            }
-//        }
-
-//        private void TimeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-//        {
-//            if (TimeSlider.Value == TimeSlider.Maximum)
-//            {
-//                PlayNextSong();
-//                return;
-//            }
-//            TimeSpan timeSpan = TimeSpan.FromSeconds(TimeSlider.Value);
-//            PlayerMediaElement.Position = timeSpan;
-//        }
-
-//        private string convertTimeFormat(double value)
-//        {
-//            TimeSpan timeSpan = TimeSpan.FromSeconds(value);
-//            string timeFormated = string.Format("{0}:{1:D2}", (int)timeSpan.TotalMinutes, timeSpan.Seconds);
-//            return timeFormated;
-//        }
-
-//        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-//        {
-//            if (VolumeSlider != null)
-//            {
-//                PlayerMediaElement.Volume = VolumeSlider.Value / 100;
-//            }
-//        }
-
-//        private void RepeatButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            if (backMode == PlaybackMode.RepeatOff)
-//            {
-//                BackModeIcon.Kind = PackIconMaterialKind.Repeat;
-//                backMode = PlaybackMode.RepeatOn;
-//            }
-//            else if (backMode == PlaybackMode.RepeatOn)
-//            {
-//                BackModeIcon.Kind = PackIconMaterialKind.RepeatOnce;
-//                backMode = PlaybackMode.RepeatOne;
-//            }
-//            else
-//            {
-//                BackModeIcon.Kind = PackIconMaterialKind.RepeatOff;
-//                backMode = PlaybackMode.RepeatOff;
-//            }
-//        }
-
-//        private void PlayModeButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            if (playMode == PlayMode.Sequential)
-//            {
-//                PlayModeIcon.Kind = PackIconMaterialKind.Shuffle;
-//                playMode = PlayMode.Shuffle;
-//            }
-//            else
-//            {
-//                PlayModeIcon.Kind = PackIconMaterialKind.ShuffleDisabled;
-//                playMode = PlayMode.Sequential;
-//            }
-
-//        }
-
-//        private void PlayNextButton_Click(object sender, RoutedEventArgs e)
-//        {
-//            PlayNextSong();
-//            PlayerMediaElement.Play();
-//            PlayIcon.Kind = PackIconMaterialKind.Pause;
-//            _timer.Stop();
-//            _timer.Start();
-//        }
-//    }
-//}
-
-using MahApps.Metro.IconPacks;
+﻿using MahApps.Metro.IconPacks;
 using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
 using System;
@@ -389,6 +27,7 @@ namespace video_media_player
     public partial class MainWindow : Window
     {
         public List<TbSong> ListSongs { get; set; }
+        public TbSong ChooseSong { get; set; }
         private readonly SongService _songService = new();
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;
@@ -408,7 +47,14 @@ namespace video_media_player
             };
             _timer.Tick += Timer_Tick;
         }
-
+        public void SetChosenSong(TbSong song)
+        {
+            ChooseSong = song;
+            if (ChooseSong != null)
+            {
+                LoadSingleSong(ChooseSong);
+            }
+        }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -427,13 +73,31 @@ namespace video_media_player
                 WindowState = WindowState.Normal;
                 MainBorder.CornerRadius = new CornerRadius(40);
                 PlayerBorder.CornerRadius = new CornerRadius(40, 0, 40, 0);
+                // Cài đặt lại định nghĩa cột cho trạng thái Normal
+                SongNameTextBlock.MaxWidth = 300;
+                TimeGrid.Width = 380;
+                //TimeSlider.Width = 350;
+                VolumeGrid.HorizontalAlignment = HorizontalAlignment.Left;
+                FooterGrid.ColumnDefinitions.Clear();
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.5, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
             else
             {
                 WindowState = WindowState.Maximized;
                 MainBorder.CornerRadius = new CornerRadius(0);
                 PlayerBorder.CornerRadius = new CornerRadius(40, 0, 0, 0);
+                SongNameTextBlock.MaxWidth = 500;
+                TimeGrid.Width = 600;
+                //TimeSlider.Width = 600;
+                VolumeGrid.HorizontalAlignment = HorizontalAlignment.Left;
+                FooterGrid.ColumnDefinitions.Clear();
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
+
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -524,24 +188,48 @@ namespace video_media_player
                         currentIndex = (currentIndex + 1) % ListSongs.Count;
                         if (currentIndex == 0) // Reached the end
                         {
+                            ListSongs.Clear();
                             PausePlayback();
                             return;
                         }
                     }
                     else
                     {
-                        currentIndex = random.Next(ListSongs.Count);
+                        currentIndex = randomIndex();
                     }
                     break;
                 case PlaybackMode.RepeatOn:
-                    currentIndex = playMode == PlayMode.Sequential ? (currentIndex + 1) % ListSongs.Count : random.Next(ListSongs.Count);
+                    currentIndex = playMode == PlayMode.Sequential ? (currentIndex + 1) % ListSongs.Count : randomIndex();
                     break;
                 case PlaybackMode.RepeatOne:
-                    // Stay on the same song
                     break;
             }
-
             LoadSong(currentIndex);
+        }
+
+        private int randomIndex()
+        {
+            Random random = new Random();
+            int index;
+            do
+            {
+                index = random.Next(ListSongs.Count);
+            } while (index == currentIndex);
+            return index;
+        }
+
+        private void LoadSong(TbSong song)
+        {
+            if (song == null) return;
+            MessageBox.Show("Current Index Of Load Song: " + currentIndex);
+            TimeSlider.Maximum = double.Parse(song.Duration.ToString());
+            MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
+            PlayerMediaElement.Source = new Uri(song.FilePath);
+            SongNameTextBlock.Text = song.SongName;
+            ArtistNameTextBlock.Text = song.Artist.ArtistName;
+            PlayerMediaElement.Play();
+            PlayIcon.Kind = PackIconMaterialKind.Pause;
+            _timer.Start();
         }
 
         private void LoadSong(int index)
@@ -554,17 +242,31 @@ namespace video_media_player
             PlayerMediaElement.Source = new Uri(song.FilePath);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
+            // MessageBox.Show("Current Index Of Load Song: " + currentIndex);
             PlayerMediaElement.Play();
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
         }
 
+        private void LoadSingleSong(TbSong song)
+        {
+            if (song == null) return;
+
+            TimeSlider.Maximum = double.Parse(song.Duration.ToString());
+            MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
+            PlayerMediaElement.Source = new Uri(song.FilePath);
+            SongNameTextBlock.Text = song.SongName;
+            ArtistNameTextBlock.Text = song.Artist.ArtistName;
+            PlayerMediaElement.Play();
+            PlayIcon.Kind = PackIconMaterialKind.Pause;
+            _timer.Start();
+        }
         private void Timer_Tick(object sender, EventArgs e)
         {
+            CurrentTimeTextBlock.Text = FormatTime(PlayerMediaElement.Position.TotalSeconds);
             if (PlayerMediaElement.NaturalDuration.HasTimeSpan)
             {
                 TimeSlider.Value = PlayerMediaElement.Position.TotalSeconds;
-                CurrentTimeTextBlock.Text = FormatTime(PlayerMediaElement.Position.TotalSeconds);
             }
         }
 
@@ -602,6 +304,7 @@ namespace video_media_player
             if (VolumeSlider != null)
             {
                 PlayerMediaElement.Volume = VolumeSlider.Value / 100;
+                VolumeTextBlock.Text = (int)VolumeSlider.Value + "%";
             }
         }
 
@@ -630,7 +333,22 @@ namespace video_media_player
 
         private void PlayNextButton_Click(object sender, RoutedEventArgs e)
         {
+            if (backMode == PlaybackMode.RepeatOne)
+            {
+                backMode = PlaybackMode.RepeatOn;
+                PlayNextSong();
+                backMode = PlaybackMode.RepeatOne;
+                return;
+            }
             PlayNextSong();
+        }
+
+        private void PlayBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentIndex >= 1)
+                --currentIndex;
+            //MessageBox.Show("Current index : " + currentIndex);
+            LoadSong(currentIndex);
         }
     }
 }

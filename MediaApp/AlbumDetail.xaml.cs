@@ -16,6 +16,7 @@ namespace MediaApp
         private AlbumService _service = new();
         private SongService _songService = new();
         private ArtistService _artistService = new();
+        private List<TbSong> _songToRemove = new();
         public AlbumDetail()
         {
             InitializeComponent();
@@ -68,12 +69,6 @@ namespace MediaApp
                 }
             }
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             TbAlbum tbAlbum = new();
@@ -98,6 +93,14 @@ namespace MediaApp
                 song.AlbumId = createdAlbumId;
                 _songService.Update(song);
             }
+
+            foreach (var item in _songToRemove)
+            {
+                TbSong song = item as TbSong;
+                song.AlbumId = null;
+                _songService.Update(song);
+            } 
+            
             this.Close();
         }
 
@@ -145,10 +148,12 @@ namespace MediaApp
             else
             {
                 TbSong tbSong = SongDataGrid.SelectedItem as TbSong;
-                tbSong.AlbumId = null;
-                _songService.Update(tbSong);
+                _songToRemove.Add(tbSong);
                 SongDataGrid.Items.Remove(SongDataGrid.SelectedItem);
-                SongComboBox.ItemsSource = _songService.GetAllSongWithOutAlbum();
+                List<TbSong> list = _songService.GetAllSongWithOutAlbum();
+                list.Add(tbSong);
+                SongComboBox.ItemsSource = list;
+                //SongComboBox.ItemsSource = _songToRemove;
             }
 
         }

@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:MediaApp.Converters"
              Name="songItem">
 
-    <Border Margin="0 0 0 3" CornerRadius="5" Padding="7">
+    <Border Margin="0 0 0 3" CornerRadius="5" Padding="7" MouseLeftButtonDown="Border_MouseLeftButtonDown"
+            Cursor="Hand">
         <Border.Style>
             <Style TargetType="Border">
                 <Style.Triggers>

@@ -107,5 +107,15 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             return _context.TbSongs.Find(songId);
         }
+
+        public TbSong GetSongByName(string songName)
+        {
+            _context = new VideoMediaPlayerContext();
+            return _context.TbSongs
+                           .Include(song => song.Artist)
+                           .Include(song => song.Album)
+                           .FirstOrDefault(s => s.SongName.Equals(songName));
+        }
+
     }
 }

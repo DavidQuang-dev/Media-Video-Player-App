@@ -53,6 +53,12 @@ namespace MediaApp.BLL.Services
         {
             return _songRepository.GetSongById(id);
         }
+
+        public TbSong GetSongByName(string songName)
+        {
+            return _songRepository.GetSongByName(songName);
+        }
+        
         public List<TbSong> GetAvailableSongsForPlaylist(List<int> excludedSongIds)
         {
             //Chỉ lấy những bài hát chưa có trong songdatagrid trong trang playlistDetail

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using video_media_player.UserControls;
 
 namespace video_media_player
 {
@@ -24,6 +25,7 @@ namespace video_media_player
     {
         private readonly SongService songService = new();
         private readonly PlaylistService playlistService = new();
+        public TbSong ChooseSong { get; set; }
         public HomePage()
         {
             InitializeComponent();
@@ -39,8 +41,10 @@ namespace video_media_player
                 {
                     Title = song.SongName,
                     Number = (++number).ToString(),
-                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds)
+                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
+                    Tag = song.FilePath
                 };
+                songItem.Click += SongItem_Click;
                 SongItemList.Children.Add(songItem);
             }
 
@@ -50,8 +54,10 @@ namespace video_media_player
                 var popularSongItem = new video_media_player.UserControls.PopularSong
                 {
                     Title = song.SongName,
-                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds)
+                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
+                    Tag = song.FilePath
                 };
+                popularSongItem.Click += PopularSongItem_Click;
                 PopularSongItemList.Children.Add(popularSongItem);
             }
 
@@ -63,6 +69,26 @@ namespace video_media_player
                     Title = playlist.PlaylistName,
                 };
                 PlaylistItems.Children.Add(playlistItem);
+            }
+        }
+
+        private void SongItem_Click(object sender, RoutedEventArgs e)
+        {
+            video_media_player.UserControls.SongItem songItem = (video_media_player.UserControls.SongItem)sender;
+            string songName = songItem.Title.ToString();
+            if (!string.IsNullOrEmpty(songName))
+            {
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.SetChosenSong(songService.GetSongByName(songName));
+            }
+        }
+        private void PopularSongItem_Click(object sender, RoutedEventArgs e)
+        {
+            video_media_player.UserControls.PopularSong popularSong = (video_media_player.UserControls.PopularSong)sender;
+            string filePath = popularSong.Tag.ToString();
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                MessageBox.Show(filePath);
             }
         }
 
