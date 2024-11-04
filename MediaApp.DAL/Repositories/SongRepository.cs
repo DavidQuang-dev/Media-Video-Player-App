@@ -44,7 +44,17 @@ namespace MediaApp.DAL.Repositories
             _context.TbSongs.Remove(song);
             _context.SaveChanges();
         }
-
+        public List<TbSong> GetSongByPlaylist(TbPlaylist playlist)
+        {
+            _context = new VideoMediaPlayerContext();
+            var songs = _context.TbPlaylistSongs
+                .Include(ps => ps.Song)             // Include Song first
+                    .ThenInclude(song => song.Artist) // Then Include Artist from Song
+                .Where(ps => ps.PlaylistId == playlist.PlaylistId)
+                .Select(ps => ps.Song)
+                .ToList();
+            return songs;
+        }
         public List<TbSong> GetSongByAlbum(TbAlbum album)
         {
             _context = new VideoMediaPlayerContext();

@@ -129,7 +129,7 @@
                     Content="Create" 
                     Style="{StaticResource ModernButton}"
                     Background="#4CAF50"
-                    x:Name="CreateButton" Click="CreateButton_Click" Height="46" Width="93">
+                    x:Name="CreateButton" Click="CreateButton_Click" Height="30" Width="65">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding CreateCommand}"/>
                     </Button.InputBindings>
@@ -139,7 +139,7 @@
                     Content="Update"
 Style="{StaticResource ModernButton}"
                     Background="#2196F3"
-                    x:Name="UpdateButton" Height="46" Width="93" Click="UpdateButton_Click">
+                    x:Name="UpdateButton" Width="65" Click="UpdateButton_Click" Height="30">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding UpdateCommand}"/>
                     </Button.InputBindings>
@@ -150,7 +150,7 @@ Style="{StaticResource ModernButton}"
                     Content="Delete" 
                     Style="{StaticResource ModernButton}"
                     Background="#F44336"
-                     Height="46" Width="93" Click="DeleteButton_Click">
+                     Width="65" Height="30" Click="DeleteButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding DeleteCommand}"/>
                     </Button.InputBindings>

@@ -55,7 +55,7 @@ namespace MediaApp
         {
             if (EditedOne != null)
             {
-                PlaylistNameTextBox.Text = EditedOne.PlaylistName.ToString();
+                //PlaylistNameTextBox.Text = EditedOne.PlaylistName.ToString();
             }
         }
     }
