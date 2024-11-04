@@ -35,5 +35,17 @@ namespace MediaApp.DAL.Repositories
             _context = new ();
             return _context.TbPlaylistSongs.ToList();
         }
+        public List<TbPlaylistSong> GetSongByPlaylistId(int playlistId)
+        {
+            return _context.TbPlaylistSongs
+                .Where(ps => ps.PlaylistId == playlistId)
+                .ToList();
+        }
+        public TbPlaylistSong GetByPlaylistAndSong(int playlistId, int songId)
+        {
+            _context = new();
+                return _context.TbPlaylistSongs
+                .FirstOrDefault(ps => ps.PlaylistId == playlistId && ps.SongId == songId);
+        }
     }
 }

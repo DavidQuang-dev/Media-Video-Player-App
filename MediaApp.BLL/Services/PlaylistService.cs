@@ -28,5 +28,9 @@ namespace MediaApp.BLL.Services
         {
             return _repo.GetAll();
         }
+        public TbPlaylist? GetCreatedPlaylist()
+        {
+            return _repo.GetCreatePlaylist();
+        }
     }
 }

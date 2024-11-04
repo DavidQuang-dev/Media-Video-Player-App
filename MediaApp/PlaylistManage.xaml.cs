@@ -28,7 +28,6 @@ namespace MediaApp
         {
             InitializeComponent();
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             PlayListDataGrid.ItemsSource = _playlistService.GetAllPlayList();
@@ -62,7 +61,7 @@ namespace MediaApp
                 return;
             }
             PlaylistDetail plDetail = new();
-            plDetail.EditedOne = PlayListDataGrid.SelectedItem as TbPlaylist;
+            plDetail.EditedOne = selected;
             plDetail.ShowDialog();
 
             FillDataGrid(_playlistService.GetAllPlayList());
