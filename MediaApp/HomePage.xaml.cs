@@ -78,8 +78,8 @@ namespace video_media_player
             string songName = songItem.Title.ToString();
             if (!string.IsNullOrEmpty(songName))
             {
-                ChooseSong = songService.GetSongByName(songName);
-                //MessageBox.Show(ChooseSong.SongName);
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.SetChosenSong(songService.GetSongByName(songName));
             }
         }
         private void PopularSongItem_Click(object sender, RoutedEventArgs e)

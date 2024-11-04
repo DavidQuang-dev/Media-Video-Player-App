@@ -389,6 +389,7 @@ namespace video_media_player
     public partial class MainWindow : Window
     {
         public List<TbSong> ListSongs { get; set; }
+        public TbSong ChooseSong { get; set; }
         private readonly SongService _songService = new();
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;
@@ -408,7 +409,14 @@ namespace video_media_player
             };
             _timer.Tick += Timer_Tick;
         }
-
+        public void SetChosenSong(TbSong song)
+        {
+            ChooseSong = song;
+            if (ChooseSong != null)
+            {
+                LoadSong(ChooseSong);
+            }
+        }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -443,9 +451,7 @@ namespace video_media_player
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomePage home = new();
-            MainFrame.Navigate(home);
-            LoadSong(home.ChooseSong);
+            MainFrame.Navigate(new HomePage());
         }
 
         private void PlaylistsButton_Click(object sender, RoutedEventArgs e)
@@ -460,9 +466,7 @@ namespace video_media_player
 
         private void SongsButton_Click(object sender, RoutedEventArgs e)
         {
-            SongsPage songsPage = new();
-            MainFrame.Navigate(songsPage);
-            LoadSong(songsPage.ChooseSong);
+            MainFrame.Navigate(new SongsPage());
         }
 
         private void StoreButton_Click(object sender, RoutedEventArgs e)
@@ -565,7 +569,6 @@ namespace video_media_player
 
         private void LoadSong(TbSong song)
         {
-            //MessageBox.Show(song.SongName);
             if (song == null) return;
 
             TimeSlider.Maximum = double.Parse(song.Duration.ToString());

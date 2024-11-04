@@ -57,7 +57,8 @@ namespace video_media_player
             string songName = songItem.Title.ToString();
             if (!string.IsNullOrEmpty(songName))
             {
-                ChooseSong = _songService.GetSongByName(songName);
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.SetChosenSong(_songService.GetSongByName(songName));
             }
         }
 
