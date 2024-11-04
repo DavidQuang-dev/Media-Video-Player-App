@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls"
-        Height="710" Width="1050" ResizeMode="NoResize" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
+        Height="710" Width="1050" ResizeMode="NoResize" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" >
     <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
         <Grid Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
@@ -16,7 +16,8 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
-            <MediaElement x:Name="mediaElement" Width="0" Height="0" LoadedBehavior="Manual" />
+            <MediaElement x:Name="PlayerMediaElement" Width="0" Height="0" LoadedBehavior="Manual" 
+                          UnloadedBehavior="Stop"/>
 
             <!--Menu-->
             <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="2" Margin="0,0,10,0">
@@ -99,21 +100,35 @@
                     </Ellipse>
 
                     <StackPanel VerticalAlignment="Center" Margin="15 0 30 0">
-                        <TextBlock Text="ME" Foreground="White" FontSize="22" FontWeight="bold"/>
-                        <TextBlock Text="Taylor Swift" Foreground="#9ae5c3" FontSize="18" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="SongNameTextBlock" Text="ME" Foreground="White" FontSize="22" FontWeight="bold"/>
+                        <TextBlock x:Name="ArtistNameTextBlock" Text="Taylor Swift" Foreground="#9ae5c3" FontSize="18" FontWeight="SemiBold"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="50 0 40 0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button
+                                x:Name="PlayModeButton"
+                                Style="{StaticResource playButton}" Click="PlayModeButton_Click" >
+                                <Icon:PackIconMaterial Kind="ShuffleDisabled" x:Name="PlayModeIcon" Style="{StaticResource playerButtonIcon}"/>
+                            </Button>
+
                             <Button Style="{StaticResource playButton}">
                                 <Icon:PackIconMaterial Kind="SkipPrevious" Style="{StaticResource playerButtonIcon}"/>
                             </Button>
 
-                            <Button Style="{StaticResource playButton}">
-                                <Icon:PackIconMaterial Kind="Pause" Style="{StaticResource playerButtonIcon}"/>
+                            <Button x:Name="PlayButton" Style="{StaticResource playButton}" Click="PlayButton_Click">
+                                <Icon:PackIconMaterial x:Name="PlayIcon" Kind="Play" Style="{StaticResource playerButtonIcon}" />
                             </Button>
 
-                            <Button Style="{StaticResource playButton}">
+                            <Button 
+                                x:Name="PlayNextButton"
+                Style="{StaticResource playButton}" Click="PlayNextButton_Click">
                                 <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
+                            </Button>
+
+                            <Button x:Name="RepeatButton" Style="{StaticResource playButton}" Click="RepeatButton_Click">
+                                <Icon:PackIconMaterial
+                                    x:Name="BackModeIcon"
+                                    Kind="RepeatOff" Style="{StaticResource playerButtonIcon}"/>
                             </Button>
                         </StackPanel>
 
@@ -127,18 +142,22 @@
                             </Grid.ColumnDefinitions>
 
                             <!-- Display current time on the left -->
-                            <TextBlock x:Name="currentTimeText" Text="0:00" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="White" Grid.Column="0"/>
+                            <TextBlock x:Name="CurrentTimeTextBlock" Text="0:00" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="White" Grid.Column="0"/>
 
                             <!-- Slider in the middle -->
-                            <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" 
-                IsSelectionRangeEnabled="True" 
-                VerticalAlignment="Center" 
-                Value="5" Width="300" 
-                SelectionEnd="{Binding ElementName=slider, Path=Value}" 
-                Grid.Column="1"/>
+                            <Slider x:Name="TimeSlider"
+                                     Minimum="0"    
+                                    Value="0"
+                                     Style="{DynamicResource SliderStyle1}" 
+                                    IsSelectionRangeEnabled="True" 
+                                    VerticalAlignment="Center" 
+                                    Width="300" 
+                                    SelectionEnd="{Binding ElementName=slider, Path=Value}" 
+                                    Grid.Column="1" ValueChanged="TimeSlider_ValueChanged"
+                                    />
 
                             <!-- Display remaining time on the right -->
-                            <TextBlock x:Name="remainingTimeText" Text="3:00" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" Grid.Column="2"/>
+                            <TextBlock x:Name="MaxTimeTextBlock" Text="3:00" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" Grid.Column="2"/>
                         </Grid>
                     </StackPanel>
                     <!-- Volume Button with Popup -->
@@ -147,15 +166,18 @@
                     <Popup x:Name="volumePopup" Placement="Top" PlacementTarget="{Binding ElementName=volumeButton}" StaysOpen="False" AllowsTransparency="True">
                         <Border Background="Green" BorderBrush="Transparent" CornerRadius="8" Padding="5">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Slider x:Name="popupSlider" 
-                    Style="{StaticResource VerticalSliderStyle}" 
-                    IsSelectionRangeEnabled="True" 
-                    HorizontalAlignment="Center" 
-                    Height="150" 
-                    Minimum="0" 
-                    Maximum="10" 
-                    TickFrequency="1" 
-                    SelectionEnd="{Binding ElementName=popupSlider, Path=Value}"/>
+                                <Slider x:Name="VolumeSlider" 
+                                        Style="{StaticResource VerticalSliderStyle}" 
+                                        IsSelectionRangeEnabled="True" 
+                                        HorizontalAlignment="Center" 
+                                        Height="150" 
+                                        Minimum="0" 
+                                        Value="50"
+                                        Maximum="100" 
+                                        TickFrequency="1" 
+                                        SelectionEnd="{Binding ElementName=popupSlider,
+                                        Path=Value}" 
+                                        ValueChanged="VolumeSlider_ValueChanged" />
                             </StackPanel>
                         </Border>
                     </Popup>

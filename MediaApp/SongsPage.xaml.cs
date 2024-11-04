@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaApp.BLL.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,17 @@ namespace video_media_player
     /// </summary>
     public partial class SongsPage : Page
     {
+        private SongService _songService = new();
         public SongsPage()
         {
             InitializeComponent();
         }
 
         public string Artist { get; internal set; }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            SongsList.ItemsSource = _songService.GetAll();
+        }
     }
 }

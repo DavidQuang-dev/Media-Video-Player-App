@@ -67,7 +67,7 @@ namespace MediaApp.DAL.Repositories
             var obj = _context.TbArtists.FirstOrDefault(a => a.ArtistId == id);
             return obj;
         }
-        
+
         public List<TbSong> GetAllSongWithOutAlbum()
         {
             _context = new VideoMediaPlayerContext();
@@ -85,7 +85,6 @@ namespace MediaApp.DAL.Repositories
             });
             return songs.ToList();
         }
-
 
         public List<TbSong> GetSongWithArtist(TbSong tbSong)
         {
