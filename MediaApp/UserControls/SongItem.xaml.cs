@@ -16,7 +16,7 @@ namespace video_media_player.UserControls
             set { SetValue(TitleProperty, value); }
         }
 
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(SongItem));
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(SongItem), new PropertyMetadata(string.Empty));
 
         public string Number
         {
@@ -24,7 +24,7 @@ namespace video_media_player.UserControls
             set { SetValue(NumberProperty, value); }
         }
 
-        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(string), typeof(SongItem));
+        public static readonly DependencyProperty NumberProperty = DependencyProperty.Register("Number", typeof(string), typeof(SongItem), new PropertyMetadata(string.Empty));
 
         public string Time
         {

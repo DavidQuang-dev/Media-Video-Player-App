@@ -39,21 +39,17 @@ namespace MediaApp
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            TbArtist artist = EditArtist ?? new();
+            artist.ArtistName = txtArtistName.Text;
+            artist.DataOfBirth = date.SelectedDate.HasValue ? date.SelectedDate.Value : DateTime.MinValue;
+            artist.Description = txtDescription.Text;
             if (EditArtist == null)
             {
-                TbArtist artist = new();
-                artist.ArtistName = txtArtistName.Text;
-                artist.DataOfBirth = date.SelectedDate.HasValue? date.SelectedDate.Value : DateTime.MinValue;
-                artist.Description = txtDescription.Text;
                 _service.Create(artist);
-            } else
+            }
+            else
             {
-                TbArtist updateArtist = EditArtist;
-                updateArtist.ArtistName = txtArtistName.Text;
-                updateArtist.DataOfBirth = date.SelectedDate.HasValue ? date.SelectedDate.Value : DateTime.MinValue;
-                updateArtist.Description = txtDescription.Text;
-                _service.Update(updateArtist);
+                _service.Update(artist);
             }
             MessageBox.Show("Artist has been saved", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();

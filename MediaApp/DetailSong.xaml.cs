@@ -41,50 +41,30 @@ namespace MediaApp
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            TbSong song = EditSong ?? new TbSong();
+            song.SongName = txtSongName.Text;
+            song.FilePath = txtFilePath.Text;
+
+            var file = TagLib.File.Create(txtFilePath.Text);
+            TimeSpan duration = file.Properties.Duration;
+            song.Duration = (decimal)duration.TotalSeconds;
+
+            song.ArtistId = Convert.ToInt32(ArtistCombobox.SelectedValue.ToString());
+            song.AlbumId = AlbumCombobox.SelectedValue != null ? Convert.ToInt32(AlbumCombobox.SelectedValue.ToString()) : (int?)null;
+
             if (EditSong == null)
             {
-                TbSong song = new();
-                song.SongName = txtSongName.Text;
-                song.FilePath = txtFilePath.Text;
-                var file = TagLib.File.Create(txtFilePath.Text);
-                TimeSpan duration = file.Properties.Duration;
-                song.Duration = (Decimal)duration.TotalSeconds;
-                song.ArtistId = Convert.ToInt32(ArtistCombobox.SelectedValue.ToString());
-                if (AlbumCombobox.SelectedValue == null)
-                {
-                    song.AlbumId = null;
-                }
-                else
-                {
-                    song.AlbumId = Convert.ToInt32(AlbumCombobox.SelectedValue.ToString());
-                }
                 _service.Create(song);
             }
             else
             {
-                TbSong updateSong = EditSong;
-                updateSong.SongName = txtSongName.Text;
-                updateSong.FilePath = txtFilePath.Text;
-                var file = TagLib.File.Create(txtFilePath.Text);
-                TimeSpan duration = file.Properties.Duration;
-                updateSong.Duration = (Decimal)duration.TotalSeconds;
-                updateSong.ArtistId = Convert.ToInt32(ArtistCombobox.SelectedValue.ToString());
-                if (AlbumCombobox.SelectedValue == null)
-                {
-                    updateSong.AlbumId = null;
-                }
-                else
-                {
-                    updateSong.AlbumId = Convert.ToInt32(AlbumCombobox.SelectedValue.ToString());
-                }
-                _service.Update(updateSong);
+                _service.Update(song);
             }
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Song has been saved", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            if (messageBoxResult == MessageBoxResult.OK)
-            {
-                this.Close();
-            }
+
+            System.Windows.MessageBox.Show("Song has been saved", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
         }
+
 
         private void ImportFileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -101,7 +81,7 @@ namespace MediaApp
                 {
                     var file = TagLib.File.Create(txtFilePath.Text);
                     TimeSpan duration = file.Properties.Duration;
-                    txtDuration.Text = convertTimeFormat(duration.TotalSeconds);
+                    txtDuration.Text = ConvertTimeFormat(duration.TotalSeconds);
                 }
                 catch (Exception ex)
                 {
@@ -128,9 +108,10 @@ namespace MediaApp
                 txtFilePath.Text = EditSong.FilePath;
                 ArtistCombobox.SelectedValue = EditSong.ArtistId;
                 AlbumCombobox.SelectedValue = EditSong.AlbumId;
+                Header.Text = $"Update Song {EditSong.SongName}";
             }
         }
-        private string convertTimeFormat(double value)
+        private string ConvertTimeFormat(double value)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(value);
             string timeFormated = string.Format("{0}:{1:D2}", (int)timeSpan.TotalMinutes, timeSpan.Seconds);

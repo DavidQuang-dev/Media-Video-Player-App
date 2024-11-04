@@ -15,6 +15,10 @@ namespace MediaApp.BLL.Services
         {
             return _songRepository.GetAllSongs();
         }
+        public List<TbSong> GetPopularSong()
+        {
+            return _songRepository.GetPopularSongs();
+        }
 
         public void Create(TbSong song)
         {

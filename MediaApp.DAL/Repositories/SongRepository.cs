@@ -18,6 +18,11 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             return _context.TbSongs.Include(song => song.Artist).Include(al => al.Album).ToList();
         }
+        public List<TbSong> GetPopularSongs()
+        {
+            _context = new();
+            return _context.TbSongs.Take(4).ToList();
+        }
 
         public void CreateSong(TbSong song)
         {
@@ -72,7 +77,7 @@ namespace MediaApp.DAL.Repositories
             var obj = _context.TbArtists.FirstOrDefault(a => a.ArtistId == id);
             return obj;
         }
-        
+
         public List<TbSong> GetAllSongWithOutAlbum()
         {
             _context = new VideoMediaPlayerContext();
@@ -90,7 +95,6 @@ namespace MediaApp.DAL.Repositories
             });
             return songs.ToList();
         }
-
 
         public List<TbSong> GetSongWithArtist(TbSong tbSong)
         {
