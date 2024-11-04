@@ -1,4 +1,5 @@
 ﻿using MediaApp.BLL.Services;
+using MediaApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace video_media_player
     public partial class SongsPage : Page
     {
         private SongService _songService = new();
+        public TbSong ChooseSong { get; set; }
+
         public SongsPage()
         {
             InitializeComponent();
@@ -31,7 +34,38 @@ namespace video_media_player
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            SongsList.ItemsSource = _songService.GetAll();
+            //SongsList.ItemsSource = _songService.GetAll();
+            List<TbSong> songs = _songService.GetAll();
+            int number = 0;
+            foreach (var song in songs)
+            {
+                var songItem = new video_media_player.UserControls.SongItem
+                {
+                    Title = song.SongName,
+                    Number = (++number).ToString(),
+                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
+                    Tag = song.FilePath
+                };
+                songItem.Click += SongItem_Click;
+                SongItemList.Children.Add(songItem);
+            }
+        }
+
+        private void SongItem_Click(object sender, RoutedEventArgs e)
+        {
+            video_media_player.UserControls.SongItem songItem = (video_media_player.UserControls.SongItem)sender;
+            string songName = songItem.Title.ToString();
+            if (!string.IsNullOrEmpty(songName))
+            {
+                ChooseSong = _songService.GetSongByName(songName);
+            }
+        }
+
+        private string ConvertTimeFormat(double value)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(value);
+            string timeFormated = string.Format("{0}:{1:D2}", (int)timeSpan.TotalMinutes, timeSpan.Seconds);
+            return timeFormated;
         }
     }
 }

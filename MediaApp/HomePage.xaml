@@ -106,15 +106,7 @@
                             <TextBlock Text="Taylor Swift" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
                             <ScrollViewer Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="290" Height="303">
                                 <StackPanel x:Name="SongItemList" Margin="0, 10, 0, 0">
-                                    <!--<uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
-                                    <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
-                                    <uc:SongItem Number="04" Title="Me" Time="03:33"/>
-                                    <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
-                                    <uc:SongItem Number="06" Title="Red" Time="04:47"/>
-                                    <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
-                                    <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
-                                    <uc:SongItem Number="06" Title="Red" Time="04:47"/>
-                                    <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>-->
+                                    <!--<uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>-->
                                 </StackPanel>
                             </ScrollViewer>
                         </StackPanel>

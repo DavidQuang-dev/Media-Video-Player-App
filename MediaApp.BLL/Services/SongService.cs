@@ -50,5 +50,10 @@ namespace MediaApp.BLL.Services
         {
             return _songRepository.GetSongById(id);
         }
+
+        public TbSong GetSongByName(string songName)
+        {
+            return _songRepository.GetSongByName(songName);
+        }
     }
 }

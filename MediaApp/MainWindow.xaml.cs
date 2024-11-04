@@ -443,7 +443,9 @@ namespace video_media_player
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new HomePage());
+            HomePage home = new();
+            MainFrame.Navigate(home);
+            LoadSong(home.ChooseSong);
         }
 
         private void PlaylistsButton_Click(object sender, RoutedEventArgs e)
@@ -458,7 +460,9 @@ namespace video_media_player
 
         private void SongsButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new SongsPage());
+            SongsPage songsPage = new();
+            MainFrame.Navigate(songsPage);
+            LoadSong(songsPage.ChooseSong);
         }
 
         private void StoreButton_Click(object sender, RoutedEventArgs e)
@@ -559,6 +563,20 @@ namespace video_media_player
             _timer.Start();
         }
 
+        private void LoadSong(TbSong song)
+        {
+            //MessageBox.Show(song.SongName);
+            if (song == null) return;
+
+            TimeSlider.Maximum = double.Parse(song.Duration.ToString());
+            MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
+            PlayerMediaElement.Source = new Uri(song.FilePath);
+            SongNameTextBlock.Text = song.SongName;
+            ArtistNameTextBlock.Text = song.Artist.ArtistName;
+            PlayerMediaElement.Play();
+            PlayIcon.Kind = PackIconMaterialKind.Pause;
+            _timer.Start();
+        }
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (PlayerMediaElement.NaturalDuration.HasTimeSpan)
