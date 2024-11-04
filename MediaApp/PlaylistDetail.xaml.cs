@@ -26,6 +26,10 @@ namespace MediaApp
         private PlaylistSongService _playlistSongService = new();
         private ArtistService _artistService = new();
         public TbPlaylist EditedOne { get; set; }
+
+        //khi thêm/xóa bài hát thì lưu tạm vào 2 mảng này
+        private List<TbSong> _songsToAdd = new();
+        private List<TbSong> _songsToRemove = new();
         public PlaylistDetail()
         {
             InitializeComponent();
@@ -33,62 +37,99 @@ namespace MediaApp
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SongComboBox != null)
+            if (SongComboBox.SelectedItem != null)
             {
-                if (!SongDataGrid.Items.Contains((TbSong)SongComboBox.SelectedItem))
-                    SongDataGrid.Items.Add(SongComboBox.SelectedItem);
+                var selectedItem = SongComboBox.SelectedItem as TbSong;
+
+                if (selectedItem != null && !SongDataGrid.Items.Contains(selectedItem))
+                {
+                    SongDataGrid.Items.Add(selectedItem);
+                    _songsToAdd.Add(selectedItem);
+
+                    // Remove from removal list if it was previously marked for removal
+                    _songsToRemove.Remove(selectedItem);
+                }
             }
             else
             {
-                MessageBox.Show("Please select a song before add!!");
+                MessageBox.Show("Please select a song before adding!");
             }
         }
 
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SongDataGrid.SelectedItem is TbSong selectedSong)
+            {
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to remove '{selectedSong.SongName}' from this playlist?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Mark the song for removal and remove it from the DataGrid display only
+                    SongDataGrid.Items.Remove(selectedSong);
+                    _songsToRemove.Add(selectedSong);
+
+                    // Remove from add list if it was previously marked for addition
+                    _songsToAdd.Remove(selectedSong);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a song to delete!", "Select one", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            TbPlaylist tbPlaylist = new();
-            tbPlaylist.PlaylistName = PlaylistNameTextBox.Text;
+            TbPlaylist tbPlaylist = new()
+            {
+                PlaylistName = PlaylistNameTextBox.Text
+            };
+
             if (EditedOne == null)
             {
                 _playlistService.CreatePlayList(tbPlaylist);
-                MessageBox.Show($"Add playlist {PlaylistNameTextBox.Text} successfully !", "Add playlist", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Add playlist {PlaylistNameTextBox.Text} successfully!", "Add playlist", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
                 tbPlaylist.PlaylistId = EditedOne.PlaylistId;
                 _playlistService.UpdatePlayList(tbPlaylist);
-                MessageBox.Show($"Update playlist {PlaylistNameTextBox.Text} successfully !", "Update playlist", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Update playlist {PlaylistNameTextBox.Text} successfully!", "Update playlist", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            // Lấy lại Playlist đã tạo hoặc cập nhật từ DB
-            var savedPlaylist = EditedOne;
-            if (savedPlaylist != null)
+
+            var savedPlaylist = EditedOne ?? tbPlaylist;
+
+            // Add new songs to the playlist in the database
+            foreach (var song in _songsToAdd)
             {
-                foreach (var item in SongDataGrid.Items)
+                var existingPlaylistSong = _playlistSongService.GetByPlaylistAndSong(savedPlaylist.PlaylistId, song.SongId);
+
+                if (existingPlaylistSong == null)
                 {
-                    if (item is TbSong song)
+                    TbPlaylistSong playlistSong = new()
                     {
-                        // Tạo mới liên kết giữa Playlist và Song
-                        TbPlaylistSong playlistSong = new()
-                        {
-                            PlaylistId = savedPlaylist.PlaylistId,
-                            SongId = song.SongId
-                        };
-                        if (playlistSong.Equals(EditedOne.TbPlaylistSongs))
-                        {
-                            playlistSong.PlaylistId = EditedOne.PlaylistId;
-                            _playlistSongService.UpdatePlaylistSongs(playlistSong);
-                        } else
-                        {
-                            _playlistSongService.CreatePlaylistSongs(playlistSong);
-                        }
-                        // Sử dụng _playlistSongService để lưu vào DB
-                    }
+                        PlaylistId = savedPlaylist.PlaylistId,
+                        SongId = song.SongId
+                    };
+
+                    _playlistSongService.CreatePlaylistSongs(playlistSong);
+                }
+            }
+
+            // Remove songs from the playlist in the database
+            foreach (var song in _songsToRemove)
+            {
+                var playlistSong = _playlistSongService.GetByPlaylistAndSong(savedPlaylist.PlaylistId, song.SongId);
+
+                if (playlistSong != null)
+                {
+                    _playlistSongService.DeletePlaylistSongs(playlistSong);
                 }
             }
 
             this.Close();
         }
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure ?", "Cancel", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -100,70 +141,32 @@ namespace MediaApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //SongDataGrid.ItemsSource = _artistService.GetAll();
-            //SongDataGrid.DisplayMemberPath = "ArtistName";
-            //SongDataGrid.SelectedValuePath = "ArtistId";
-            SongComboBox.ItemsSource = _songService.GetAll();
-            SongComboBox.DisplayMemberPath = "SongName";
-            SongComboBox.SelectedValuePath = "SongId";
-
             if (EditedOne != null)
             {
                 TitleTextBlock.Text = "Edit Playlist";
-                MessageBox.Show($"{EditedOne.PlaylistName}");
                 PlaylistNameTextBox.Text = EditedOne.PlaylistName;
+
+                // Load existing songs in the playlist into the DataGrid
                 foreach (TbSong song in _songService.GetSongsByPlaylist(EditedOne))
                 {
                     SongDataGrid.Items.Add(song);
                 }
-                
-            } 
+
+                // Collect IDs of songs already in the DataGrid
+                var existingSongs = SongDataGrid.Items.Cast<TbSong>().Select(s => s.SongId).ToList();
+
+                // Fetch available songs by excluding existing songs
+                SongComboBox.ItemsSource = _songService.GetAvailableSongsForPlaylist(existingSongs);
+            }
             else
             {
                 TitleTextBlock.Text = "Add Playlist";
+                SongComboBox.ItemsSource = _songService.GetAll();
             }
+
+            SongComboBox.DisplayMemberPath = "SongName";
+            SongComboBox.SelectedValuePath = "SongId";
         }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SongDataGrid.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a song to delete!", "Select one", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                // Get the selected song
-                TbSong selectedSong = SongDataGrid.SelectedItem as TbSong;
-
-                if (selectedSong != null)
-                {
-                    // Confirm deletion
-                    MessageBoxResult result = MessageBox.Show($"Are you sure you want to remove '{selectedSong.SongName}' from this playlist?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        // Find the playlist-song association to remove
-                        var playlistSong = _playlistSongService.GetByPlaylistAndSong(EditedOne.PlaylistId, selectedSong.SongId);
-                        
-                        MessageBox.Show($"Giá trị của playlistSong: {playlistSong.PlaylistSongsId}");
-                        if (playlistSong != null)
-                        {
-                            // Delete the association from the database
-                            _playlistSongService.DeletePlaylistSongs(playlistSong);
-
-                            // Remove the song from the DataGrid
-                            SongDataGrid.Items.Remove(selectedSong);
-
-                            // Refresh the ComboBox items if needed
-                            SongComboBox.ItemsSource = _songService.GetAll();
-                        }
-
-                        
-                    }
-                }
-            }
-        }
-
 
     }
 }
