@@ -427,13 +427,31 @@ namespace video_media_player
                 WindowState = WindowState.Normal;
                 MainBorder.CornerRadius = new CornerRadius(40);
                 PlayerBorder.CornerRadius = new CornerRadius(40, 0, 40, 0);
+                // Cài đặt lại định nghĩa cột cho trạng thái Normal
+                SongNameTextBlock.MaxWidth = 300;
+                TimeGrid.Width = 380;
+                //TimeSlider.Width = 350;
+                VolumeGrid.HorizontalAlignment = HorizontalAlignment.Left;
+                FooterGrid.ColumnDefinitions.Clear();
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.5, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(3, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
             else
             {
                 WindowState = WindowState.Maximized;
                 MainBorder.CornerRadius = new CornerRadius(0);
                 PlayerBorder.CornerRadius = new CornerRadius(40, 0, 0, 0);
+                SongNameTextBlock.MaxWidth = 500;
+                TimeGrid.Width = 600;
+                //TimeSlider.Width = 600;
+                VolumeGrid.HorizontalAlignment = HorizontalAlignment.Left;
+                FooterGrid.ColumnDefinitions.Clear();
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) });
+                FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
+
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -524,24 +542,48 @@ namespace video_media_player
                         currentIndex = (currentIndex + 1) % ListSongs.Count;
                         if (currentIndex == 0) // Reached the end
                         {
+                            ListSongs.Clear();
                             PausePlayback();
                             return;
                         }
                     }
                     else
                     {
-                        currentIndex = random.Next(ListSongs.Count);
+                        currentIndex = randomIndex();
                     }
                     break;
                 case PlaybackMode.RepeatOn:
-                    currentIndex = playMode == PlayMode.Sequential ? (currentIndex + 1) % ListSongs.Count : random.Next(ListSongs.Count);
+                    currentIndex = playMode == PlayMode.Sequential ? (currentIndex + 1) % ListSongs.Count : randomIndex();
                     break;
                 case PlaybackMode.RepeatOne:
-                    // Stay on the same song
                     break;
             }
-
             LoadSong(currentIndex);
+        }
+
+        private int randomIndex()
+        {
+            Random random = new Random();
+            int index;
+            do
+            {
+                index = random.Next(ListSongs.Count);
+            } while (index == currentIndex);
+            return index;
+        }
+
+        private void LoadSong(TbSong song)
+        {
+            if (song == null) return;
+            MessageBox.Show("Current Index Of Load Song: " + currentIndex);
+            TimeSlider.Maximum = double.Parse(song.Duration.ToString());
+            MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
+            PlayerMediaElement.Source = new Uri(song.FilePath);
+            SongNameTextBlock.Text = song.SongName;
+            ArtistNameTextBlock.Text = song.Artist.ArtistName;
+            PlayerMediaElement.Play();
+            PlayIcon.Kind = PackIconMaterialKind.Pause;
+            _timer.Start();
         }
 
         private void LoadSong(int index)
@@ -554,6 +596,7 @@ namespace video_media_player
             PlayerMediaElement.Source = new Uri(song.FilePath);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
+            // MessageBox.Show("Current Index Of Load Song: " + currentIndex);
             PlayerMediaElement.Play();
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
@@ -561,10 +604,10 @@ namespace video_media_player
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            CurrentTimeTextBlock.Text = FormatTime(PlayerMediaElement.Position.TotalSeconds);
             if (PlayerMediaElement.NaturalDuration.HasTimeSpan)
             {
                 TimeSlider.Value = PlayerMediaElement.Position.TotalSeconds;
-                CurrentTimeTextBlock.Text = FormatTime(PlayerMediaElement.Position.TotalSeconds);
             }
         }
 
@@ -602,6 +645,7 @@ namespace video_media_player
             if (VolumeSlider != null)
             {
                 PlayerMediaElement.Volume = VolumeSlider.Value / 100;
+                VolumeTextBlock.Text = (int)VolumeSlider.Value + "%";
             }
         }
 
@@ -630,7 +674,22 @@ namespace video_media_player
 
         private void PlayNextButton_Click(object sender, RoutedEventArgs e)
         {
+            if (backMode == PlaybackMode.RepeatOne)
+            {
+                backMode = PlaybackMode.RepeatOn;
+                PlayNextSong();
+                backMode = PlaybackMode.RepeatOne;
+                return;
+            }
             PlayNextSong();
+        }
+
+        private void PlayBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentIndex >= 1)
+                --currentIndex;
+            //MessageBox.Show("Current index : " + currentIndex);
+            LoadSong(currentIndex);
         }
     }
 }
