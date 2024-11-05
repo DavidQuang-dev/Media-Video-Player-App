@@ -85,10 +85,11 @@ namespace video_media_player
         private void PopularSongItem_Click(object sender, RoutedEventArgs e)
         {
             video_media_player.UserControls.PopularSong popularSong = (video_media_player.UserControls.PopularSong)sender;
-            string filePath = popularSong.Tag.ToString();
-            if (!string.IsNullOrEmpty(filePath))
+            string songName = popularSong.Title.ToString();
+            if (!string.IsNullOrEmpty(songName))
             {
-                MessageBox.Show(filePath);
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.SetChosenSong(songService.GetSongByName(songName));
             }
         }
 

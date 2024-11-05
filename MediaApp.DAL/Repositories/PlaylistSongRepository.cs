@@ -37,6 +37,7 @@ namespace MediaApp.DAL.Repositories
         }
         public List<TbPlaylistSong> GetSongByPlaylistId(int playlistId)
         {
+            _context = new();
             return _context.TbPlaylistSongs
                 .Where(ps => ps.PlaylistId == playlistId)
                 .ToList();

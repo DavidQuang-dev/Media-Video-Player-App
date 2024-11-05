@@ -24,6 +24,8 @@ namespace video_media_player
     public partial class PlaylistsPage : Page
     {
         private PlaylistService _playlistService = new();
+        private PlaylistSongService _playlistSongService = new();
+        private SongService _songService = new();
         public PlaylistsPage()
         {
             InitializeComponent();
@@ -80,6 +82,38 @@ namespace video_media_player
         {
             PlaylistsListBox.ItemsSource = null;
             PlaylistsListBox.ItemsSource = list;
+        }
+
+        private void PlaylistsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PlaylistsListBox.SelectedItem is TbPlaylist selectedPlaylist)
+            {
+                PlayButton.Visibility = Visibility.Visible;
+                PlaylistDetail.DataContext = selectedPlaylist;
+            }
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PlaylistsListBox.SelectedItem is TbPlaylist selectedPlaylist)
+            {
+                List<TbSong> songs = _songService.GetSongsByPlaylist(selectedPlaylist);
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.ListSongs = songs;
+                mainWindow.CurrentIndex = 0;
+                mainWindow.LoadSong(0);
+
+            }
+        }
+        private void SongItem_Click(object sender, RoutedEventArgs e)
+        {
+            video_media_player.UserControls.SongItem songItem = (video_media_player.UserControls.SongItem)sender;
+            string songName = songItem.Title.ToString();
+            if (!string.IsNullOrEmpty(songName))
+            {
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.SetChosenSong(_songService.GetSongByName(songName));
+            }
         }
     }
 }

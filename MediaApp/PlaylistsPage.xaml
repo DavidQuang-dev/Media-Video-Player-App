@@ -137,6 +137,7 @@
                     <ListBox x:Name="PlaylistsListBox"
              BorderThickness="0"
              Background="Transparent"
+                     SelectionChanged="PlaylistsListBox_SelectionChanged"
              ItemContainerStyle="{StaticResource PlaylistsListItem}"
                              >
                         <ListBox.ItemTemplate>
@@ -198,13 +199,13 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <!-- Album Header -->
+                            <!-- Playlist Header -->
                             <StackPanel Grid.Row="0" Margin="30,30,30,0">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding SelectedItem.(TextBlock.Text), ElementName=PLaylistsList}" 
-                                             Foreground="White" FontSize="26" FontWeight="Bold"/>
+                                    <!--<TextBlock Text="{Binding SelectedItem(PlaylistsListBox), ElementName=SelectedItem.Song.SongName}" 
+                                             Foreground="White" FontSize="26" FontWeight="Bold"/>-->
                                     <Button Width="30" Height="30" Margin="10,0,0,0" 
-                                            Background="Transparent" BorderThickness="0">
+                                            Background="Transparent" BorderThickness="0" x:Name="PlayButton" Click="PlayButton_Click" Visibility="Hidden">
                                         <!-- Play Button Template -->
                                         <Button.Template>
                                             <ControlTemplate TargetType="{x:Type Button}">
@@ -239,8 +240,7 @@
                                         </Button.Template>
                                     </Button>
                                 </StackPanel>
-                                <TextBlock Text="{Binding SelectedItem.(Grid.Children)[1].Text, ElementName=PlaylistsList}" 
-                                         Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
+                                
                             </StackPanel>
 
                             <!-- Song List -->
@@ -248,11 +248,11 @@
                                         Margin="30,20,30,30" 
                                         VerticalScrollBarVisibility="Auto" 
                                         MaxHeight="350">
-                                <ItemsControl ItemsSource="{Binding SelectedItem.Tag, ElementName=PlaylistsList}">
+                                <ItemsControl ItemsSource="{Binding ElementName=PlaylistsListBox, Path=SelectedItem.TbSongs}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <uc:SongItem Number="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}, Mode=FindAncestor}}" 
-                                                       Title="{Binding}" 
+                                                       Title="{Binding }" 
                                                        Time="03:56"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
