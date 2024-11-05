@@ -40,12 +40,14 @@ namespace MediaApp.DAL.Repositories
         }
         public List<TbPlaylist> GetAllWithSongs()
         {
+            _context = new();
             return _context.TbPlaylists
                 .Include(p => p.TbPlaylistSongs)
                 .ThenInclude(ps => ps.Song)
                 .ThenInclude(s => s.Artist) // Include artist for each song
                 .ToList();
         }
+
         public List<TbPlaylist> GetAll()
         {
             _context = new();

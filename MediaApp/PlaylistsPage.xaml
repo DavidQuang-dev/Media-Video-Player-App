@@ -4,9 +4,13 @@
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
       xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="video_media_player.PlaylistsPage"
-      Background="Transparent" Loaded="Page_Loaded">
+      Background="Transparent" Loaded="Page_Loaded"
+      xmlns:local="clr-namespace:MediaApp.Converters"
+    >
 
     <Page.Resources>
+        <local:IndexConverter x:Key="IndexConverter"/>
+        <local:TimeConverter x:Key="TimeConverter"/>
         <!-- Existing ScrollViewer Styles -->
         <!-- Existing ScrollViewer Styles -->
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
@@ -202,8 +206,8 @@
                             <!-- Playlist Header -->
                             <StackPanel Grid.Row="0" Margin="30,30,30,0">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <!--<TextBlock Text="{Binding SelectedItem(PlaylistsListBox), ElementName=SelectedItem.Song.SongName}" 
-                                             Foreground="White" FontSize="26" FontWeight="Bold"/>-->
+                                    <TextBlock Text="{Binding ElementName=PlaylistsListBox, Path=SelectedItem.PlaylistName}"
+                                             Foreground="White" FontSize="26" FontWeight="Bold"/>
                                     <Button Width="30" Height="30" Margin="10,0,0,0" 
                                             Background="Transparent" BorderThickness="0" x:Name="PlayButton" Click="PlayButton_Click" Visibility="Hidden">
                                         <!-- Play Button Template -->
@@ -240,20 +244,20 @@
                                         </Button.Template>
                                     </Button>
                                 </StackPanel>
-                                
+
                             </StackPanel>
 
                             <!-- Song List -->
                             <ScrollViewer Grid.Row="1" Style="{StaticResource CustomScrollViewer}" 
-                                        Margin="30,20,30,30" 
-                                        VerticalScrollBarVisibility="Auto" 
-                                        MaxHeight="350">
-                                <ItemsControl ItemsSource="{Binding ElementName=PlaylistsListBox, Path=SelectedItem.TbSongs}">
+              Margin="30,20,30,30" 
+              VerticalScrollBarVisibility="Auto" 
+              MaxHeight="350">
+                                <ItemsControl ItemsSource="{Binding ElementName=PlaylistsListBox, Path=SelectedItem.TbPlaylistSongs}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <uc:SongItem Number="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}, Mode=FindAncestor}}" 
-                                                       Title="{Binding }" 
-                                                       Time="03:56"/>
+                                            <uc:SongItem Number= "{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, Converter={StaticResource IndexConverter}}"  
+                             Title="{Binding Song.SongName}" 
+                             Time="{Binding Song.Duration, Converter={StaticResource TimeConverter}}" Click="SongItem_Click_1"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

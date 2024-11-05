@@ -41,7 +41,7 @@ namespace video_media_player
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            PlaylistsListBox.ItemsSource = _playlistService.GetAllPlayList();
+            PlaylistsListBox.ItemsSource = _playlistService.GetAllWithSongs();
         }
 
         //helper function
@@ -88,8 +88,8 @@ namespace video_media_player
         {
             if (PlaylistsListBox.SelectedItem is TbPlaylist selectedPlaylist)
             {
-                PlayButton.Visibility = Visibility.Visible;
                 PlaylistDetail.DataContext = selectedPlaylist;
+                PlayButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -105,7 +105,8 @@ namespace video_media_player
 
             }
         }
-        private void SongItem_Click(object sender, RoutedEventArgs e)
+
+        private void SongItem_Click_1(object sender, RoutedEventArgs e)
         {
             video_media_player.UserControls.SongItem songItem = (video_media_player.UserControls.SongItem)sender;
             string songName = songItem.Title.ToString();

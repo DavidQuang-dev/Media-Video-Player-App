@@ -32,5 +32,10 @@ namespace MediaApp.BLL.Services
         {
             return _repo.Get2Playlist();
         }
+
+        public List<TbPlaylist> GetAllWithSongs()
+        {
+            return _repo.GetAllWithSongs();
+        }
     }
 }
