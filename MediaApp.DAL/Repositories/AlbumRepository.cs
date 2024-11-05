@@ -15,7 +15,7 @@ namespace MediaApp.DAL.Repositories
         public List<TbAlbum> GetAll()
         {
             _context = new VideoMediaPlayerContext();
-            var orders = _context.TbAlbums.Include(o => o.Artist).ToList();
+            var orders = _context.TbAlbums.Include(o => o.Artist).Include("TbSongs").ToList();
             return orders;
         }
         public TbAlbum GetAlbumById(int id)

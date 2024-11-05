@@ -86,7 +86,7 @@ namespace MediaApp
                 _service.UpdateAlbum(tbAlbum);
             }
 
-            int createdAlbumId = _service.GetCreatedAlbum().AlbumId;
+            int createdAlbumId = EditOne == null ? _service.GetCreatedAlbum().AlbumId : EditOne.AlbumId;
             foreach (var item in SongDataGrid.Items)
             {
                 TbSong song = item as TbSong;
@@ -99,8 +99,8 @@ namespace MediaApp
                 TbSong song = item as TbSong;
                 song.AlbumId = null;
                 _songService.Update(song);
-            } 
-            
+            }
+
             this.Close();
         }
 
@@ -183,5 +183,5 @@ namespace MediaApp
         //    return list;
         //}
 
-        }
     }
+}
