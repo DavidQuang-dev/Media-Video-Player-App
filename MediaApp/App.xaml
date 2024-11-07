@@ -258,8 +258,9 @@
                                 <!-- Track Background for Vertical Slider -->
                                 <Border x:Name="TrackBackground" Background="White" BorderThickness="0" CornerRadius="2.5" Width="4" Margin="0,15" Grid.Row="1" HorizontalAlignment="Center">
                                     <Border x:Name="PART_SelectionRange" Background="#49d092" CornerRadius="1" VerticalAlignment="Bottom"
-                                    Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Converter={StaticResource SliderValueToHeightConverter}, ConverterParameter=150}"/>
+            Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Converter={StaticResource SliderValueToHeightConverter}, ConverterParameter=200, FallbackValue=0}" />
                                 </Border>
+
 
                                 <!-- Track for Vertical Slider -->
                                 <Track x:Name="PART_Track" Grid.Row="1" Orientation="Vertical">
@@ -271,7 +272,7 @@
                                     </Track.IncreaseRepeatButton>
                                     <Track.Thumb>
                                         <Thumb x:Name="Thumb" Focusable="False" Width="30" Height="30" OverridesDefaultStyle="True"
-                                       Template="{StaticResource SliderThumbHorizontalDefault}" HorizontalAlignment="Center"/>
+                               Template="{StaticResource SliderThumbHorizontalDefault}" HorizontalAlignment="Center"/>
                                     </Track.Thumb>
                                 </Track>
                             </Grid>

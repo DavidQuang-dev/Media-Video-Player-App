@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using video_media_player.UserControls;
 
 namespace video_media_player
 {
@@ -46,10 +47,9 @@ namespace video_media_player
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            PlaylistDetailWindow detail = new();
-            detail.ShowDialog();
-
             //f5 lưới
+            PlaylistDetail detail = new();
+            detail.ShowDialog();
             FillListBox(_playlistService.GetAllPlayList());
         }
 
@@ -62,16 +62,6 @@ namespace video_media_player
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            TbPlaylist? selected = PlaylistsListBox.SelectedItem as TbPlaylist;
-            if (selected == null)
-            {
-                MessageBox.Show("Please select a playlist before editing!!", "Select One", MessageBoxButton.OK, MessageBoxImage.Question);
-                return;
-            }
-            PlaylistDetailWindow detail = new();
-            detail.EditedOne = selected;
-            detail.ShowDialog();
-
             FillListBox(_playlistService.GetAllPlayList());
         }
 

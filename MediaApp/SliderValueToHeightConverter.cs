@@ -8,10 +8,12 @@ public class SliderValueToHeightConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is double sliderValue && parameter is string maxHeightStr && double.TryParse(maxHeightStr, out double maxHeight))
+        if (value is double sliderValue && parameter != null && double.TryParse(parameter.ToString(), out double maxHeight))
         {
-            double maxSliderValue = 10; // Maximum value of the slider
-            return (sliderValue / maxSliderValue) * maxHeight;
+            // Calculate height based on slider value
+            double height = (sliderValue / 100) * maxHeight;
+            Console.WriteLine($"Slider Value: {sliderValue}, Max Height: {maxHeight}, Resulting Height: {height}");
+            return height;
         }
         return 0;
     }
