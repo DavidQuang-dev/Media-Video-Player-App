@@ -2,8 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:uc="clr-namespace:video_media_player.UserControls"
+        xmlns:uc="clr-namespace:video_media_player.UserControls" xmlns:local="clr-namespace:video_media_player"
         Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" >
+    <!--<Window.Resources>
+        <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
+    </Window.Resources>-->
     <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
         <Grid Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
@@ -192,17 +195,16 @@
                         <Border Background="Green" BorderBrush="Transparent" CornerRadius="8" Padding="5">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Slider x:Name="VolumeSlider" 
-                                        Style="{StaticResource VerticalSliderStyle}" 
-                                        IsSelectionRangeEnabled="True" 
-                                        HorizontalAlignment="Center" 
-                                        Height="150" 
-                                        Minimum="0" 
-                                        Value="50"
-                                        Maximum="100" 
-                                        TickFrequency="1" 
-                                        SelectionEnd="{Binding ElementName=popupSlider,
-                                        Path=Value}" 
-                                        ValueChanged="VolumeSlider_ValueChanged" />
+                    Style="{StaticResource VerticalSliderStyle}" 
+                    IsSelectionRangeEnabled="True" 
+                    HorizontalAlignment="Center" 
+                    Height="150" 
+                    Minimum="0" 
+                    Value="50"
+                    Maximum="100" 
+                    TickFrequency="1" 
+                    
+                    ValueChanged="VolumeSlider_ValueChanged" />
                             </StackPanel>
                         </Border>
                     </Popup>

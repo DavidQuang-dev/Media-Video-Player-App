@@ -18,6 +18,15 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             return _context.TbSongs.Include("Album").Include("Artist").ToList();
         }
+        public List<TbSong> GetAvailableSongsForPlaylist(List<int> excludedSongIds)
+        {
+            _context = new();
+            return _context.TbSongs
+                .Include(song => song.Album)
+                .Include(song => song.Artist)
+                .Where(song => !excludedSongIds.Contains(song.SongId))
+                .ToList();
+        }
         public List<TbSong> GetPopularSongs()
         {
             _context = new();

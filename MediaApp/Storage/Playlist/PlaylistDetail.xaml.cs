@@ -53,7 +53,7 @@ namespace MediaApp
                     SongDataGrid.Items.Add(selectedItem);
                     _songsToAdd.Add(selectedItem);
 
-                    // Remove from removal list if it was previously marked for removal
+                    //xóa bài đc thêm vào khỏi ds bài hát cbi xóa
                     _songsToRemove.Remove(selectedItem);
                 }
             }
@@ -71,18 +71,17 @@ namespace MediaApp
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Mark the song for removal and remove it from the DataGrid display only
+                    // bài hát này (selectedSong) đc xóa khỏi data grid & thêm vào mảng cbi đc xóa
                     SongDataGrid.Items.Remove(selectedSong);
                     _songsToRemove.Add(selectedSong);
-
-                    // Remove from add list if it was previously marked for addition
+                    // xóa bài hát này khỏi mảng cbi đc add (nếu có)
                     _songsToAdd.Remove(selectedSong);
+                    //refresh lại SongComboBox
+                    RefreshSongComboBox();
                 }
             }
             else
-            {
                 MessageBox.Show("Please select a song to delete!", "Select one", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
 
@@ -105,9 +104,10 @@ namespace MediaApp
                 MessageBox.Show($"Update playlist {PlaylistNameTextBox.Text} successfully!", "Update playlist", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
+            //lưu lại biến playlist đang edit hoặc mới tạo
             var savedPlaylist = EditedOne ?? tbPlaylist;
 
-            // Add new songs to the playlist in the database
+            // Thêm các bài hát có trong mảng _songsToAdd ở DB 
             foreach (var song in _songsToAdd)
             {
                 var existingPlaylistSong = _playlistSongService.GetByPlaylistAndSong(savedPlaylist.PlaylistId, song.SongId);
@@ -124,7 +124,7 @@ namespace MediaApp
                 }
             }
 
-            // Remove songs from the playlist in the database
+            // Xóa các bài hát có trong mảng _songsToRemove ở DB 
             foreach (var song in _songsToRemove)
             {
                 var playlistSong = _playlistSongService.GetByPlaylistAndSong(savedPlaylist.PlaylistId, song.SongId);
@@ -153,17 +153,13 @@ namespace MediaApp
                 TitleTextBlock.Text = "Edit Playlist";
                 PlaylistNameTextBox.Text = EditedOne.PlaylistName;
 
-                // Load existing songs in the playlist into the DataGrid
+                // Load các bài hát thuộc playlist EditedOne vào SongDataGrid
                 foreach (TbSong song in _songService.GetSongsByPlaylist(EditedOne))
                 {
                     SongDataGrid.Items.Add(song);
                 }
 
-                // Collect IDs of songs already in the DataGrid
-                var existingSongs = SongDataGrid.Items.Cast<TbSong>().Select(s => s.SongId).ToList();
-
-                // Fetch available songs by excluding existing songs
-                SongComboBox.ItemsSource = _songService.GetAvailableSongsForPlaylist(existingSongs);
+                RefreshSongComboBox();
             }
             else
             {
@@ -173,6 +169,12 @@ namespace MediaApp
 
             SongComboBox.DisplayMemberPath = "SongName";
             SongComboBox.SelectedValuePath = "SongId";
+        }
+
+        private void RefreshSongComboBox()
+        {
+            var existingSongs = SongDataGrid.Items.Cast<TbSong>().Select(s => s.SongId).ToList();
+            SongComboBox.ItemsSource = _songService.GetAvailableSongsForPlaylist(existingSongs).OrderBy(song => song.SongName).ToList();
         }
 
     }
