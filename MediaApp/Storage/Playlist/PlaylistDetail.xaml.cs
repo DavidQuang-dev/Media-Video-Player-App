@@ -76,6 +76,8 @@ namespace MediaApp
                     _songsToRemove.Add(selectedSong);
                     // xóa bài hát này khỏi mảng cbi đc add (nếu có)
                     _songsToAdd.Remove(selectedSong);
+                    //refresh lại SongComboBox
+                    RefreshSongComboBox();
                 }
             }
             else
@@ -157,11 +159,7 @@ namespace MediaApp
                     SongDataGrid.Items.Add(song);
                 }
 
-                // Lấy các songId đã có trong DataGrid
-                var existingSongs = SongDataGrid.Items.Cast<TbSong>().Select(s => s.SongId).ToList();
-
-                // Lấy ra các bài hát (chưa có trong playlist) và fill vào SongComboBox
-                SongComboBox.ItemsSource = _songService.GetAvailableSongsForPlaylist(existingSongs);
+                RefreshSongComboBox();
             }
             else
             {
@@ -171,6 +169,12 @@ namespace MediaApp
 
             SongComboBox.DisplayMemberPath = "SongName";
             SongComboBox.SelectedValuePath = "SongId";
+        }
+
+        private void RefreshSongComboBox()
+        {
+            var existingSongs = SongDataGrid.Items.Cast<TbSong>().Select(s => s.SongId).ToList();
+            SongComboBox.ItemsSource = _songService.GetAvailableSongsForPlaylist(existingSongs).OrderBy(song => song.SongName).ToList();
         }
 
     }
