@@ -2,10 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:uc="clr-namespace:video_media_player.UserControls"
-        Height="700" Width="1050" ResizeMode="NoResize" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
-    <Border Background="White" CornerRadius="40" MouseDown="Border_MouseDown">
-        <Grid Margin="-10,0,0,0">
+        xmlns:uc="clr-namespace:video_media_player.UserControls" xmlns:local="clr-namespace:video_media_player"
+        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" >
+    <!--<Window.Resources>
+        <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
+    </Window.Resources>-->
+    <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
+        <Grid Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220" />
                 <ColumnDefinition Width="109*" />
@@ -16,11 +19,14 @@
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
+            <MediaElement x:Name="PlayerMediaElement" Width="0" Height="0" LoadedBehavior="Manual" 
+                          UnloadedBehavior="Stop"/>
+
             <!--Menu-->
-            <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="2">
+            <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="2" Margin="0,0,10,0">
                 <StackPanel Margin="0 30 0 0">
                     <!-- Ellipses-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="63 10 0 10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="35 10 0 10">
                         <Button Background="#ff6258" Width="10" Height="10" Click="CloseButton_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
@@ -74,11 +80,18 @@
                         </Grid>
                     </Button>
 
+                    <Button Style="{StaticResource menuButton}" Click="MVButton_Click">
+                        <Grid>
+                            <TextBlock Text="Music Videos" Margin="0 0 0 2"/>
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                        </Grid>
+                    </Button>
+
                     <TextBlock Text="Customize" Style="{StaticResource menuTitle}"/>
 
                     <Button Style="{StaticResource menuButton}" Click="StoreButton_Click">
                         <Grid>
-                            <TextBlock Text="Store" Margin="0 0 0 2"/>
+                            <TextBlock Text="Storage" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
@@ -88,41 +101,117 @@
             </Border>
 
             <!--Player-->
-            <Border Grid.Row="1" Background="#03bf69" CornerRadius="40 0 40 0" Grid.Column="1">
-                <StackPanel Orientation="Horizontal">
-                    <Ellipse Width="60" Height="60" Margin="30 0 0 0">
+            <Border x:Name="PlayerBorder" Grid.Row="1" Background="#03bf69" CornerRadius="40 0 40 0" Grid.Column="1">
+                <StackPanel VerticalAlignment="Center">
+                    <!--<Ellipse Width="60" Height="60" Margin="30 0 0 0">
                         <Ellipse.Fill>
                             <ImageBrush/>
                         </Ellipse.Fill>
-                    </Ellipse>
+                    </Ellipse>-->
+                    <Grid x:Name="FooterGrid" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0" Grid.Column="0">
+                            <TextBlock x:Name="SongNameTextBlock" Text="Me" Foreground="White" FontSize="20" FontWeight="bold" MaxWidth="350" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="ArtistNameTextBlock" Text="Taylor Swift" Foreground="#9ae5c3" FontSize="17" FontWeight="SemiBold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" Margin="0 0 0 0" 
+                                    Grid.Column="1">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 -10">
+                                <Button x:Name="PlayModeButton"
+                                        Style="{StaticResource playButton}" 
+                                        Click="PlayModeButton_Click" >
+                                    <Icon:PackIconMaterial Kind="ShuffleDisabled" x:Name="PlayModeIcon" Style="{StaticResource playerButtonIcon}"/>
+                                </Button>
 
-                    <StackPanel VerticalAlignment="Center" Margin="20 0 30 0">
-                        <TextBlock Text="ME" Foreground="White" FontSize="22" FontWeight="bold"/>
-                        <TextBlock Text="Taylor Swift" Foreground="#9ae5c3" FontSize="18" FontWeight="SemiBold"/>
-                    </StackPanel>
+                                <Button x:Name="PlayBackButton" Style="{StaticResource playButton}" Click="PlayBackButton_Click">
+                                    <Icon:PackIconMaterial Kind="SkipPrevious" Style="{StaticResource playerButtonIcon}"/>
+                                </Button>
 
-                    <Button Style="{StaticResource playButton}">
-                        <Icon:PackIconMaterial Kind="SkipPrevious" Style="{StaticResource playerButtonIcon}"/>
-                    </Button>
+                                <Button x:Name="PlayButton" Style="{StaticResource playButton}" Click="PlayButton_Click">
+                                    <Icon:PackIconMaterial x:Name="PlayIcon" Kind="Play" Style="{StaticResource playerButtonIcon}" />
+                                </Button>
 
-                    <Button Style="{StaticResource playButton}">
-                        <Icon:PackIconMaterial Kind="Pause" Style="{StaticResource playerButtonIcon}"/>
-                    </Button>
+                                <Button x:Name="PlayNextButton"
+                                        Style="{StaticResource playButton}" 
+                                        Click="PlayNextButton_Click">
+                                    <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
+                                </Button>
 
-                    <Button Style="{StaticResource playButton}">
-                        <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource playerButtonIcon}"/>
-                    </Button>
+                                <Button x:Name="RepeatButton" Style="{StaticResource playButton}" Click="RepeatButton_Click">
+                                    <Icon:PackIconMaterial 
+                                        x:Name="BackModeIcon" Kind="RepeatOff" 
+                                        Style="{StaticResource playerButtonIcon}"/>
+                                </Button>
+                            </StackPanel>
 
-                    <Slider Style="{DynamicResource SliderStyle1}" x:Name="slider" IsSelectionRangeEnabled="True" VerticalAlignment="Center" Value="5" Width="350" SelectionEnd="{Binding ElementName=slider, Path=Value}"/>
+                            <!-- Slider with time display -->
+                            <Grid x:Name="TimeGrid" Width="380" VerticalAlignment="Center" Margin="0,10,0,0">
+                                <!-- Define three columns: one for the current time, one for the slider, and one for the remaining time -->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                    <Button Style="{StaticResource playButton}">
-                        <Icon:PackIconMaterial Kind="VolumeMedium" Style="{StaticResource playerButtonIcon}"/>
-                    </Button>
+                                <!-- Display current time on the left -->
+                                <TextBlock x:Name="CurrentTimeTextBlock" Text="0:00" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="White" 
+                                           Grid.Column="0" />
 
+                                <!-- Slider in the middle -->
+                                <Slider x:Name="TimeSlider"
+                                         Minimum="0"    
+                                        Value="0"
+                                         Style="{DynamicResource SliderStyle1}" 
+                                        IsSelectionRangeEnabled="True" 
+                                        VerticalAlignment="Center"
+                                        SelectionEnd="{Binding ElementName=slider, Path=Value}" 
+                                        Grid.Column="1" ValueChanged="TimeSlider_ValueChanged"
+                                 />
+
+                                <!-- Display remaining time on the right -->
+                                <TextBlock x:Name="MaxTimeTextBlock" Text="3:00" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" Grid.Column="2"/>
+                            </Grid>
+                        </StackPanel>
+                        <Grid x:Name="VolumeGrid" Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource playButton}" x:Name="volumeButton" Click="VolumeButton_Click" Grid.Column="0" HorizontalAlignment="Left">
+                                <Icon:PackIconMaterial Kind="VolumeMedium" Style="{StaticResource playerButtonIcon}" />
+                            </Button>
+                            <TextBlock x:Name="VolumeTextBlock" Text="50%" Margin="0,0,0,0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                        </Grid>
+                    </Grid>
+                    <!-- Volume Button with Popup -->
+
+                    <!-- Popup for Volume Slider -->
+                    <Popup x:Name="volumePopup" Placement="Top" PlacementTarget="{Binding ElementName=volumeButton}" StaysOpen="False" AllowsTransparency="True">
+                        <Border Background="Green" BorderBrush="Transparent" CornerRadius="8" Padding="5">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Slider x:Name="VolumeSlider" 
+                    Style="{StaticResource VerticalSliderStyle}" 
+                    IsSelectionRangeEnabled="True" 
+                    HorizontalAlignment="Center" 
+                    Height="150" 
+                    Minimum="0" 
+                    Value="50"
+                    Maximum="100" 
+                    TickFrequency="1" 
+                    
+                    ValueChanged="VolumeSlider_ValueChanged" />
+                            </StackPanel>
+                        </Border>
+                    </Popup>
                 </StackPanel>
             </Border>
             <!--Main Content Area-->
-            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" NavigationUIVisibility="Hidden" Margin="0,10,15,0"/>
         </Grid>
     </Border>
 </Window>

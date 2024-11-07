@@ -3,9 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
-      Background="Transparent">
+      xmlns:local="clr-namespace:MediaApp.Converters"
+      Background="Transparent" Loaded="Page_Loaded">
 
     <Page.Resources>
+        <local:TimeConverter x:Key="TimeConverter"/>
+        <local:IndexConverter x:Key="IndexConverter"/>
         <!-- Style cho ScrollBar -->
         <!-- Existing ScrollViewer Styles -->
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
@@ -69,7 +72,7 @@
             <RowDefinition Height="Auto" MinHeight="565" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        
+
         <Grid Background="White" Margin="30,60,35,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" MinHeight="115.767" />
@@ -101,27 +104,18 @@
                                 VerticalScrollBarVisibility="Auto"
                                 MaxHeight="420"
                                 Margin="0,0,10,0">
-                        <StackPanel Margin="30,30,30,30">
-                            <ItemsControl x:Name="SongsList">
-                                <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
-                                <uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
-                                <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
-                                <uc:SongItem Number="04" Title="Me" Time="03:33"/>
-                                <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
-                                <uc:SongItem Number="06" Title="Red" Time="04:47"/>
-                                <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
-                                <uc:SongItem Number="08" Title="Test Scroll" Time="06:20"/>
-                                <uc:SongItem Number="09" Title="Test Scroll 2" Time="06:20"/>
-                                <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
-                                <uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
-                                <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
-                                <uc:SongItem Number="04" Title="Me" Time="03:33"/>
-                                <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
-                                <uc:SongItem Number="06" Title="Red" Time="04:47"/>
-                                <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
-                                <uc:SongItem Number="08" Title="Test Scroll" Time="06:20"/>
-                                <uc:SongItem Number="09" Title="Test Scroll 2" Time="06:20"/>
-                            </ItemsControl>
+                        <StackPanel Margin="30,30,30,30" x:Name="SongItemList">
+                            <!--<ItemsControl x:Name="SongsList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:SongItem Number="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContentPresenter}}, Converter={StaticResource IndexConverter}}"
+                                                     Title="{Binding SongName}" 
+                                                     Time="{Binding Duration,
+                                                    Converter= {StaticResource TimeConverter}
+                                            }"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>-->
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>

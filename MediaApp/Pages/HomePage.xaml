@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
-      Background="Transparent">
+      Background="Transparent" Loaded="Page_Loaded">
 
     <Page.Resources>
         <!-- Existing ScrollViewer Styles -->
@@ -63,8 +63,8 @@
             </Setter>
         </Style>
     </Page.Resources>
-    
-    <Border Background="White" CornerRadius="40">
+
+    <Border Background="White" CornerRadius="40" >
         <Grid Margin="-10,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
@@ -100,22 +100,13 @@
             </Border.Background>-->
                         </Border>
 
-                                <!--Music List-->
-                            <StackPanel Margin="30,30,20,30">
+                        <!--Music List-->
+                        <StackPanel Margin="30,30,20,30">
                             <TextBlock Text="Daily Singer" Foreground="White" FontSize="26" FontWeight="Bold"/>
                             <TextBlock Text="Taylor Swift" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
                             <ScrollViewer Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="290" Height="303">
-                                <StackPanel Margin="0, 10, 0, 0">
-                                    <uc:SongItem Number="01" Title="Love Story" Time="03:56"/>
-                                    <uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>
-                                    <uc:SongItem Number="03" Title="Blank Space" Time="02:59"/>
-                                    <uc:SongItem Number="04" Title="Me" Time="03:33"/>
-                                    <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
-                                    <uc:SongItem Number="06" Title="Red" Time="04:47"/>
-                                    <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
-                                    <uc:SongItem Number="05" Title="Shake It Off" Time="05:52"/>
-                                    <uc:SongItem Number="06" Title="Red" Time="04:47"/>
-                                    <uc:SongItem Number="07" Title="You Belong With Me" Time="06:20"/>
+                                <StackPanel x:Name="SongItemList" Margin="0, 10, 0, 0">
+                                    <!--<uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>-->
                                 </StackPanel>
                             </ScrollViewer>
                         </StackPanel>
@@ -127,21 +118,18 @@
             <Border Grid.Column="2" CornerRadius="0 40 0 0" Background="White" Margin="0,10,0,0">
                 <ScrollViewer Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="536">
                     <StackPanel Margin=" 30 50 30 0">
-                    <TextBlock Text="Popular" Style="{StaticResource titleText}" Margin="0 0 0 10" FontSize="28"/>
+                        <TextBlock Text="Popular" Style="{StaticResource titleText}" Margin="0 0 0 10" FontSize="28"/>
 
-                    <!---Populars-->
-                    <uc:PopularSong Title="My House" Time="03:13" IsActive="True"/>
-                    <uc:PopularSong Title="Blank Space" Time="04:02"/>
-                    <uc:PopularSong Title="Love Story" Time="05:04"/>
-                    <uc:PopularSong Title="Red Home" Time="03:27"/>
+                        <StackPanel x:Name="PopularSongItemList" >
+                            <!---Populars-->
 
-                    <TextBlock Text="Playlists" Style="{StaticResource titleText}" Margin="0 30 0 20" FontSize="24"/>
-                    <!--Playlists-->
-                    <StackPanel Orientation="Horizontal">
-                        <uc:Playlist Title="Glory" Desc="Kutless"/>
-                        <uc:Playlist Title="Mitacle" Desc="Fiasher" Margin="4 0 0 0"/>
+                        </StackPanel>
+                        <TextBlock Text="Playlists" Style="{StaticResource titleText}" Margin="0 30 0 20" FontSize="24"/>
+                        <!--Playlists-->
+                        <StackPanel Orientation="Horizontal" x:Name="PlaylistItems">
+                            
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
                 </ScrollViewer>
             </Border>
         </Grid>

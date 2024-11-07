@@ -13,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace video_media_player
+namespace MediaApp
 {
     /// <summary>
-    /// Interaction logic for SongsPage.xaml
+    /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class SongsPage : Page
+    public partial class LoginPage : Page
     {
-        public SongsPage()
+        public LoginPage()
         {
             InitializeComponent();
         }
-
-        public string Artist { get; internal set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MediaApp.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MediaApp.DAL;
 
@@ -26,23 +27,29 @@ public partial class VideoMediaPlayerContext : DbContext
 
     public virtual DbSet<TbSong> TbSongs { get; set; }
 
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+             .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", true, true)
+                    .Build();
+        var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+
+        return strConn;
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=video_media_player;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TbAlbum>(entity =>
         {
             entity.HasKey(e => e.AlbumId);
-
             entity.ToTable("tb_Albums");
-
             entity.Property(e => e.AlbumId).HasColumnName("Album_Id");
             entity.Property(e => e.ArtistId).HasColumnName("Artist_Id");
             entity.Property(e => e.CoverImage).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
-
             entity.HasOne(d => d.Artist).WithMany(p => p.TbAlbums)
                 .HasForeignKey(d => d.ArtistId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -59,7 +66,9 @@ public partial class VideoMediaPlayerContext : DbContext
             entity.Property(e => e.ArtistName)
                 .HasMaxLength(250)
                 .HasColumnName("Artist_Name");
-            entity.Property(e => e.DataOfBirth).HasColumnName("Data_Of_Birth");
+            entity.Property(e => e.DataOfBirth)
+                .HasColumnType("datetime")
+                .HasColumnName("Data_Of_Birth");
             entity.Property(e => e.Description).HasColumnType("text");
         });
 
@@ -103,13 +112,13 @@ public partial class VideoMediaPlayerContext : DbContext
             entity.Property(e => e.SongId).HasColumnName("Song_Id");
             entity.Property(e => e.AlbumId).HasColumnName("Album_Id");
             entity.Property(e => e.ArtistId).HasColumnName("Artist_Id");
+            entity.Property(e => e.Duration).HasColumnType("decimal(18, 10)");
             entity.Property(e => e.SongName)
                 .HasMaxLength(250)
                 .HasColumnName("Song_Name");
 
             entity.HasOne(d => d.Album).WithMany(p => p.TbSongs)
                 .HasForeignKey(d => d.AlbumId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tb_Songs_tb_Albums");
 
             entity.HasOne(d => d.Artist).WithMany(p => p.TbSongs)

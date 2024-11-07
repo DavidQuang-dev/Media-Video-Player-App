@@ -11,6 +11,14 @@ namespace video_media_player.UserControls
             InitializeComponent();
         }
 
+        // Định nghĩa sự kiện Click
+        public event RoutedEventHandler Click;
+
+        // Phương thức để gọi sự kiện Click
+        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Click?.Invoke(this, new RoutedEventArgs());
+        }
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
@@ -26,7 +34,13 @@ namespace video_media_player.UserControls
         }
 
         public static readonly DependencyProperty TimeProperty = DependencyProperty.Register("Time", typeof(string), typeof(PopularSong));
+        public new string Tag
+        {
+            get => (string)GetValue(TagProperty);
+            set => SetValue(TagProperty, value);
+        }
 
+        public static new readonly DependencyProperty TagProperty = DependencyProperty.Register("Tag", typeof(string), typeof(PopularSong));
         public bool IsActive
         {
             get { return (bool)GetValue(IsActiveProperty); }
