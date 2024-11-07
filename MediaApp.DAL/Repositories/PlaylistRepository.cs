@@ -54,10 +54,16 @@ namespace MediaApp.DAL.Repositories
             return _context.TbPlaylists.Include(p => p.TbPlaylistSongs).ThenInclude(ps => ps.Song).ToList();
         }
 
-    public List<TbPlaylist> Get2Playlist()
+        public List<TbPlaylist> Get2Playlist()
         {
             _context = new();
             return _context.TbPlaylists.Take(2).ToList();
+        }
+
+        public TbPlaylist GetPlaylistByName(string name)
+        {
+            _context = new();
+            return _context.TbPlaylists.Include(p => p.TbPlaylistSongs).ThenInclude(ps => ps.Song).FirstOrDefault(a => a.PlaylistName == name);
         }
     }
 }

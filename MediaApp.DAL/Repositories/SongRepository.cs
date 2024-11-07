@@ -16,12 +16,17 @@ namespace MediaApp.DAL.Repositories
         public List<TbSong> GetAllSongs()
         {
             _context = new();
-            return _context.TbSongs.Include(song => song.Artist).Include(al => al.Album).ToList();
+            return _context.TbSongs.Include("Album").Include("Artist").ToList();
         }
         public List<TbSong> GetPopularSongs()
         {
             _context = new();
-            return _context.TbSongs.Take(4).ToList();
+            return _context.TbSongs.OrderByDescending(a => a.Plays).Take(4).ToList();
+        }
+        public List<TbSong> GetMusicVideos()
+        {
+            _context = new();
+            return _context.TbSongs.Where(a => a.Type == "mp4").ToList();
         }
 
         public void CreateSong(TbSong song)
@@ -36,6 +41,16 @@ namespace MediaApp.DAL.Repositories
             _context = new();
             _context.TbSongs.Update(song);
             _context.SaveChanges();
+        }
+        public void UpdatePlaysSong(int plays, int songId)
+        {
+            _context = new();
+            var song = _context.TbSongs.Find(songId);
+            if(song != null)
+            {
+                song.Plays = plays;
+                _context.SaveChanges();
+            }
         }
 
         public void DeleteSong(TbSong song)

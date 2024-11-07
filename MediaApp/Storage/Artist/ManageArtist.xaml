@@ -8,11 +8,10 @@
     mc:Ignorable="av" 
     x:Class="MediaApp.ManageArtist"
     Height="700" Width="1050" 
-    ResizeMode="NoResize" 
     AllowsTransparency="True" 
     WindowStartupLocation="CenterScreen" 
     WindowStyle="None" 
-    Background="Transparent" Loaded="Window_Loaded">
+    Background="Transparent" Loaded="Window_Loaded" ResizeMode="CanResize">
 
     <Window.Resources>
         <Style x:Key="ModernButton" TargetType="Button">
@@ -70,7 +69,7 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="White" CornerRadius="40" Padding="20" BorderBrush="Black" BorderThickness="2">
+    <Border Background="White" CornerRadius="40" Padding="20" BorderBrush="Black" BorderThickness="2" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Grid Height="660" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

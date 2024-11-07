@@ -35,6 +35,13 @@ namespace MediaApp
             InitializeComponent();
         }
 
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (SongComboBox.SelectedItem != null)

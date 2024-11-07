@@ -26,10 +26,24 @@ namespace video_media_player
         private PlaylistService _playlistService = new();
         private PlaylistSongService _playlistSongService = new();
         private SongService _songService = new();
+        public TbPlaylist ChoosePlaylist { get; set; }
         public PlaylistsPage()
         {
             InitializeComponent();
+
         }
+
+        public void SetChosenPlaylist(TbPlaylist playlist)
+        {
+            ChoosePlaylist = playlist;
+            if (ChoosePlaylist != null)
+            {
+                PlaylistsListBox.SelectedItem = ChoosePlaylist;
+                PlaylistDetail.DataContext = ChoosePlaylist;
+                PlayButton.Visibility = Visibility.Visible;
+            }
+        }
+
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             PlaylistDetailWindow detail = new();

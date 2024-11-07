@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace video_media_player
+namespace MediaApp
 {
     /// <summary>
-    /// Interaction logic for MusicVideosPage.xaml
+    /// Interaction logic for RegisterPage.xaml
     /// </summary>
-    public partial class MusicVideosPage : Page
+    public partial class RegisterPage : Page
     {
-        public MusicVideosPage()
+        public RegisterPage()
         {
             InitializeComponent();
         }

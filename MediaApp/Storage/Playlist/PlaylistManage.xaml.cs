@@ -28,6 +28,13 @@ namespace MediaApp
         {
             InitializeComponent();
         }
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             PlayListDataGrid.ItemsSource = _playlistService.GetAllPlayList();

@@ -6,16 +6,17 @@
     xmlns:av="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="av" 
-    x:Class="MediaApp.PlaylistManage"
+    x:Class="MediaApp.AlbumManage"
     Height="700" Width="1050" 
     AllowsTransparency="True" 
     WindowStartupLocation="CenterScreen" 
     WindowStyle="None" 
-    Background="Transparent" Loaded="Window_Loaded">
+    Background="Transparent" Loaded="Window_Loaded" ResizeMode="CanResize">
 
     <Window.Resources>
         <Style x:Key="ModernButton" TargetType="Button">
             <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="1000"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -68,7 +69,7 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="White" CornerRadius="40" Padding="20" BorderBrush="Black" BorderThickness="2">
+    <Border Background="White" CornerRadius="40" Padding="20" BorderBrush="Black" BorderThickness="2" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -90,7 +91,7 @@
 
             <!-- Title -->
             <TextBlock 
-                Text="Playlists" 
+                Text="Albums" 
                 Grid.Row="0" 
                 FontSize="24" 
                 FontWeight="Bold" 
@@ -99,18 +100,21 @@
 
             <!-- DataGrid -->
             <DataGrid 
-                Grid.Row="1" 
-                x:Name="PlayListDataGrid"
-                AutoGenerateColumns="False"
-                SelectionMode="Single"
-                IsReadOnly="True"
-                RowHeight="40"
-                HeadersVisibility="Column"
-                Background="Transparent"
-                BorderThickness="0">
+    Grid.Row="1" 
+    x:Name="AlbumDataGrid"
+    AutoGenerateColumns="False"
+    SelectionMode="Single"
+    IsReadOnly="True"
+    RowHeight="40"
+    HeadersVisibility="Column"
+    Background="Transparent"
+    BorderThickness="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Playlist ID" Binding="{Binding PlaylistId}" Width="*"/>
-                    <DataGridTextColumn Header="Playlist Name" Binding="{Binding PlaylistName}" Width="2*"/>
+                    <DataGridTextColumn Header="ALbum ID" Binding="{Binding AlbumId}" Width="*"/>
+                    <DataGridTextColumn Header="Album Name" Binding="{Binding Title}" Width="2*"/>
+                    <DataGridTextColumn Header="CoverImage" Binding="{Binding CoverImage}" Width="2*"/>
+                    <DataGridTextColumn Header="Artist ID" Binding="{Binding ArtistId}" Width="*"/>
+                    <DataGridTextColumn Header="Artist Name" Binding="{Binding Artist.ArtistName}" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -133,7 +137,7 @@
 
                 <Button 
                     Content="Update"
-                    Style="{StaticResource ModernButton}"
+Style="{StaticResource ModernButton}"
                     Background="#2196F3"
                     x:Name="UpdateButton" Width="65" Click="UpdateButton_Click" Height="30">
                     <Button.InputBindings>
@@ -146,7 +150,7 @@
                     Content="Delete" 
                     Style="{StaticResource ModernButton}"
                     Background="#F44336"
-                    Width="65" Height="30" Click="DeleteButton_Click">
+                     Width="65" Height="30" Click="DeleteButton_Click">
                     <Button.InputBindings>
                         <MouseBinding MouseAction="LeftClick" Command="{Binding DeleteCommand}"/>
                     </Button.InputBindings>

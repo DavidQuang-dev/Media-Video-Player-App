@@ -68,6 +68,7 @@ namespace video_media_player
                 {
                     Title = playlist.PlaylistName,
                 };
+                playlistItem.Click += Playlist_Click;
                 PlaylistItems.Children.Add(playlistItem);
             }
         }
@@ -90,6 +91,19 @@ namespace video_media_player
             {
                 MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
                 mainWindow.SetChosenSong(songService.GetSongByName(songName));
+            }
+        }
+
+        private void Playlist_Click(object sender, RoutedEventArgs e)
+        {
+            video_media_player.UserControls.Playlist playlist = (video_media_player.UserControls.Playlist)sender;
+            string playlistName = playlist.Title.ToString();
+            if (!string.IsNullOrEmpty(playlistName))
+            {
+                PlaylistsPage playlistsPage = new();
+                //playlistsPage.SetChosenPlaylist(playlistService.GetPlaylistByName(playlistName));
+                NavigationService.Navigate(playlistsPage);
+
             }
         }
 

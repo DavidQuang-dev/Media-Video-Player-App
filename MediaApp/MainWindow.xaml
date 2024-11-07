@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls"
-        Height="710" Width="1050" ResizeMode="NoResize" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" >
+        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" >
     <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
         <Grid Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
@@ -73,6 +73,13 @@
                     <Button Style="{StaticResource menuButton}" Click="SongsButton_Click">
                         <Grid>
                             <TextBlock Text="Songs" Margin="0 0 0 2"/>
+                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource menuButton}" Click="MVButton_Click">
+                        <Grid>
+                            <TextBlock Text="Music Videos" Margin="0 0 0 2"/>
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>

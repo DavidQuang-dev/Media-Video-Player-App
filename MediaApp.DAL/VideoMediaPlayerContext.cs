@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MediaApp.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MediaApp.DAL;
 
@@ -26,22 +27,29 @@ public partial class VideoMediaPlayerContext : DbContext
 
     public virtual DbSet<TbSong> TbSongs { get; set; }
 
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+             .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", true, true)
+                    .Build();
+        var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+
+        return strConn;
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=12345;database=video_media_player;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TbAlbum>(entity =>
         {
             entity.HasKey(e => e.AlbumId);
-
             entity.ToTable("tb_Albums");
-
             entity.Property(e => e.AlbumId).HasColumnName("Album_Id");
             entity.Property(e => e.ArtistId).HasColumnName("Artist_Id");
             entity.Property(e => e.CoverImage).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
-
             entity.HasOne(d => d.Artist).WithMany(p => p.TbAlbums)
                 .HasForeignKey(d => d.ArtistId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

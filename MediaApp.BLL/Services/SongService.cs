@@ -1,5 +1,6 @@
 ﻿using MediaApp.DAL.Entities;
 using MediaApp.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace MediaApp.BLL.Services
         {
             return _songRepository.GetPopularSongs();
         }
-
+        public List<TbSong> GetMusicVideos()
+        {
+            return _songRepository.GetMusicVideos();
+        }
         public void Create(TbSong song)
         {
             _songRepository.CreateSong(song);
@@ -28,6 +32,10 @@ namespace MediaApp.BLL.Services
         public void Update(TbSong song)
         {
             _songRepository.UpdateSong(song);
+        }
+        public void UpdatePlaysSong(int plays, int songId)
+        {
+            _songRepository.UpdatePlaysSong(plays, songId);
         }
 
         public void Delete(TbSong song) 

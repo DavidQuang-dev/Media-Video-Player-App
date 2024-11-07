@@ -55,6 +55,10 @@ namespace video_media_player
             {
                 LoadSingleSong(ChooseSong);
             }
+            if(ChooseSong.SongName == "video")
+            {
+
+            }
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -124,7 +128,10 @@ namespace video_media_player
         {
             MainFrame.Navigate(new SongsPage());
         }
-
+        private void MVButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new MusicVideosPage());
+        }
         private void StoreButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new StorePage());
@@ -240,6 +247,8 @@ namespace video_media_player
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
             PlayerMediaElement.Play();
+            int plays = song.Plays.HasValue ? song.Plays.Value : 0;
+            _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
         }
@@ -256,6 +265,8 @@ namespace video_media_player
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
             // MessageBox.Show("Current Index Of Load Song: " + CurrentIndex);
             PlayerMediaElement.Play();
+            int plays = song.Plays.HasValue ? song.Plays.Value : 0;
+            _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
         }
@@ -270,6 +281,8 @@ namespace video_media_player
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
             PlayerMediaElement.Play();
+            int plays = song.Plays.HasValue ? song.Plays.Value : 0;
+            _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
         }
@@ -373,5 +386,7 @@ namespace video_media_player
             //MessageBox.Show("Current index : " + CurrentIndex);
             LoadSong(CurrentIndex);
         }
+
+       
     }
 }
