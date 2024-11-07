@@ -339,6 +339,7 @@ namespace video_media_player
             {
                 PlayerMediaElement.Volume = VolumeSlider.Value / 100;
                 VolumeTextBlock.Text = (int)VolumeSlider.Value + "%";
+                //popupSlider = (int)VolumeSlider.Value;
             }
         }
 

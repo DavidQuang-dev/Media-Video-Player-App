@@ -80,6 +80,7 @@ namespace MediaApp
             {
                 tbAlbum.AlbumId = EditOne.AlbumId;
                 _service.UpdateAlbum(tbAlbum);
+                MessageBox.Show($"Album {tbAlbum.Title} đã được lưu!!", "Save album", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             int createdAlbumId = EditOne == null ? _service.GetCreatedAlbum().AlbumId : EditOne.AlbumId;

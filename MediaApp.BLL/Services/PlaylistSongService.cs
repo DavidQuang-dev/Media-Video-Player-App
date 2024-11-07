@@ -31,6 +31,7 @@ namespace MediaApp.BLL.Services
         {
             return _repo.GetSongByPlaylistId(playlistId);
         }
+        //lấy ra các playlistSong bởi playlistId&SongId
         public TbPlaylistSong GetByPlaylistAndSong(int playlistId, int songId)
         {
             return _repo.GetByPlaylistAndSong(playlistId, songId);

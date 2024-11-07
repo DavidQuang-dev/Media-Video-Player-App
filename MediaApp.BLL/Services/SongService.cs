@@ -66,13 +66,10 @@ namespace MediaApp.BLL.Services
         {
             return _songRepository.GetSongByName(songName);
         }
-        
+
         public List<TbSong> GetAvailableSongsForPlaylist(List<int> excludedSongIds)
         {
-            // Fetch all songs, then filter out the ones in the excludedSongIds list
-            return _songRepository.GetAllSongs() // Assuming _songRepository is your data access layer
-                   .Where(song => !excludedSongIds.Contains(song.SongId))
-                   .ToList();
+            return _songRepository.GetAvailableSongsForPlaylist(excludedSongIds);
         }
     }
 }
