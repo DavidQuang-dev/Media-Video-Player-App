@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Connect to the system" Height="538" Width="855"  WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None"  ResizeMode="NoResize">
-    <Border CornerRadius="40" Background="#ff2800" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border CornerRadius="40" Background="#ff2800">
+        <!--MouseLeftButtonDown="Border_MouseLeftButtonDown"-->
+     
         <Grid Margin="-17,0,17,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="63*"/>
