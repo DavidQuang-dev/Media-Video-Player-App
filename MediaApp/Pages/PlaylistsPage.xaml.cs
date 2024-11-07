@@ -25,10 +25,26 @@ namespace video_media_player
     public partial class PlaylistsPage : Page
     {
         private PlaylistService _playlistService = new();
+        private PlaylistSongService _playlistSongService = new();
+        private SongService _songService = new();
+        public TbPlaylist ChoosePlaylist { get; set; }
         public PlaylistsPage()
         {
             InitializeComponent();
+
         }
+
+        public void SetChosenPlaylist(TbPlaylist playlist)
+        {
+            ChoosePlaylist = playlist;
+            if (ChoosePlaylist != null)
+            {
+                PlaylistsListBox.SelectedItem = ChoosePlaylist;
+                PlaylistDetail.DataContext = ChoosePlaylist;
+                PlayButton.Visibility = Visibility.Visible;
+            }
+        }
+
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             //f5 lưới
@@ -39,7 +55,7 @@ namespace video_media_player
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            PlaylistsListBox.ItemsSource = _playlistService.GetAllPlayList();
+            PlaylistsListBox.ItemsSource = _playlistService.GetAllWithSongs();
         }
 
         //helper function
@@ -74,19 +90,35 @@ namespace video_media_player
 
         private void PlaylistsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Get the selected playlist
-            var selectedPlaylist = PlaylistsListBox.SelectedItem as Playlist; // Make sure to replace 'Playlist' with the actual type you are using for your playlists.
-
-            if (selectedPlaylist != null)
+            if (PlaylistsListBox.SelectedItem is TbPlaylist selectedPlaylist)
             {
-                // Assuming that your Playlist class has a property that gives you the list of songs.
-                //var songs = selectedPlaylist.Songs; // Replace with your actual property that holds the song list.
-
-                // Update the ItemsControl with the songs
-                // Assuming your ItemsControl is called 'PlaylistDetail' and it has been set to show songs.
-                //PlaylistDetail.ItemsSource = songs; // You may need to set the DataContext if you are binding
+                PlaylistDetail.DataContext = selectedPlaylist;
+                PlayButton.Visibility = Visibility.Visible;
             }
         }
 
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (PlaylistsListBox.SelectedItem is TbPlaylist selectedPlaylist)
+            {
+                List<TbSong> songs = _songService.GetSongsByPlaylist(selectedPlaylist);
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.ListSongs = songs;
+                mainWindow.CurrentIndex = 0;
+                mainWindow.LoadSong(0);
+
+            }
+        }
+
+        private void SongItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            video_media_player.UserControls.SongItem songItem = (video_media_player.UserControls.SongItem)sender;
+            string songName = songItem.Title.ToString();
+            if (!string.IsNullOrEmpty(songName))
+            {
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.SetChosenSong(_songService.GetSongByName(songName));
+            }
+        }
     }
 }

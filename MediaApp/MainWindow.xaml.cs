@@ -31,7 +31,8 @@ namespace video_media_player
         private readonly SongService _songService = new();
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;
-        private int currentIndex = 0;
+        public int CurrentIndex { get; set; }
+
         private readonly DispatcherTimer _timer;
         private Mp3FileReader _reader;
 
@@ -40,7 +41,7 @@ namespace video_media_player
             InitializeComponent();
             ListSongs = new List<TbSong>();
             MainFrame.Navigate(new HomePage());
-
+            CurrentIndex = 0;
             _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
@@ -53,6 +54,10 @@ namespace video_media_player
             if (ChooseSong != null)
             {
                 LoadSingleSong(ChooseSong);
+            }
+            if(ChooseSong.SongName == "video")
+            {
+
             }
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -97,7 +102,6 @@ namespace video_media_player
                 FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) });
                 FooterGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             }
-
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -124,7 +128,10 @@ namespace video_media_player
         {
             MainFrame.Navigate(new SongsPage());
         }
-
+        private void MVButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new MusicVideosPage());
+        }
         private void StoreButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new StorePage());
@@ -172,7 +179,7 @@ namespace video_media_player
         private void PlayFirstSong()
         {
             ListSongs = _songService.GetAll();
-            LoadSong(currentIndex);
+            LoadSong(CurrentIndex);
         }
 
         private void PlayNextSong()
@@ -185,8 +192,8 @@ namespace video_media_player
                 case PlaybackMode.RepeatOff:
                     if (playMode == PlayMode.Sequential)
                     {
-                        currentIndex = (currentIndex + 1) % ListSongs.Count;
-                        if (currentIndex == 0) // Reached the end
+                        CurrentIndex = (CurrentIndex + 1) % ListSongs.Count;
+                        if (CurrentIndex == 0) // Reached the end
                         {
                             ListSongs.Clear();
                             PausePlayback();
@@ -195,16 +202,29 @@ namespace video_media_player
                     }
                     else
                     {
-                        currentIndex = randomIndex();
+                        if ((CurrentIndex + 1) % ListSongs.Count == 0)
+                        {
+                            ListSongs.Clear();
+                            PausePlayback();
+                            return;
+                        }
+                        CurrentIndex = randomIndex();
                     }
                     break;
                 case PlaybackMode.RepeatOn:
-                    currentIndex = playMode == PlayMode.Sequential ? (currentIndex + 1) % ListSongs.Count : randomIndex();
+                    CurrentIndex = playMode == PlayMode.Sequential ? (CurrentIndex + 1) % ListSongs.Count : randomIndex();
                     break;
                 case PlaybackMode.RepeatOne:
+                    {
+                        if (ChooseSong != null)
+                        {
+                            LoadSingleSong(ChooseSong);
+                            return;
+                        }
+                    }
                     break;
             }
-            LoadSong(currentIndex);
+            LoadSong(CurrentIndex);
         }
 
         private int randomIndex()
@@ -214,25 +234,26 @@ namespace video_media_player
             do
             {
                 index = random.Next(ListSongs.Count);
-            } while (index == currentIndex);
+            } while (index == CurrentIndex);
             return index;
         }
 
         private void LoadSong(TbSong song)
         {
             if (song == null) return;
-            MessageBox.Show("Current Index Of Load Song: " + currentIndex);
             TimeSlider.Maximum = double.Parse(song.Duration.ToString());
             MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
             PlayerMediaElement.Source = new Uri(song.FilePath);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
             PlayerMediaElement.Play();
+            int plays = song.Plays.HasValue ? song.Plays.Value : 0;
+            _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
         }
 
-        private void LoadSong(int index)
+        public void LoadSong(int index)
         {
             var song = GetSongByIndex(index, out double duration);
             if (song == null) return;
@@ -242,8 +263,10 @@ namespace video_media_player
             PlayerMediaElement.Source = new Uri(song.FilePath);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
-            // MessageBox.Show("Current Index Of Load Song: " + currentIndex);
+            // MessageBox.Show("Current Index Of Load Song: " + CurrentIndex);
             PlayerMediaElement.Play();
+            int plays = song.Plays.HasValue ? song.Plays.Value : 0;
+            _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
         }
@@ -258,6 +281,8 @@ namespace video_media_player
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
             PlayerMediaElement.Play();
+            int plays = song.Plays.HasValue ? song.Plays.Value : 0;
+            _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
             _timer.Start();
         }
@@ -275,6 +300,15 @@ namespace video_media_player
             PlayerMediaElement.Position = TimeSpan.FromSeconds(TimeSlider.Value);
             if (PlayerMediaElement.NaturalDuration == PlayerMediaElement.Position)
             {
+                if (ChooseSong != null && backMode != PlaybackMode.RepeatOne)
+                {
+                    ChooseSong = null;
+                    if (CurrentIndex == 0)
+                    {
+                        LoadSong(0);
+                        return;
+                    }
+                }
                 PlayNextSong();
                 return;
             }
@@ -333,6 +367,7 @@ namespace video_media_player
 
         private void PlayNextButton_Click(object sender, RoutedEventArgs e)
         {
+            ChooseSong = null;
             if (backMode == PlaybackMode.RepeatOne)
             {
                 backMode = PlaybackMode.RepeatOn;
@@ -345,10 +380,13 @@ namespace video_media_player
 
         private void PlayBackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentIndex >= 1)
-                --currentIndex;
-            //MessageBox.Show("Current index : " + currentIndex);
-            LoadSong(currentIndex);
+            ChooseSong = null;
+            if (CurrentIndex >= 1)
+                --CurrentIndex;
+            //MessageBox.Show("Current index : " + CurrentIndex);
+            LoadSong(CurrentIndex);
         }
+
+       
     }
 }

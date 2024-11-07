@@ -13,6 +13,10 @@ public partial class TbSong
 
     public string FilePath { get; set; } = null!;
 
+    public string? Type { get; set; }
+
+    public int? Plays { get; set; }
+
     public int ArtistId { get; set; }
 
     public int? AlbumId { get; set; }

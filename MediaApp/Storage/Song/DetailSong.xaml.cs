@@ -29,7 +29,13 @@ namespace MediaApp
         {
             InitializeComponent();
         }
-
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult answer = System.Windows.MessageBox.Show("Are You Sure?", "Cancel", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -48,7 +54,8 @@ namespace MediaApp
             var file = TagLib.File.Create(txtFilePath.Text);
             TimeSpan duration = file.Properties.Duration;
             song.Duration = (decimal)duration.TotalSeconds;
-
+            song.Type = TypeCombobox.SelectedValue.ToString() ?? "mp3";
+            song.Plays = 0;
             song.ArtistId = Convert.ToInt32(ArtistCombobox.SelectedValue.ToString());
             song.AlbumId = AlbumCombobox.SelectedValue != null ? Convert.ToInt32(AlbumCombobox.SelectedValue.ToString()) : (int?)null;
 
@@ -101,6 +108,8 @@ namespace MediaApp
             AlbumCombobox.DisplayMemberPath = "Title";
             AlbumCombobox.SelectedValuePath = "AlbumId";
 
+            TypeCombobox.ItemsSource = new List<string> { "mp3", "mp4" };
+            TypeCombobox.SelectedIndex = 0;
             if (EditSong != null)
             {
                 txtSongName.Text = EditSong.SongName;

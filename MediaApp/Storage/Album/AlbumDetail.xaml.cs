@@ -3,6 +3,7 @@ using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
 using Microsoft.Win32;
 using System.Windows;
+using System.Windows.Input;
 
 
 namespace MediaApp
@@ -21,7 +22,13 @@ namespace MediaApp
         {
             InitializeComponent();
         }
-
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -38,16 +45,6 @@ namespace MediaApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //List<TbArtist> artists = new List<TbArtist>();
-            //DateOnly dateOnly = new DateOnly(2004, 10, 26);
-            //artists.Add(new TbArtist { ArtistId = 1, ArtistName = "Blackpro", DataOfBirth = dateOnly, Description = "Mô tả" });
-            //artists.Add(new TbArtist { ArtistId = 2, ArtistName = "Toan", DataOfBirth = dateOnly, Description = "Mô tả 1" });
-            //artists.Add(new TbArtist { ArtistId = 3, ArtistName = "Hehe", DataOfBirth = dateOnly, Description = "Mô tả 2" });
-
-            //List<TbSong> songs = new List<TbSong>();
-            //songs.Add(new TbSong { SongId = 1, SongName = "Bài ca tuổi trẻ", Duration = 230, FilePath = "File path 1" });
-            //songs.Add(new TbSong { SongId = 2, SongName = "Bầu trời mới", Duration = 270, FilePath = "File path 1" });
-            //songs.Add(new TbSong { SongId = 3, SongName = "Phải chăng em đã yêu", Duration = 210, FilePath = "File path 1" });
             ArtistComboBox.ItemsSource = _artistService.GetAll();
             ArtistComboBox.DisplayMemberPath = "ArtistName";
             ArtistComboBox.SelectedValuePath = "ArtistId";
@@ -62,7 +59,6 @@ namespace MediaApp
                 TitleTextBox.Text = EditOne.Title;
                 FilePathTextBox.Text = EditOne.CoverImage;
                 ArtistComboBox.SelectedValue = EditOne.ArtistId;
-                //SongDataGrid.ItemsSource = _songService.GetSongsByAlbum(EditOne);
                 foreach (TbSong song in _songService.GetSongsByAlbum(EditOne))
                 {
                     SongDataGrid.Items.Add(song);
@@ -86,7 +82,7 @@ namespace MediaApp
                 _service.UpdateAlbum(tbAlbum);
             }
 
-            int createdAlbumId = _service.GetCreatedAlbum().AlbumId;
+            int createdAlbumId = EditOne == null ? _service.GetCreatedAlbum().AlbumId : EditOne.AlbumId;
             foreach (var item in SongDataGrid.Items)
             {
                 TbSong song = item as TbSong;
@@ -99,8 +95,8 @@ namespace MediaApp
                 TbSong song = item as TbSong;
                 song.AlbumId = null;
                 _songService.Update(song);
-            } 
-            
+            }
+
             this.Close();
         }
 
@@ -183,5 +179,5 @@ namespace MediaApp
         //    return list;
         //}
 
-        }
     }
+}

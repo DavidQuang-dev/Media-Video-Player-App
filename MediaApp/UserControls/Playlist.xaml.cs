@@ -10,6 +10,12 @@ namespace video_media_player.UserControls
         {
             InitializeComponent();
         }
+        public event RoutedEventHandler Click;
+
+        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Click?.Invoke(this, new RoutedEventArgs());
+        }
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }

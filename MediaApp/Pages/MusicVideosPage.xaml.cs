@@ -14,30 +14,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using video_media_player.UserControls;
 
 namespace video_media_player
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for MusicVideosPage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class MusicVideosPage : Page
     {
-        private readonly SongService songService = new();
-        private readonly PlaylistService playlistService = new();
-        public TbSong ChooseSong { get; set; }
-        public HomePage()
+        private SongService songService = new();
+        public MusicVideosPage()
         {
             InitializeComponent();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            List<TbSong> songs = songService.GetAll();
+            List<TbSong> songs = songService.GetMusicVideos();
             int number = 0;
             foreach (var song in songs)
             {
-                var songItem = new video_media_player.UserControls.SongItem
+                var songItem = new video_media_player.UserControls.SongItem 
                 {
                     Title = song.SongName,
                     Number = (++number).ToString(),
@@ -45,33 +42,9 @@ namespace video_media_player
                     Tag = song.FilePath
                 };
                 songItem.Click += SongItem_Click;
-                SongItemList.Children.Add(songItem);
-            }
-
-            List<TbSong> popularSongs = songService.GetPopularSong();
-            foreach (var song in popularSongs)
-            {
-                var popularSongItem = new video_media_player.UserControls.PopularSong
-                {
-                    Title = song.SongName,
-                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
-                    Tag = song.FilePath
-                };
-                popularSongItem.Click += PopularSongItem_Click;
-                PopularSongItemList.Children.Add(popularSongItem);
-            }
-
-            List<TbPlaylist> playlists = playlistService.Get2Playlist();
-            foreach (var playlist in playlists)
-            {
-                var playlistItem = new video_media_player.UserControls.Playlist
-                {
-                    Title = playlist.PlaylistName,
-                };
-                PlaylistItems.Children.Add(playlistItem);
+                ListVideos.Children.Add(songItem);
             }
         }
-
         private void SongItem_Click(object sender, RoutedEventArgs e)
         {
             video_media_player.UserControls.SongItem songItem = (video_media_player.UserControls.SongItem)sender;
@@ -79,19 +52,10 @@ namespace video_media_player
             if (!string.IsNullOrEmpty(songName))
             {
                 MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                //PlayerMediaElement.Play();
                 mainWindow.SetChosenSong(songService.GetSongByName(songName));
             }
         }
-        private void PopularSongItem_Click(object sender, RoutedEventArgs e)
-        {
-            video_media_player.UserControls.PopularSong popularSong = (video_media_player.UserControls.PopularSong)sender;
-            string filePath = popularSong.Tag.ToString();
-            if (!string.IsNullOrEmpty(filePath))
-            {
-                MessageBox.Show(filePath);
-            }
-        }
-
         private string ConvertTimeFormat(double value)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(value);

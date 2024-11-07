@@ -56,5 +56,10 @@ namespace video_media_player.UserControls
         }
 
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(SongItem));
+
+        private void TextBlock_ToolTipClosing(object sender, ToolTipEventArgs e)
+        {
+
+        }
     }
 }
