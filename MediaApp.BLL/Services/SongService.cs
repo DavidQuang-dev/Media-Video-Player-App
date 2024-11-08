@@ -14,6 +14,10 @@ namespace MediaApp.BLL.Services
         private SongRepository _songRepository = new ();
         public List<TbSong> GetAll()
         {
+            return _songRepository.GetAll();
+        }
+        public List<TbSong> GetAllSongs()
+        {
             return _songRepository.GetAllSongs();
         }
         public List<TbSong> GetPopularSong()

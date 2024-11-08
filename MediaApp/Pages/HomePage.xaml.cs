@@ -33,7 +33,7 @@ namespace video_media_player
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            List<TbSong> songs = songService.GetAll();
+            List<TbSong> songs = songService.GetAllSongs();
             int number = 0;
             foreach (var song in songs)
             {

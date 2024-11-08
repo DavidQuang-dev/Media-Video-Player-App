@@ -78,7 +78,7 @@ namespace MediaApp
             var openFileDialog = new OpenFileDialog
             {
                 Multiselect = true,
-                Filter = "All Files (*.*)|*.* | Video Files (*.mp4)|*.mp4 | Music Files (*.mp3)|*.mp3"
+                Filter = "Audio Files (*.mp3;*.wav)|*.mp3;*.wav | Video Files (*.mp4)|*.mp4"
             };
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
