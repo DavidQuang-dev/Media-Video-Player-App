@@ -15,11 +15,11 @@
             <Rectangle HorizontalAlignment="Left" Height="408" Stroke="Black" VerticalAlignment="Top" Width="574" Fill="#ffff00" RadiusX="20" RadiusY="20" Margin="23,70,0,0" Grid.Column="2"/>
             <Label Content="Register" HorizontalAlignment="Left" Height="60" Margin="195,77,0,0" VerticalAlignment="Top" Width="230" FontWeight="ExtraBold" FontSize="40" Foreground="#ff4500" HorizontalContentAlignment="Center" Grid.Column="2"/>
             <Label Content="User Name" HorizontalAlignment="Left" Height="45" Margin="68,182,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500" Grid.Column="2"/>
-            <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Height="45" Margin="180,179,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="374" TabIndex="0" Grid.Column="2"/>
+            <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Center" Height="45" Margin="0,179,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="0" Grid.Column="2"/>
             <Label Content="Email" HorizontalAlignment="Left" Height="46" Margin="68,0,0,0" VerticalAlignment="Center" Width="107" Foreground="#ff4500" Grid.Column="2"/>
-            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Left" Height="44" Margin="180,252,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="374" TabIndex="0" Grid.Column="2"/>
+            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Center" Height="44" Margin="0,252,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="0" Grid.Column="2"/>
             <Label Content="Password" HorizontalAlignment="Left" Height="45" Margin="68,320,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500" Grid.Column="2"/>
-            <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Center" Height="45" TextWrapping="Wrap"  VerticalAlignment="Top" Width="366" TabIndex="1" Grid.Column="2" Margin="0,320,0,0" />
+            <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Center" Height="45" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="1" Grid.Column="2" Margin="0,320,0,0" />
             <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Height="55" Margin="68,395,0,0" VerticalAlignment="Top" Width="230" TabIndex="2"  Grid.Column="2"/>
             <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="55" Margin="324,395,0,0" VerticalAlignment="Top" Width="230" TabIndex="3"  Grid.Column="2"/>
             <Label Content="© 2024 media.app" HorizontalAlignment="Left" Height="45" Margin="219,483,0,0" VerticalAlignment="Top" Width="182" Foreground="#ffff00" Grid.Column="2"/>
