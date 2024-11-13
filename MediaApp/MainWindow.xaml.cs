@@ -35,6 +35,7 @@ namespace video_media_player
 
         private readonly DispatcherTimer _timer;
         private Mp3FileReader _reader;
+        public TbUser AuthenticatedUser { get; set; }
 
         public MainWindow()
         {
@@ -47,6 +48,14 @@ namespace video_media_player
                 Interval = TimeSpan.FromSeconds(1)
             };
             _timer.Tick += Timer_Tick;
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //case: user chưa login
+            if(AuthenticatedUser == null)
+            {
+                
+            }
         }
         public void SetChosenSong(TbSong song)
         {
@@ -412,7 +421,5 @@ namespace video_media_player
             //MessageBox.Show("Current index : " + CurrentIndex);
             LoadSong(CurrentIndex);
         }
-
-       
     }
 }
