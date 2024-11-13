@@ -56,7 +56,7 @@ namespace MediaApp
             TbArtist? selected = ArtistsDataGrid.SelectedItem as TbArtist;
             if (selected == null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Please select an artist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Please select an artist", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.OK)
                 {
                     return;

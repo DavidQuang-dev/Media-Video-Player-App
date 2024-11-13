@@ -64,7 +64,7 @@ namespace MediaApp
             TbPlaylist? selected = PlayListDataGrid.SelectedItem as TbPlaylist;
             if (selected == null)
             {
-                MessageBox.Show("Please select a playlist before editing!!", "Select One", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("Please select a playlist before editing!!", "Select One", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             PlaylistDetail plDetail = new();

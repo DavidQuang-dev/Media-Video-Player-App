@@ -55,7 +55,7 @@ namespace MediaApp
         {
             if (AlbumDataGrid.SelectedItem == null)
             {
-                MessageBox.Show("Vui lòng chọn album trước khi cập nhật");
+                MessageBox.Show("Please select an album before update", "Select", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
