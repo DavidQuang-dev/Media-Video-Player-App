@@ -17,11 +17,11 @@
 
             <Label Content="Email" HorizontalAlignment="Left" Height="45" Margin="68,182,0,0" VerticalAlignment="Top" Width="107" Grid.Column="2" FontSize="20" FontWeight="ExtraBold" Foreground="{StaticResource GreenGradientBrush}"/>
 
-            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Left" Height="45" Margin="180,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}"/>
+            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Left" Height="45" Margin="180,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}" Text="Ahihi" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
 
             <Label Content="Password" HorizontalAlignment="Left" Height="45" Margin="68,251,0,0" VerticalAlignment="Top" Width="107" Grid.Column="2" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}"/>
 
-            <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="45" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" TabIndex="1" Grid.Column="2" Margin="180,249,0,0" Style="{StaticResource GradientTextBox}"/>
+            <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="45" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="374" TabIndex="1" Grid.Column="2" Margin="180,249,0,0" Style="{StaticResource GradientTextBox}" Text="Ahihu"/>
 
             <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Height="55" Margin="68,339,0,0" VerticalAlignment="Top" Width="230" TabIndex="2" Grid.Column="2" Style="{StaticResource GradientButton}"/>
 
