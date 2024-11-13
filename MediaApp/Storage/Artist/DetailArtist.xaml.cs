@@ -46,6 +46,20 @@ namespace MediaApp
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             TbArtist artist = EditArtist ?? new();
+            // Kiểm tra độ dài và nội dung của ArtistName
+            if (string.IsNullOrWhiteSpace(txtArtistName.Text) || txtArtistName.Text.Length > 30 || txtArtistName.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Artist name must not contain only numbers and must be within 30 characters.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Kiểm tra độ dài của Description
+            if (txtDescription.Text.Length > 50)
+            {
+                MessageBox.Show("Description must be within 50 characters.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             artist.ArtistName = txtArtistName.Text;
             artist.DataOfBirth = date.SelectedDate.HasValue ? date.SelectedDate.Value : DateTime.MinValue;
             artist.Description = txtDescription.Text;
