@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MediaApp.BLL.Services;
+using MediaApp.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +22,7 @@ namespace MediaApp
     /// </summary>
     public partial class RegisterPage : Window
     {
-        //private Se;
+        private UserService _userService = new();
         public RegisterPage()
         {
             InitializeComponent();
@@ -28,7 +30,30 @@ namespace MediaApp
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
 
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            string username = UserNameTextBox.Text;
+            string email = EmailAddressTextBox.Text;
+            string pass = PasswordTextBox.Password;
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass))
+            {
+                MessageBox.Show("Both email and password are required!", "Field required!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (_userService.CheckEmailExists(email))
+            {
+                MessageBox.Show("Email already exists!", "Duplicate Email", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            TbUser newUser = new TbUser { UserName = username, Email = email, Password = pass, Role = "customer" };
+            _userService.CreateUser(newUser);
+            MessageBox.Show("Registration successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            LoginPage loginPage = new();
+            loginPage.Show();
+            this.Close();
         }
     }
 }

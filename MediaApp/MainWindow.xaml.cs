@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using NAudio.Wave;
+using MediaApp;
 
 namespace video_media_player
 {
@@ -54,7 +55,9 @@ namespace video_media_player
             //case: user chưa login
             if(AuthenticatedUser == null)
             {
-                
+                LoginPage loginPage = new();
+                loginPage.ShowDialog();
+                this.Close();
             }
         }
         public void SetChosenSong(TbSong song)
@@ -421,5 +424,14 @@ namespace video_media_player
             //MessageBox.Show("Current index : " + CurrentIndex);
             LoadSong(CurrentIndex);
         }
-    }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserInfoPopup.IsOpen = !UserInfoPopup.IsOpen;
+        }
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        { // Implement logout logic here
+            AuthenticatedUser = null;
+            MessageBox.Show("You have been logged out.", "Logout", MessageBoxButton.OK, MessageBoxImage.Information); UserInfoPopup.IsOpen = false; }
+        }
 }

@@ -31,8 +31,8 @@ namespace MediaApp
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string email = EmailAddressTextBox.Text.Trim();
-            string pass = PasswordTextBox.Text;
+            string email = EmailAddressTextBox.Text;
+            string pass = PasswordTextBox.Password;
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass)) 
             {
@@ -46,12 +46,26 @@ namespace MediaApp
             {
                 MessageBox.Show("Invalid email or password!", "Wrong credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            } else
+            {
+                MainWindow detail = new();
+                detail.AuthenticatedUser = acc;
+                detail.Show();
+                this.Close();
             }
+            
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            //this.Hide();
+        }
+
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterPage detail = new();
+            detail.Show();
+            this.Close();
         }
     }
 }
