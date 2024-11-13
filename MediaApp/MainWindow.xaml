@@ -15,15 +15,16 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="187*"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
 
             <MediaElement x:Name="PlayerMediaElement" Width="0" Height="0" LoadedBehavior="Manual" 
-                          UnloadedBehavior="Stop"/>
+                          UnloadedBehavior="Stop" Margin="110,258,110,303" Grid.Row="1"/>
 
             <!--Menu-->
-            <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="2" Margin="0,0,10,0">
+            <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="3" Margin="0,0,10,0">
                 <StackPanel Margin="0 30 0 0">
                     <!-- Ellipses-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="35 10 0 10">
@@ -101,7 +102,7 @@
             </Border>
 
             <!--Player-->
-            <Border x:Name="PlayerBorder" Grid.Row="1" Background="#03bf69" CornerRadius="40 0 40 0" Grid.Column="1">
+            <Border x:Name="PlayerBorder" Grid.Row="2" Background="#03bf69" CornerRadius="40 0 40 0" Grid.Column="1">
                 <StackPanel VerticalAlignment="Center">
                     <!--<Ellipse Width="60" Height="60" Margin="30 0 0 0">
                         <Ellipse.Fill>
@@ -211,7 +212,7 @@
                 </StackPanel>
             </Border>
             <!--Main Content Area-->
-            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" NavigationUIVisibility="Hidden" Margin="0,10,15,0"/>
+            <Frame x:Name="MainFrame" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" NavigationUIVisibility="Hidden" Margin="0,10,15,0" Grid.RowSpan="2"/>
         </Grid>
     </Border>
 </Window>

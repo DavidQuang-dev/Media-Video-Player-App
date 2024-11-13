@@ -18,11 +18,17 @@ namespace MediaApp
     /// <summary>
     /// Interaction logic for RegisterPage.xaml
     /// </summary>
-    public partial class RegisterPage : Page
+    public partial class RegisterPage : Window
     {
+        //private Se;
         public RegisterPage()
         {
             InitializeComponent();
+        }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
