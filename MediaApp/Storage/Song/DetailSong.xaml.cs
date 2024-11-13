@@ -47,6 +47,12 @@ namespace MediaApp
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtSongName.Text))
+            {
+                System.Windows.MessageBox.Show("Song Name cannot be empty. Please enter a name for the song.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;  // Dừng quá trình lưu nếu tên bài hát trống
+            }
+
             TbSong song = EditSong ?? new TbSong();
             song.SongName = txtSongName.Text;
             song.FilePath = txtFilePath.Text;

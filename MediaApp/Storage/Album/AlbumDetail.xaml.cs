@@ -67,6 +67,12 @@ namespace MediaApp
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            // Kiểm tra nếu Title để trống
+            if (string.IsNullOrWhiteSpace(TitleTextBox.Text))
+            {
+                MessageBox.Show("Title cannot be empty. Please enter a title for the album.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             TbAlbum tbAlbum = new();
             tbAlbum.Title = TitleTextBox.Text;
             tbAlbum.CoverImage = FilePathTextBox.Text;
