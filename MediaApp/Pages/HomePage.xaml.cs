@@ -79,8 +79,15 @@ namespace video_media_player
             string songName = songItem.Title.ToString();
             if (!string.IsNullOrEmpty(songName))
             {
-                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-                mainWindow.SetChosenSong(songService.GetSongByName(songName));
+                if (Application.Current.MainWindow is MainWindow mainWindow)
+                {
+                    mainWindow.SetChosenSong(songService.GetSongByName(songName));
+                }
+                else
+                {
+                    // Handle the case where MainWindow is not set or is of a different type
+                    MessageBox.Show("MainWindow is not set correctly.");
+                }
             }
         }
         private void PopularSongItem_Click(object sender, RoutedEventArgs e)

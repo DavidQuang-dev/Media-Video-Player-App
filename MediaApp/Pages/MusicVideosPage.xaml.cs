@@ -33,6 +33,7 @@ namespace video_media_player
         {
             StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
             startWindow.Hide();
+            Application.Current.MainWindow = this;
             List<TbSong> songs = songService.GetMusicVideos();
             int number = 0;
             foreach (var song in songs)

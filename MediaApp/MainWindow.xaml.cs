@@ -130,11 +130,6 @@ namespace video_media_player
         {
             MainFrame.Navigate(new MusicVideosPage());
         }
-        private void StoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new StorePage());
-        }
-
         private void VolumeButton_Click(object sender, RoutedEventArgs e)
         {
             volumePopup.IsOpen = !volumePopup.IsOpen;
@@ -410,7 +405,6 @@ namespace video_media_player
             ChooseSong = null;
             if (CurrentIndex >= 1)
                 --CurrentIndex;
-            //MessageBox.Show("Current index : " + CurrentIndex);
             LoadSong(CurrentIndex);
         }
 
@@ -418,6 +412,7 @@ namespace video_media_player
         {
             StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
             startWindow.Hide();
+            Application.Current.MainWindow = this;
         }
     }
 }
