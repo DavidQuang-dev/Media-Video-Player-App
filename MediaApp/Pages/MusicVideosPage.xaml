@@ -1,9 +1,9 @@
-﻿<Page x:Class="video_media_player.MusicVideosPage"
+﻿<Window x:Class="video_media_player.MusicVideosPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
-      Height="700" Width="1050" Background="Transparent" Loaded="Page_Loaded">
+      Height="700" Width="1050" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -85,4 +85,4 @@
             </Grid>
         </Border>
     </Grid>
-</Page>
+</Window>

@@ -1,18 +1,18 @@
-﻿<Page x:Class="video_media_player.StorePage"
+﻿<Window x:Class="video_media_player.StorePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:video_media_player"
       mc:Ignorable="d" d:DesignWidth="800"
-      Title="StorePage" Height="554">
+      Title="StorePage" Height="600" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
 
     <!-- Grid chính chia layout -->
 
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="260"/>
+            <RowDefinition Height="Auto" MinHeight="295"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- StackPanel for Songs -->
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="10,8,0,0">
             <StackPanel Height="148">
                 <Image HorizontalAlignment="Center" Height="150
                        " Width="247" 
@@ -35,7 +35,7 @@
         </StackPanel>
 
         <!-- StackPanel for Albums -->
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,5,5,5">
             <StackPanel Height="152">
                 <Image HorizontalAlignment="Center" Height="150" Width="252" 
                    Source="https://img.freepik.com/free-vector/realistic-music-record-label-disk-mockup_1017-33906.jpg" 
@@ -49,7 +49,7 @@
         </StackPanel>
 
         <!-- StackPanel for Artist -->
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,34,5,-24">
             <StackPanel Height="181">
                 <Image HorizontalAlignment="Center" Height="180" Width="300" VerticalAlignment="Top" 
                    Source="https://cdn.tuoitre.vn/zoom/700_525/471584752817336320/2023/4/25/son-tung-1682429100141711717000-181-0-1080-1717-crop-16824291249331603053151.jpg" />
@@ -62,7 +62,7 @@
         </StackPanel>
 
         <!-- StackPanel for the Fourth Item -->
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,34,5,-24">
             <StackPanel Height="181">
                 <Image HorizontalAlignment="Center" Height="190" Width="300" VerticalAlignment="Top" 
                    Source="https://img.freepik.com/free-psd/landing-page-template-streaming-music-online-with-woman-wearing-headphones_23-2148987857.jpg" />
@@ -74,6 +74,6 @@
                 Click="PlaylistsManageButton_Click" />
         </StackPanel>
     </Grid>
-</Page>
+</Window>
 
 

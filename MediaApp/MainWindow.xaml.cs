@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using NAudio.Wave;
+using MediaApp;
 
 namespace video_media_player
 {
@@ -413,6 +414,10 @@ namespace video_media_player
             LoadSong(CurrentIndex);
         }
 
-       
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
+            startWindow.Hide();
+        }
     }
 }

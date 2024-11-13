@@ -1,4 +1,5 @@
-﻿using MediaApp.BLL.Services;
+﻿using MediaApp;
+using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace video_media_player
     /// <summary>
     /// Interaction logic for MusicVideosPage.xaml
     /// </summary>
-    public partial class MusicVideosPage : Page
+    public partial class MusicVideosPage : Window
     {
         private SongService songService = new();
         public MusicVideosPage()
@@ -28,8 +29,10 @@ namespace video_media_player
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
+            startWindow.Hide();
             List<TbSong> songs = songService.GetMusicVideos();
             int number = 0;
             foreach (var song in songs)
