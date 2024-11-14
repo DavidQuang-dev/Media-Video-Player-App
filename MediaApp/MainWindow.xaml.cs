@@ -410,9 +410,10 @@ namespace video_media_player
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
-            startWindow.Hide();
+            // StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
+            // startWindow.Hide();
             Application.Current.MainWindow = this;
         }
+
     }
 }
