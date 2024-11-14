@@ -101,22 +101,21 @@
     <!-- TextBox with Placeholder -->
     <Grid>
         <TextBox 
-            x:Name="SearchTextBox" 
-            Width="200" 
-            Height="30" 
-            VerticalAlignment="Center" 
-            TextChanged="SearchTextBox_TextChanged"/>
-        
-        <!-- Placeholder TextBlock -->
-        
+        x:Name="SearchTextBox" 
+        Width="200" 
+        Height="30" 
+        VerticalAlignment="Center" 
+        VerticalContentAlignment="Center" 
+        HorizontalContentAlignment="Left"
+        TextChanged="SearchTextBox_TextChanged"/>
+
         <TextBlock 
-            Text="Search artist..." 
-            Foreground="Gray" 
-            VerticalAlignment="Center" 
-            Margin="5,0,0,0"
-            IsHitTestVisible="False"
-            Visibility="{Binding Text, ElementName=SearchTextBox}"/>
-    </Grid>
+        Foreground="Gray" 
+        VerticalAlignment="Center" 
+        Margin="5,0,0,0" 
+        IsHitTestVisible="False"
+        Visibility="{Binding Text, ElementName=SearchTextBox}"/>
+        </Grid>
     
     <Button 
         Content="Search" 
