@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:video_media_player"
-             StartupUri="MainWindow.xaml">
+             StartupUri="RegisterPage.xaml">
     <Application.Resources>
         <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
         

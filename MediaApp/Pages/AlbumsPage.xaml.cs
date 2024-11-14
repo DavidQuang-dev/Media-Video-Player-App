@@ -73,14 +73,14 @@ namespace video_media_player
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-            if (mainWindow.WindowState == WindowState.Maximized)
-            {
+            //if (mainWindow.WindowState == WindowState.Maximized)
+            //{
+            //    AlbumDetailNameTextBlock.MaxWidth = 600;
+            //}
+            //else
+            //{
                 AlbumDetailNameTextBlock.MaxWidth = 600;
-            }
-            else
-            {
-                AlbumDetailNameTextBlock.MaxWidth = 600;
-            }
+            //}
         }
 
         private void SongItem_Click(object sender, RoutedEventArgs e)

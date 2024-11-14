@@ -37,7 +37,6 @@ namespace video_media_player
 
         private readonly DispatcherTimer _timer;
         private Mp3FileReader _reader;
-        public TbUser? AuthenticatedUser { get; set; }
 
         public MainWindow()
         {

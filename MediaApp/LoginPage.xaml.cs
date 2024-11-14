@@ -32,7 +32,7 @@ namespace MediaApp
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string email = EmailAddressTextBox.Text.Trim();
-            string pass = PasswordTextBox.Text;
+            string pass = PasswordTextBox.Password;
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass)) 
             {
