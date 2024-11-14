@@ -32,12 +32,25 @@ namespace video_media_player
         private bool isZoom = false;
         private DispatcherTimer _timeMouseEnter;
         private List<TbSong> videoList;
+        private DispatcherTimer _skipTimer;
         public MusicVideosPage()
         {
             InitializeComponent();
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += Timer_Tick;
+
+            _skipTimer = new DispatcherTimer();
+            _skipTimer.Interval = TimeSpan.FromSeconds(1);
+            _skipTimer.Tick += SkipTimer_Tick;
+        }
+
+        void SkipTimer_Tick(object sender, EventArgs e)
+        {
+            PreviousStackPanel.Visibility = Visibility.Hidden;
+            VolumeStackPanel.Visibility = Visibility.Hidden;
+            ForwardStackPanel.Visibility = Visibility.Hidden;
+            _skipTimer.Stop();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -76,6 +89,7 @@ namespace video_media_player
                     VideoMediaPlayer.Source = new Uri(selectedSong.FilePath);
                     TimeSlider.Maximum = (double)selectedSong.Duration;
                     MaxTimeLabel.Content = "/ " + ConvertTimeFormat((double)selectedSong.Duration);
+                    VideoNameLabel.Content = selectedSong.SongName;
                     VideoMediaPlayer.Play();
                     _timer.Start();
                 }
@@ -181,13 +195,14 @@ namespace video_media_player
                 FullLayOutGrid.RowDefinitions.Clear();
                 FullLayOutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 FullLayOutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0) });
+                FullLayOutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0) });
 
                 PlayerScreenGrid.RowDefinitions.Clear();
                 PlayerScreenGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0) });
                 PlayerScreenGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 PlayerScreenGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0) });
                 FullScreenScrollView.Margin = new Thickness(0, 0, 0, 0);
-                ScreenBorder.CornerRadius = new CornerRadius(0);
+                FullScreenScrollView.ScrollToEnd();
                 isZoom = true;
             }
             else
@@ -196,6 +211,7 @@ namespace video_media_player
                 FullLayOutGrid.RowDefinitions.Clear();
                 FullLayOutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2.5, GridUnitType.Star) });
                 FullLayOutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+                FullLayOutGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
 
                 PlayerScreenGrid.RowDefinitions.Clear();
                 PlayerScreenGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
@@ -203,7 +219,7 @@ namespace video_media_player
                 PlayerScreenGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
 
                 FullScreenScrollView.Margin = new Thickness(30, 20, 30, 30);
-                ScreenBorder.CornerRadius = new CornerRadius(10);
+                FullScreenScrollView.ScrollToHome();
                 isZoom = false;
             }
         }
@@ -226,6 +242,7 @@ namespace video_media_player
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            VideoMediaPlayer.Stop();
             this.Close();
         }
 
@@ -241,31 +258,78 @@ namespace video_media_player
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            switch (e.Key)
             {
-                e.Handled = true;
+                case Key.Space:
+                    {
+                        PlayButton_Click(sender, e);
+                        break;
+                    }
+                case Key.M:
+                    {
+                        MuteEvent();
+                        break;
+                    }
+                case Key.F:
+                    {
+                        ZoomButton_Click(sender, e);
+                        break;
+                    }
+                case Key.Escape:
+                    {
+                        if (WindowState == WindowState.Maximized)
+                            ZoomButton_Click(sender, e);
+                        break;
+                    }
+                case Key.Right:
+                    {
+                        UpdateTimeKeyDown(e.Key);
+                        break;
+                    }
+                case Key.Left:
+                    {
+                        UpdateTimeKeyDown(e.Key);
+                        break;
+                    }
+                case Key.Up:
+                    {
+                        VolumeSlider.Value = VolumeSlider.Value + 5;
+                        VolumePressUpLabel.Content = VolumeSlider.Value + "%";
+                        VolumeStackPanel.Visibility = Visibility.Visible;
+                        _skipTimer.Start();
+                        break;
+                    }
+                case Key.Down:
+                    {
+                        VolumeSlider.Value = VolumeSlider.Value - 5;
+                        VolumePressUpLabel.Content = VolumeSlider.Value + "%";
+                        VolumeStackPanel.Visibility = Visibility.Visible;
+                        _skipTimer.Start();
+                        break;
+                    }
             }
+        }
 
-            if (e.Key == Key.Space)
+        private void UpdateTimeKeyDown(Key key)
+        {
+            if (key == Key.Left)
             {
-                PlayButton_Click(sender, e);
+                TimeSlider.Value = TimeSlider.Value - 10;
+                PreviousStackPanel.Visibility = Visibility.Visible;
             }
-            else if (e.Key == Key.M)
+            else
             {
-                MuteEvent();
-            } 
-            else if (e.Key == Key.F)
-            {
-                ZoomButton_Click(sender, e);
+                TimeSlider.Value = TimeSlider.Value + 10;
+                ForwardStackPanel.Visibility = Visibility.Visible;
             }
+            _skipTimer.Start();
+            VideoMediaPlayer.Position = TimeSpan.FromSeconds(TimeSlider.Value);
+            TimeLabel.Content = ConvertTimeFormat(TimeSlider.Value);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true;
-            }
+
         }
 
         private void MuteEvent()
@@ -334,6 +398,20 @@ namespace video_media_player
         private void VideoMediaPlayer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             PlayButton_Click(sender, e);
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up)
+            {
+                e.Handled = true;
+            } else if (e.Key == Key.Down)
+            {
+                e.Handled = true;
+            } else if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
