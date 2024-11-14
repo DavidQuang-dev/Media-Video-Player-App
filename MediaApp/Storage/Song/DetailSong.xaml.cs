@@ -106,8 +106,8 @@ namespace MediaApp
                     string extension = System.IO.Path.GetExtension(openFileDialog.FileName).ToLower();
                     txtFileType.Text = extension switch
                     {
-                        ".mp3" or ".wav" => "Audio (mp3)",
-                        ".mp4" => "Video (mp4)",
+                        ".mp3" or ".wav" => "mp3",
+                        ".mp4" => "mp4",
                         _ => "Unknown"
                     };
                 }
