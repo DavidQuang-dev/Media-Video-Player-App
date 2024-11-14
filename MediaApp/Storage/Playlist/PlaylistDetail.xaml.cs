@@ -55,6 +55,7 @@ namespace MediaApp
 
                     //xóa bài đc thêm vào khỏi ds bài hát cbi xóa
                     _songsToRemove.Remove(selectedItem);
+                    RefreshSongComboBox();
                 }
             }
             else

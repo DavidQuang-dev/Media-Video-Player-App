@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls" xmlns:local="clr-namespace:video_media_player"
-        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" >
+        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded" >
     <!--<Window.Resources>
         <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
     </Window.Resources>-->
@@ -96,6 +96,24 @@
                             <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                         </Grid>
                     </Button>
+
+                    <Button Style="{StaticResource menuButton}" Click="SettingsButton_Click">
+                        <Grid>
+                            <TextBlock Text="Settings" Margin="0 0 0 2"/>
+                            <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}"/>
+                        </Grid>
+                    </Button>
+                    <!-- User Info Popup -->
+                    <Popup x:Name="UserInfoPopup" Placement="MousePoint" StaysOpen="False">
+                        <Border Background="White" CornerRadius="10" Padding="10">
+                            <StackPanel>
+                                <TextBlock Text="User Information" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <TextBlock Text="UserName: John Doe"/>
+                                <TextBlock Text="Email: john.doe@example.com"/>
+                                <Button Content="Logout" Click="LogoutButton_Click"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
 
                 </StackPanel>
 

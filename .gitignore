@@ -357,3 +357,5 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/vs
+/MediaApp/LoginPage.xaml.cs
+/MediaApp/appsettings.json

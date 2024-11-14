@@ -1,5 +1,4 @@
-﻿using MediaApp.DAL.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +21,7 @@ namespace MediaApp
     /// </summary>
     public partial class RegisterPage : Window
     {
-        //private Se;
+        private UserService _userService = new();
         public RegisterPage()
         {
             InitializeComponent();
@@ -30,31 +29,7 @@ namespace MediaApp
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
-        }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
-        {
-            if(!CheckVar()) return;
-
-            TbUser obj = new();
-
-            obj.UserName = UserNameTextBox.Text;
-            obj.Email = EmailAddressTextBox.Text;
-            obj.Password = PasswordTextBox.Password;
-
-            LoginPage login = new();
-            login.Show();
-            this.Hide();
-        }
-        private bool CheckVar()
-        {
-            if (string.IsNullOrWhiteSpace(UserNameTextBox.Text) || string.IsNullOrWhiteSpace(EmailAddressTextBox.Text) || string.IsNullOrWhiteSpace(PasswordTextBox.Password))
-            {
-                MessageBox.Show("UserName, email and password are required!", "Field required!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            return true;
         }
     }
 }
