@@ -244,6 +244,8 @@ namespace video_media_player
         {
             VideoMediaPlayer.Stop();
             this.Close();
+            StartWindow startWindow = new();
+            startWindow.ShowDialog();
         }
 
         private void ScreenBorder_MouseDown(object sender, MouseButtonEventArgs e)

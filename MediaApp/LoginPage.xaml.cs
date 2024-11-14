@@ -34,7 +34,7 @@ namespace MediaApp
             string email = EmailAddressTextBox.Text.Trim();
             string pass = PasswordTextBox.Password;
 
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass)) 
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass))
             {
                 MessageBox.Show("Both email and password are required!", "Field required!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -42,28 +42,25 @@ namespace MediaApp
 
             TbUser? acc = _service.Authenticated(email, pass);
 
-            if (acc == null) 
+            if (acc == null)
             {
                 MessageBox.Show("Invalid email or password!", "Wrong credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
-            } else
-            {
-                MainWindow detail = new();
-                detail.AuthenticatedUser = acc;
-                detail.Show();
-                this.Close();
             }
+            MainWindow detail = new();
+            detail.AuthenticatedUser = acc;
+            this.Close();
+            detail.ShowDialog();
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-            //this.Hide();
+            this.Close();
         }
-
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             RegisterPage detail = new();
-            detail.Show();
+            detail.ShowDialog();
             this.Close();
         }
     }

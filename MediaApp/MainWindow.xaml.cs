@@ -52,13 +52,15 @@ namespace video_media_player
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
+            startWindow.Hide();
+            Application.Current.MainWindow = this;
             //case: user chưa login
-            if(AuthenticatedUser == null)
+            if (AuthenticatedUser == null)
             {
                 //MessageBox.Show("Login please!!", "Session expired", MessageBoxButton.OK, MessageBoxImage.Error);
                 LoginPage loginPage = new();
                 loginPage.ShowDialog();
-                this.Close();
             }
         }
         public void SetChosenSong(TbSong song)
@@ -422,13 +424,6 @@ namespace video_media_player
             LoadSong(CurrentIndex);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            // StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
-            // startWindow.Hide();
-            Application.Current.MainWindow = this;
-        }
-
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             UserInfoPopup.IsOpen = !UserInfoPopup.IsOpen;
@@ -437,7 +432,9 @@ namespace video_media_player
         { // Implement logout logic here
             AuthenticatedUser = null;
             MessageBox.Show("You have been logged out.", "Logout", MessageBoxButton.OK, MessageBoxImage.Information); UserInfoPopup.IsOpen = false;
-            Window_Loaded(sender, e);
+            this.Close();
+            StartWindow startWindow = new();
+            startWindow.ShowDialog();
         }
     }
 }
