@@ -120,7 +120,7 @@
                         IsHitTestVisible="False"
                         Visibility="{Binding Text, ElementName=SearchTextBox}"/>
                 </Grid>
-                <!-- DataGrid -->
+
         <Button 
             Content="Search" 
             Style="{StaticResource ModernButton}" 
@@ -128,6 +128,8 @@
             Click="SearchButton_Click" 
             Height="30" Width="75"/>
         </StackPanel>
+            <!-- DataGrid -->
+
             <DataGrid 
                 Grid.Row="1" 
                 x:Name="PlayListDataGrid"
