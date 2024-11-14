@@ -36,7 +36,7 @@ namespace video_media_player
 
         private readonly DispatcherTimer _timer;
         private Mp3FileReader _reader;
-        public TbUser AuthenticatedUser { get; set; }
+        public TbUser? AuthenticatedUser { get; set; }
 
         public MainWindow()
         {
@@ -55,6 +55,7 @@ namespace video_media_player
             //case: user chưa login
             if(AuthenticatedUser == null)
             {
+                //MessageBox.Show("Login please!!", "Session expired", MessageBoxButton.OK, MessageBoxImage.Error);
                 LoginPage loginPage = new();
                 loginPage.ShowDialog();
                 this.Close();
@@ -432,6 +433,8 @@ namespace video_media_player
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         { // Implement logout logic here
             AuthenticatedUser = null;
-            MessageBox.Show("You have been logged out.", "Logout", MessageBoxButton.OK, MessageBoxImage.Information); UserInfoPopup.IsOpen = false; }
+            MessageBox.Show("You have been logged out.", "Logout", MessageBoxButton.OK, MessageBoxImage.Information); UserInfoPopup.IsOpen = false;
+            Window_Loaded(sender, e);
         }
+    }
 }

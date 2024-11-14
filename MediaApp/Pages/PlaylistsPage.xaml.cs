@@ -1,6 +1,7 @@
 ﻿using MediaApp;
 using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
+using MediaApp.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace video_media_player
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             //f5 lưới
-            PlaylistDetail detail = new();
+            PlaylistDetailWindow detail = new();
             detail.ShowDialog();
             FillListBox(_playlistService.GetAllPlayList());
         }

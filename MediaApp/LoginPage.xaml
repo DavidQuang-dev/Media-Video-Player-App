@@ -28,7 +28,7 @@
             <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="55" Margin="324,339,0,0" VerticalAlignment="Top" Width="230" TabIndex="3" Grid.Column="2" Style="{StaticResource GradientButton}" Click="QuitButton_Click"/>
 
             <Label Content="© 2024 media.app" HorizontalAlignment="Left" Height="45" Margin="257,483,0,0" VerticalAlignment="Top" Width="182" Foreground="#ffff00" Grid.Column="2"/>
-            <Button x:Name="RegisterButton" Content="Don't have an account? Click me!!" HorizontalAlignment="Left" Height="55" Margin="127,398,0,0" VerticalAlignment="Top" Width="368" TabIndex="3" Grid.Column="2" Style="{StaticResource GradientButtonRegister}" Click="RegisterButton_Click"/>
+            <Button x:Name="RegisterButton" Content="Don't have an account? Click me!!" HorizontalAlignment="Left" Height="55" Margin="127,398,0,0" VerticalAlignment="Top" Width="368" TabIndex="3" Grid.Column="2" Style="{StaticResource GradientButtonRegister}" Click="RegisterButton_Click" FontSize="16"/>
         </Grid>
     </Border>
 </Window>

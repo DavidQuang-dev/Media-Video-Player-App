@@ -55,5 +55,12 @@ namespace MediaApp
             loginPage.Show();
             this.Close();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPage page = new();
+            page.Show();
+            this.Close();
+        }
     }
 }
