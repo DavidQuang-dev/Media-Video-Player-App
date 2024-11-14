@@ -66,7 +66,9 @@ namespace video_media_player
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.Close();
+            StartWindow startWindow = new();
+            startWindow.ShowDialog();
         }
 
         private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)

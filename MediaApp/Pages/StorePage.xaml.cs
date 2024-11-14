@@ -49,6 +49,13 @@ namespace video_media_player
             startWindow.Hide();
             Application.Current.MainWindow = this;
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            StartWindow startWindow = new();
+            startWindow.ShowDialog();
+        }
     }
 }
 

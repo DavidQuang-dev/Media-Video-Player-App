@@ -5,8 +5,6 @@
              xmlns:local="clr-namespace:video_media_player"
              StartupUri="StartWindow.xaml">
     <Application.Resources>
-        <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
-        
         <Style x:Key="menuTitle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#97e6c1"/>
             <Setter Property="FontSize" Value="22"/>
@@ -258,7 +256,7 @@
                                 <!-- Track Background for Vertical Slider -->
                                 <Border x:Name="TrackBackground" Background="White" BorderThickness="0" CornerRadius="2.5" Width="4" Margin="0,15" Grid.Row="1" HorizontalAlignment="Center">
                                     <Border x:Name="PART_SelectionRange" Background="#49d092" CornerRadius="1" VerticalAlignment="Bottom"
-            Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Converter={StaticResource SliderValueToHeightConverter}, ConverterParameter=200, FallbackValue=0}" />
+            Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, ConverterParameter=200, FallbackValue=0}" />
                                 </Border>
 
 
