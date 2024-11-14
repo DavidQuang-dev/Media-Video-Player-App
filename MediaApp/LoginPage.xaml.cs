@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using video_media_player;
 
 namespace MediaApp
 {
@@ -31,7 +32,7 @@ namespace MediaApp
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             string email = EmailAddressTextBox.Text.Trim();
-            string pass = PasswordTextBox.Text;
+            string pass = PasswordTextBox.Password;
 
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass)) 
             {
@@ -46,6 +47,11 @@ namespace MediaApp
                 MessageBox.Show("Invalid email or password!", "Wrong credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            MainWindow main = new();
+            main.AuthenticatedUser = acc;
+            main.Show();
+            this.Hide();
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)

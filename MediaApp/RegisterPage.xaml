@@ -4,25 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Connect to the system" Height="538" Width="855" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent">
+        Title="Connect to the system" Height="538" Width="844" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="Transparent">
     <Border CornerRadius="40" Background="{StaticResource GreenGradientBrush}">
-        <Grid Margin="-17,0,17,0">
+        <Grid Margin="-17,0,-21,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="63*"/>
                 <ColumnDefinition Width="65*"/>
                 <ColumnDefinition Width="722*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle HorizontalAlignment="Left" Height="408" Stroke="Black" VerticalAlignment="Center" Width="574" Fill="#ffff00" RadiusX="20" RadiusY="20" Margin="23,0,0,0" Grid.Column="2"/>
-            <Label Content="Register" HorizontalAlignment="Left" Height="60" Margin="195,77,0,0" VerticalAlignment="Top" Width="230" FontWeight="ExtraBold" FontSize="40" Foreground="{StaticResource GreenGradientBrush}" HorizontalContentAlignment="Center" Grid.Column="2"/>
-            <Label Content="User Name" HorizontalAlignment="Left" Height="45" Margin="46,175,0,0" VerticalAlignment="Top" Width="121" Grid.Column="2" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}"/>
-            <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Center" Height="45" Margin="0,179,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}"/>
-            <Label Content="Email" HorizontalAlignment="Left" Height="46" Margin="46,0,0,0" VerticalAlignment="Center" Width="107" Grid.Column="2" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}"/>
-            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Center" Height="44" Margin="0,252,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}"/>
-            <Label Content="Password" HorizontalAlignment="Left" Height="45" Margin="46,320,0,0" VerticalAlignment="Top" Width="107" Grid.Column="2" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}"/>
-            <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Center" Height="45" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="1" Grid.Column="2" Margin="0,320,0,0" Style="{StaticResource GradientTextBox}" />
-            <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Height="55" Margin="68,395,0,0" VerticalAlignment="Top" Width="230" TabIndex="2"  Grid.Column="2" Style="{StaticResource GradientButton}"/>
-            <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="55" Margin="324,395,0,0" VerticalAlignment="Top" Width="230" TabIndex="3"  Grid.Column="2" Style="{StaticResource GradientButton}" Click="QuitButton_Click"/>
-            <Label Content="© 2024 media.app" HorizontalAlignment="Left" Height="45" Margin="251,490,0,0" VerticalAlignment="Top" Width="118" Foreground="#ffff00" Grid.Column="2"/>
+            <Rectangle HorizontalAlignment="Left" Height="538" Stroke="Black" VerticalAlignment="Center" Width="858" Fill="#18c274" RadiusX="20" RadiusY="20" Margin="10,0,0,0" Grid.ColumnSpan="3"/>
+            <Label Content="Register" HorizontalAlignment="Left" Height="60" Margin="193,29,0,0" VerticalAlignment="Top" Width="230" FontWeight="ExtraBold" FontSize="40" Foreground="{StaticResource GreenGradientBrush}" HorizontalContentAlignment="Center" Grid.Column="2"/>
+            <Label Content="User Name" HorizontalAlignment="Left" Height="45" Margin="34,153,0,0" VerticalAlignment="Top" Width="121" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Height="46" Margin="144,152,0,0" Padding="20, 7, 0, 0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}" />
+            <Label Content="Email" HorizontalAlignment="Left" Height="46" Margin="34,225,0,0" VerticalAlignment="Top" Width="107" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Left" Height="44" Margin="144,225,0,0" Padding="20, 7, 0, 0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="382" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}" />
+            <Label Content="Password" HorizontalAlignment="Left" Height="45" Margin="34,297,0,0" VerticalAlignment="Top" Width="107" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}" Grid.ColumnSpan="2" RenderTransformOrigin="0.749,0.693" Grid.Column="1"/>
+            <PasswordBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="382" TabIndex="1" Grid.Column="2" Margin="144,297,0,0" Padding="20, 0, 0, 0" Style="{StaticResource GradientPasswordBox}" />
+            <Button x:Name="RegisterButton" Content="Register" HorizontalAlignment="Left" Height="55" Margin="10,395,0,0" VerticalAlignment="Top" Width="230" TabIndex="2"  Grid.Column="2" Style="{StaticResource GradientButton}" Click="RegisterButton_Click"/>
+            <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="55" Margin="349,395,0,0" VerticalAlignment="Top" Width="230" TabIndex="3"  Grid.Column="2" Style="{StaticResource GradientButton}" Click="QuitButton_Click"/>
+            <!--<Label Content="© 2024 media.app" HorizontalAlignment="Left" Height="45" Margin="251,490,0,0" VerticalAlignment="Top" Width="118" Foreground="#ffff00" Grid.Column="2"/>-->
         </Grid>
     </Border>
 </Window>

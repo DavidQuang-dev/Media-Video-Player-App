@@ -28,6 +28,7 @@ namespace video_media_player
     {
         public List<TbSong> ListSongs { get; set; }
         public TbSong ChooseSong { get; set; }
+        public TbUser AuthenticatedUser {  get; set; }
         private readonly SongService _songService = new();
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Height="538"  Width="855" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        Height="385"  Width="641" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Border CornerRadius="40" Background="{StaticResource GreenGradientBrush}" BorderThickness="2">
         <Grid Margin="0">
             <Grid.ColumnDefinitions>
@@ -12,20 +12,20 @@
                 <ColumnDefinition Width="65*"/>
                 <ColumnDefinition Width="722*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle HorizontalAlignment="Left" Height="383" Stroke="Black" VerticalAlignment="Top" Width="639" Fill="#ffff00" RadiusX="20" RadiusY="20" Margin="56,70,0,0" Grid.Column="1" Grid.ColumnSpan="2"/>
-            <Label Content="Log in" HorizontalAlignment="Left" Height="68" Margin="195,77,0,0" VerticalAlignment="Top" Width="230" FontWeight="ExtraBold" FontSize="40" HorizontalContentAlignment="Center" Grid.Column="2" Foreground="{StaticResource GreenGradientBrush}"/>
+            <Rectangle HorizontalAlignment="Left" Height="383" Stroke="Black" VerticalAlignment="Top" Width="639" Fill="#18c274" RadiusX="20" RadiusY="20" Grid.ColumnSpan="3"/>
+            <Label Content="Log in" HorizontalAlignment="Left" Height="68" Margin="108,24,0,0" VerticalAlignment="Top" Width="230" FontWeight="ExtraBold" FontSize="40" HorizontalContentAlignment="Center" Grid.Column="2" Foreground="{StaticResource GreenGradientBrush}"/>
 
-            <Label Content="Email" HorizontalAlignment="Left" Height="45" Margin="68,182,0,0" VerticalAlignment="Top" Width="107" Grid.Column="2" FontSize="20" FontWeight="ExtraBold" Foreground="{StaticResource GreenGradientBrush}"/>
+            <Label Content="Email" HorizontalAlignment="Left" Height="45" Margin="7,112,0,0" VerticalAlignment="Top" Width="107" Grid.Column="1" FontSize="20" FontWeight="ExtraBold" Foreground="{StaticResource GreenGradientBrush}" Grid.ColumnSpan="2"/>
 
-            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Left" Height="45" Margin="180,179,0,0" Padding="20, 0, 0, 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+            <TextBox x:Name="EmailAddressTextBox" HorizontalAlignment="Left" Height="45" Margin="65,112,0,0" Padding="20, 0, 0, 0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" TabIndex="0" Grid.Column="2" Style="{StaticResource GradientTextBox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
 
-            <Label Content="Password" HorizontalAlignment="Left" Height="45" Margin="68,251,0,0" VerticalAlignment="Top" Width="107" Grid.Column="2" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}"/>
+            <Label Content="Password" HorizontalAlignment="Left" Height="45" Margin="47,201,0,0" VerticalAlignment="Top" Width="165" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource GreenGradientBrush}" Grid.ColumnSpan="3"/>
 
-            <PasswordBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Password="12" VerticalContentAlignment="Center" Width="374" TabIndex="1" Grid.Column="2" Margin="180,249,0,0" Padding="20, 0, 0, 0" Style="{StaticResource GradientPasswordBox}"/>
+            <PasswordBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="374" TabIndex="1" Grid.Column="2" Margin="65,201,0,0" Padding="20, 0, 0, 0" Style="{StaticResource GradientPasswordBox}"/>
 
-            <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Height="55" Margin="68,339,0,0" VerticalAlignment="Top" Width="230" TabIndex="2" Grid.Column="2" Style="{StaticResource GradientButton}" Click="LoginButton_Click"/>
+            <Button x:Name="LoginButton" Content="Login" HorizontalAlignment="Left" Height="55" Margin="0,284,0,0" VerticalAlignment="Top" Width="230" TabIndex="2" Grid.Column="1" Style="{StaticResource GradientButton}" Click="LoginButton_Click" Grid.ColumnSpan="2"/>
 
-            <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="55" Margin="324,339,0,0" VerticalAlignment="Top" Width="230" TabIndex="3" Grid.Column="2" Style="{StaticResource GradientButton}" Click="QuitButton_Click"/>
+            <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="55" Margin="233,284,0,0" VerticalAlignment="Top" Width="230" TabIndex="3" Grid.Column="2" Style="{StaticResource GradientButton}" Click="QuitButton_Click"/>
 
             <Label Content="© 2024 media.app" HorizontalAlignment="Left" Height="45" Margin="257,483,0,0" VerticalAlignment="Top" Width="182" Foreground="#ffff00" Grid.Column="2"/>
         </Grid>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:video_media_player"
-             StartupUri="LoginPage.xaml">
+             StartupUri="RegisterPage.xaml">
     <Application.Resources>
         <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
         
@@ -322,9 +322,10 @@
             </Setter>
         </Style>
         <!--Login & Register Style-->
-        <LinearGradientBrush x:Key="GreenGradientBrush">
-            <GradientStop Color="#30ad9a" Offset="0"/>
-            <GradientStop Color="#18c274" Offset="1"/>
+        <LinearGradientBrush x:Key="GreenGradientBrush" StartPoint="0,0" EndPoint="1,1  ">
+           <!-- <GradientStop Color="#248c7c" Offset="0"/> -->
+            <GradientStop Color="White" Offset="0"/>
+
         </LinearGradientBrush>
         <Style x:Key="GradientButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource GreenGradientBrush}"/>
@@ -342,7 +343,7 @@
         </Style>
         <Style x:Key="GradientTextBox" TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource GreenGradientBrush}"/>
-            <Setter Property="Foreground" Value="#ffff00" />
+            <Setter Property="Foreground" Value="#18c274" />
             <Setter Property="FontSize" Value="18" />
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Template">
@@ -358,7 +359,7 @@
 
         <Style x:Key="GradientPasswordBox" TargetType="PasswordBox">
             <Setter Property="Background" Value="{StaticResource GreenGradientBrush}"/>
-            <Setter Property="Foreground" Value="#ffff00" />
+            <Setter Property="Foreground" Value="#18c274" />
             <Setter Property="FontSize" Value="18" />
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Template">
