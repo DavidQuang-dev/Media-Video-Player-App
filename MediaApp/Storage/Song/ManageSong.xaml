@@ -128,7 +128,7 @@
             Background="#4CAF50" 
             Click="SearchButton_Click" 
              Height="30" Width="75"/>
-            </StackPanel>
+    </StackPanel>
             <!-- DataGrid -->
             <DataGrid 
     Grid.Row="1" 
