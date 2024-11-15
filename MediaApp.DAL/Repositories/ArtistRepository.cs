@@ -1,4 +1,5 @@
 ﻿using MediaApp.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,13 @@ namespace MediaApp.DAL.Repositories
             }
             _context.TbArtists.Remove(artist);
             _context.SaveChanges();
+        }
+
+        public List<TbArtist> GetArtistsByName(string name)
+        {
+            return _context.TbArtists // Sử dụng DbSet<Artist> để truy cập bảng Artists
+                .Where(a => a.ArtistName.Contains(name))
+                .ToList();
         }
     }
 }

@@ -60,7 +60,7 @@ namespace MediaApp
             var file = TagLib.File.Create(txtFilePath.Text);
             TimeSpan duration = file.Properties.Duration;
             song.Duration = (decimal)duration.TotalSeconds;
-            song.Type = TypeCombobox.SelectedValue.ToString() ?? "mp3";
+            //song.Type = TypeCombobox.SelectedValue.ToString() ?? "mp3";
             song.Plays = 0;
             song.ArtistId = Convert.ToInt32(ArtistCombobox.SelectedValue.ToString());
             song.AlbumId = AlbumCombobox.SelectedValue != null ? Convert.ToInt32(AlbumCombobox.SelectedValue.ToString()) : (int?)null;
@@ -89,12 +89,27 @@ namespace MediaApp
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                txtFilePath.Text = openFileDialog.FileName;
+                    txtFilePath.Text = openFileDialog.FileName;
+                //    try
+                //    {
+                //        var file = TagLib.File.Create(txtFilePath.Text);
+                //        TimeSpan duration = file.Properties.Duration;
+                //        txtDuration.Text = ConvertTimeFormat(duration.TotalSeconds);
+                //    }
                 try
                 {
                     var file = TagLib.File.Create(txtFilePath.Text);
                     TimeSpan duration = file.Properties.Duration;
                     txtDuration.Text = ConvertTimeFormat(duration.TotalSeconds);
+
+                    // Xác định loại file dựa trên phần mở rộng
+                    string extension = System.IO.Path.GetExtension(openFileDialog.FileName).ToLower();
+                    txtFileType.Text = extension switch
+                    {
+                        ".mp3" or ".wav" => "mp3",
+                        ".mp4" => "mp4",
+                        _ => "Unknown"
+                    };
                 }
                 catch (Exception ex)
                 {
@@ -114,8 +129,8 @@ namespace MediaApp
             AlbumCombobox.DisplayMemberPath = "Title";
             AlbumCombobox.SelectedValuePath = "AlbumId";
 
-            TypeCombobox.ItemsSource = new List<string> { "mp3", "mp4" };
-            TypeCombobox.SelectedIndex = 0;
+            //TypeCombobox.ItemsSource = new List<string> { "mp3", "mp4" };
+            //TypeCombobox.SelectedIndex = 0;
             if (EditSong != null)
             {
                 txtSongName.Text = EditSong.SongName;

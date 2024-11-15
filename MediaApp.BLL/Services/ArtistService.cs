@@ -31,5 +31,13 @@ namespace MediaApp.BLL.Services
         {
             _repo.DeleteArtist(artist);
         }
+
+        // Phương thức tìm kiếm artist theo tên
+        public List<TbArtist> GetArtistsByName(string name)
+        {
+            return _repo.GetArtistsByName(name);
+        }
+
+
     }
 }

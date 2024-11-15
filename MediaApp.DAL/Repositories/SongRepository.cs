@@ -147,6 +147,16 @@ namespace MediaApp.DAL.Repositories
                            .Include(song => song.Album)
                            .FirstOrDefault(s => s.SongName.Equals(songName));
         }
+        public List<TbSong> GetSongsByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return new List<TbSong>();
+
+            var searchQuery = name.ToLower();
+
+            return _context.Set<TbSong>()
+                             .Where(s => s.SongName.ToLower().Contains(searchQuery))
+                             .ToList();
+        }
 
     }
 }

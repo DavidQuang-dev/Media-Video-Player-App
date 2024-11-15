@@ -52,5 +52,16 @@ namespace MediaApp.DAL.Repositories
                  .OrderByDescending(album => album.AlbumId)
                  .FirstOrDefault();
         }
+
+        public List<TbAlbum> GetAlbumByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return new List<TbAlbum>();
+
+            var searchQuery = name.ToLower();
+
+            return _context.Set<TbAlbum>()
+                             .Where(s => s.Title.ToLower().Contains(searchQuery))
+                             .ToList();
+        }
     }
 }

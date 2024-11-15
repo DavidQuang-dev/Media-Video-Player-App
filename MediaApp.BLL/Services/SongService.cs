@@ -75,5 +75,14 @@ namespace MediaApp.BLL.Services
         {
             return _songRepository.GetAvailableSongsForPlaylist(excludedSongIds);
         }
+
+        public List<TbSong> GetSongsByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return new List<TbSong>();
+
+            // Gọi phương thức GetSongByName từ _songRepository
+            return _songRepository.GetSongsByName(name);
+        }
     }
 }

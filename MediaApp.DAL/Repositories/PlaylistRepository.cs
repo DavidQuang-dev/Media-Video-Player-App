@@ -60,10 +60,13 @@ namespace MediaApp.DAL.Repositories
             return _context.TbPlaylists.Take(2).ToList();
         }
 
-        public TbPlaylist GetPlaylistByName(string name)
+        public List<TbPlaylist> GetPlaylistByName(string name)
         {
+            var searchQuery = name.ToLower();
             _context = new();
-            return _context.TbPlaylists.Include(p => p.TbPlaylistSongs).ThenInclude(ps => ps.Song).FirstOrDefault(a => a.PlaylistName == name);
+            return _context.Set<TbPlaylist>()
+                         .Where(p => p.PlaylistName.Contains(searchQuery)) // Thực hiện truy vấn tìm kiếm
+                         .ToList();
         }
     }
 }

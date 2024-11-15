@@ -96,8 +96,40 @@
                 FontWeight="Bold" 
                 Margin="0,0,0,20" 
                 HorizontalAlignment="Center" Foreground="#000080"/>
+            <!-- Search Box and Button -->
+        <StackPanel 
+                Grid.Row="0" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Center" 
+                Margin="0,50,0,10">
 
+                <Grid>
+                    <TextBox 
+                         x:Name="SearchPlaylistTextBox" 
+                         Width="200" 
+                         Height="30" 
+                         VerticalAlignment="Center" 
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Left"
+                        TextChanged="SearchPlaylistTextBox_TextChanged"/>
+
+                    <TextBlock 
+                        Foreground="Gray" 
+                        VerticalAlignment="Center" 
+                        Margin="5,0,0,0" 
+                        IsHitTestVisible="False"
+                        Visibility="{Binding Text, ElementName=SearchTextBox}"/>
+                </Grid>
+
+        <Button 
+            Content="Search" 
+            Style="{StaticResource ModernButton}" 
+            Background="#4CAF50" 
+            Click="SearchButton_Click" 
+            Height="30" Width="75"/>
+        </StackPanel>
             <!-- DataGrid -->
+
             <DataGrid 
                 Grid.Row="1" 
                 x:Name="PlayListDataGrid"

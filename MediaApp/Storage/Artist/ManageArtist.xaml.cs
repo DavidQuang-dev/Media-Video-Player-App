@@ -94,5 +94,34 @@ namespace MediaApp
             ArtistsDataGrid.ItemsSource = null;
             ArtistsDataGrid.ItemsSource = tbArtists;
         }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchQuery = SearchTextBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(searchQuery))
+            {
+                MessageBox.Show("Please enter a search term.", "No Search Term", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var filteredArtists = _service.GetArtistsByName(searchQuery);
+            if (filteredArtists == null || filteredArtists.Count == 0)
+            {
+                MessageBox.Show($"No artist found with the keyword '{searchQuery}'.", "No Results", MessageBoxButton.OK, MessageBoxImage.Information);
+                FillData(new List<TbArtist>()); // Xóa dữ liệu khỏi DataGrid nếu không có kết quả
+            }
+            else
+            {
+                FillData(filteredArtists); // Hiển thị danh sách kết quả
+            }
+        }
+        // Định nghĩa phương thức SearchTextBox_TextChanged
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Thêm logic tìm kiếm ở đây
+            // Ví dụ: lấy text từ TextBox và thực hiện tìm kiếm hoặc lọc
+            var searchText = ((TextBox)sender).Text;
+            // TODO: Thực hiện tìm kiếm dựa trên searchText
+        }
     }
 }
