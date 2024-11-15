@@ -63,7 +63,19 @@ namespace video_media_player
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            FillListBox(_playlistService.GetAllPlayList());
+            if (PlaylistsListBox.SelectedItem is TbPlaylist selected)
+            {
+                PlaylistDetailWindow detail = new();
+                detail.EditedOne = selected;
+                detail.ShowDialog();
+
+                // Làm mới danh sách sau khi chỉnh sửa
+                FillListBox(_playlistService.GetAllPlayList());
+            }
+            else
+            {
+                MessageBox.Show("Please select a playlist to edit!", "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

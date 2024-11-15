@@ -5,6 +5,8 @@ namespace MediaApp.DAL.Entities;
 
 public partial class TbSong
 {
+    public bool IsSelected;
+
     public int SongId { get; set; }
 
     public string SongName { get; set; } = null!;
