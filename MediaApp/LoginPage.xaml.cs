@@ -61,8 +61,9 @@ namespace MediaApp
         {
             this.Hide();
             RegisterPage detail = new();
-            detail.ShowDialog();
+            detail.ShowDialog();            
             this.Show();
+            EmailAddressTextBox.Text = detail.Registered.Email;
         }
     }
 }

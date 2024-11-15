@@ -132,5 +132,10 @@ namespace MediaApp
             // Cập nhật UI với danh sách Playlist
             AlbumDataGrid.ItemsSource = songs;
         }
+
+        private void ClearSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchAlbumTextBox.Text = string.Empty;
+        }
     }
 }

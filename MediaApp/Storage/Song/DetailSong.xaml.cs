@@ -60,7 +60,7 @@ namespace MediaApp
             var file = TagLib.File.Create(txtFilePath.Text);
             TimeSpan duration = file.Properties.Duration;
             song.Duration = (decimal)duration.TotalSeconds;
-            //song.Type = TypeCombobox.SelectedValue.ToString() ?? "mp3";
+            song.Type = txtFileType.Text.ToString();
             song.Plays = 0;
             song.ArtistId = Convert.ToInt32(ArtistCombobox.SelectedValue.ToString());
             song.AlbumId = AlbumCombobox.SelectedValue != null ? Convert.ToInt32(AlbumCombobox.SelectedValue.ToString()) : (int?)null;
@@ -90,12 +90,6 @@ namespace MediaApp
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                     txtFilePath.Text = openFileDialog.FileName;
-                //    try
-                //    {
-                //        var file = TagLib.File.Create(txtFilePath.Text);
-                //        TimeSpan duration = file.Properties.Duration;
-                //        txtDuration.Text = ConvertTimeFormat(duration.TotalSeconds);
-                //    }
                 try
                 {
                     var file = TagLib.File.Create(txtFilePath.Text);

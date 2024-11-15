@@ -59,9 +59,15 @@ namespace MediaApp
                 LoginPage loginPage = new();
                 loginPage.ShowDialog();
             }
+
             ToggleWindowStateButton.IsEnabled = false;
             TxtUserName.Text = AuthenticatedUser?.UserName;
             TxtEmail.Text = AuthenticatedUser?.Email;
+
+            if (AuthenticatedUser?.Role.Trim() == "user")
+            {
+                Storage.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void UserIcon_Click(object sender, RoutedEventArgs e)

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using NAudio.Wave;
 using MediaApp;
+using System.Windows.Media;
 
 namespace video_media_player
 {
@@ -33,9 +34,7 @@ namespace video_media_player
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;
         public int CurrentIndex { get; set; }
-
         private readonly DispatcherTimer _timer;
-        private Mp3FileReader _reader;
 
         public MainWindow()
         {
@@ -244,12 +243,6 @@ namespace video_media_player
             {
                 PlayerMediaElement.Source = new Uri(song.FilePath);
                 PlayerMediaElement.Play();
-            } else
-            {
-                MusicVideosPage musicVideosPage = new();
-                MainFrame.Navigate(musicVideosPage);
-                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
-                musicVideosPage.VideoMediaPlayer.Play();
             }
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
@@ -271,13 +264,6 @@ namespace video_media_player
                 PlayerMediaElement.Source = new Uri(song.FilePath);
                 PlayerMediaElement.Play();
             }
-            else
-            {
-                MusicVideosPage musicVideosPage = new();
-                MainFrame.Navigate(musicVideosPage);
-                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
-                musicVideosPage.VideoMediaPlayer.Play();
-            }
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
@@ -296,13 +282,6 @@ namespace video_media_player
             {
                 PlayerMediaElement.Source = new Uri(song.FilePath);
                 PlayerMediaElement.Play();
-            }
-            else
-            {
-                MusicVideosPage musicVideosPage = new();
-                MainFrame.Navigate(musicVideosPage);
-                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
-                musicVideosPage.VideoMediaPlayer.Play();
             }
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
