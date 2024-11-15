@@ -100,7 +100,7 @@ namespace MediaApp
             string searchQuery = SearchTextBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(searchQuery))
             {
-                MessageBox.Show("Please enter a search term.", "No Search Term", MessageBoxButton.OK, MessageBoxImage.Information);
+                FillData(_service.GetAll());
                 return;
             }
 

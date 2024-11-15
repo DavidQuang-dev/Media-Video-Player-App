@@ -99,7 +99,7 @@ namespace MediaApp
             string searchQuery = SearchSongsTextBox.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
             if (string.IsNullOrWhiteSpace(searchQuery)) // Nếu không có từ khóa tìm kiếm
             {
-                System.Windows.MessageBox.Show("Please enter a search term.", "No Search Term", MessageBoxButton.OK, MessageBoxImage.Information);
+                FillData(_service.GetAll());
                 return;
             }
 
