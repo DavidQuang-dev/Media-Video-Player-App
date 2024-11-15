@@ -24,7 +24,7 @@
                     <ItemsControl ItemsSource="{Binding Songs}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox Content="{Binding SongName}" IsChecked="{Binding IsSelected}" Margin="5" Checked="CheckBox_Checked"/>
+                                <CheckBox Content="{Binding SongName}" IsChecked="{Binding IsSelected}" Margin="5" Loaded="CheckBox_Loaded" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
