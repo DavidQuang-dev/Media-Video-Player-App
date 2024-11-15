@@ -28,8 +28,7 @@ namespace video_media_player
     public partial class MainWindow : Window
     {
         public List<TbSong> ListSongs { get; set; }
-        public TbSong ChooseSong { get; set; }
-        public TbUser AuthenticatedUser {  get; set; }
+        public TbSong ChooseSong { get; set; }        
         private readonly SongService _songService = new();
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;
@@ -50,18 +49,14 @@ namespace video_media_player
             };
             _timer.Tick += Timer_Tick;
         }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
-            startWindow.Hide();
             Application.Current.MainWindow = this;
-            //case: user chưa login
-            if (AuthenticatedUser == null)
-            {
-                //MessageBox.Show("Login please!!", "Session expired", MessageBoxButton.OK, MessageBoxImage.Error);
-                LoginPage loginPage = new();
-                loginPage.ShowDialog();
-            }
         }
         public void SetChosenSong(TbSong song)
         {
@@ -72,19 +67,10 @@ namespace video_media_player
             }
 
         }
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                DragMove();
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            StartWindow startWindow = new();
-            startWindow.ShowDialog();
         }
-
         private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
@@ -422,19 +408,6 @@ namespace video_media_player
             if (CurrentIndex >= 1)
                 --CurrentIndex;
             LoadSong(CurrentIndex);
-        }
-
-        private void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserInfoPopup.IsOpen = !UserInfoPopup.IsOpen;
-        }
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        { // Implement logout logic here
-            AuthenticatedUser = null;
-            MessageBox.Show("You have been logged out.", "Logout", MessageBoxButton.OK, MessageBoxImage.Information); UserInfoPopup.IsOpen = false;
-            this.Close();
-            StartWindow startWindow = new();
-            startWindow.ShowDialog();
         }
     }
 }

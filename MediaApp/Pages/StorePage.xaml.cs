@@ -1,4 +1,5 @@
 ﻿using MediaApp;
+using MediaApp.DAL.Entities;
 using Microsoft.Win32;
 using NAudio.Wave;
 using System;
@@ -13,7 +14,6 @@ namespace video_media_player
     /// </summary>
     public partial class StorePage : Window
     {
-
         public StorePage()
         {
             InitializeComponent();
@@ -45,16 +45,12 @@ namespace video_media_player
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
-            startWindow.Hide();
             Application.Current.MainWindow = this;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            StartWindow startWindow = new();
-            startWindow.ShowDialog();
         }
     }
 }

@@ -16,19 +16,11 @@ namespace MediaApp.BLL.Services
         {
             return _repo.EmailExists(email);
         }
-        public void DeleteUser(TbUser user)
-        {
-            _repo.Delete(user);
-        }
-        public void UpdateUser(TbUser user)
-        {
-            _repo.Update(user);
-        }
         public void CreateUser(TbUser user)
         {
             _repo.Create(user);
         }
-        public TbUser Authenticated(string email, string password)
+        public TbUser? Authenticated(string email, string password)
         {
             return _repo.GetOne(email, password);
         }

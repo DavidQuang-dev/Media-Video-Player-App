@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MediaApp.DAL.Entities;
+using System.Windows;
 using System.Windows.Input;
 using video_media_player;
 
@@ -6,6 +7,7 @@ namespace MediaApp
 {
     public partial class StartWindow : Window
     {
+        public TbUser? AuthenticatedUser { get; set; }
         public StartWindow()
         {
             InitializeComponent();
@@ -21,21 +23,6 @@ namespace MediaApp
         {
             Application.Current.Shutdown();
         }
-
-        private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (WindowState == WindowState.Maximized)
-            {
-                WindowState = WindowState.Normal;
-                MainBorder.CornerRadius = new CornerRadius(40);
-            }
-            else
-            {
-                WindowState = WindowState.Maximized;
-                MainBorder.CornerRadius = new CornerRadius(0);
-            }
-        }
-
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -43,20 +30,52 @@ namespace MediaApp
 
         private void MP3_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             MainWindow mainWindow = new();
             mainWindow.ShowDialog();
+            this.Show();
         }
 
         private void MP4_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             MusicVideosPage musicVideosPage = new();
             musicVideosPage.ShowDialog();
+            this.Show();
         }
 
         private void Storage_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             StorePage storePage = new();
             storePage.ShowDialog();
+            this.Show();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (AuthenticatedUser == null)
+            {
+                LoginPage loginPage = new();
+                loginPage.ShowDialog();
+            }
+            ToggleWindowStateButton.IsEnabled = false;
+            TxtUserName.Text = AuthenticatedUser?.UserName;
+            TxtEmail.Text = AuthenticatedUser?.Email;
+        }
+
+        private void UserIcon_Click(object sender, RoutedEventArgs e)
+        {
+            LogoutPopup.IsOpen = !LogoutPopup.IsOpen;
+        }
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        { 
+            MessageBox.Show("You have been logged out.", "Logout", MessageBoxButton.OK, MessageBoxImage.Information); 
+            LogoutPopup.IsOpen = false;
+            AuthenticatedUser = null;
+            this.Hide();
+            LoginPage loginPage = new();
+            loginPage.ShowDialog();
         }
     }
 }

@@ -17,6 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\logo.jpg" />
+    <None Remove="Images\Mp3Icon.webp" />
+    <None Remove="Images\Mp4Icon.webp" />
+    <None Remove="Images\storageIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="favicon.ico" />
   </ItemGroup>
 
@@ -32,10 +39,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appsettings.json">
+    <Resource Include="Images\logo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\logo.jpg">
+    </Resource>
+    <Resource Include="Images\Mp3Icon.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Mp4Icon.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\storageIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

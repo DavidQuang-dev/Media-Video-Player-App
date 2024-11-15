@@ -60,17 +60,17 @@
                     <!-- Songs Card -->
                     <Border Style="{StaticResource CardBorder}" Width="250" Height="330">
                         <StackPanel>
-                            <Image Source="https://t3.ftcdn.net/jpg/09/65/84/62/360_F_965846221_Yww17Tsy0YBAbyFAOxH0uJyH1CB6Jk4a.jpg"
+                            <Image Source="https://avatar-ex-swe.nixcdn.com/song/2017/11/01/8/9/5/4/1509522189581_640.jpg"
                                    Height="180"/>
                             <TextBlock Text="Songs" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,10"/>
-                            <Button x:Name="ManageSongButton" Content="Manage Songs" Style="{StaticResource defaultButton}" Click="ManageSongButton_Click" Height="53" Width="139"/>
+                            <Button x:Name="ManageSongButton" Content="Manage Songs" Style="{StaticResource defaultButton}" Click="ManageSongButton_Click" Height="53" Width="144"/>
                         </StackPanel>
                     </Border>
 
                     <!-- Albums Card -->
                     <Border Style="{StaticResource CardBorder}" Width="250" Height="330">
                         <StackPanel>
-                            <Image Source="https://img.freepik.com/free-vector/realistic-music-record-label-disk-mockup_1017-33906.jpg"
+                            <Image Source="https://hiphop-n-more.com/wp-content/uploads/2023/08/love-album-off-the-grid.jpg"
                                    Height="180"/>
                             <TextBlock Text="Albums" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,10"/>
                             <Button x:Name="ManageAlbumButton" Content="Manage Albums" Style="{StaticResource defaultButton}" Click="ManageAlbumButton_Click" Height="53" Width="144"/>
@@ -83,17 +83,17 @@
                             <Image Source="https://cainhaccho.net/anh-ca-si/chi-dan.jpg"
                                    Height="180"/>
                             <TextBlock Text="Artists" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,10"/>
-                            <Button x:Name="ArtistManageButton" Content="Manage Artists" Style="{StaticResource defaultButton}" Click="ArtistManageButton_Click" Height="58" Width="139"/>
+                            <Button x:Name="ArtistManageButton" Content="Manage Artists" Style="{StaticResource defaultButton}" Click="ArtistManageButton_Click" Height="53" Width="144"/>
                         </StackPanel>
                     </Border>
 
                     <!-- Playlists Card -->
                     <Border Style="{StaticResource CardBorder}" Width="250" Height="330">
                         <StackPanel>
-                            <Image Source="https://img.freepik.com/free-psd/landing-page-template-streaming-music-online-with-woman-wearing-headphones_23-2148987857.jpg"
+                            <Image Source="https://thisis-images.scdn.co/37i9dQZF1DZ06evO3xp988-default.jpg"
                                    Height="180"/>
                             <TextBlock Text="Playlists" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,15,0,10"/>
-                            <Button x:Name="PlaylistsManageButton" Content="Manage Playlists" Style="{StaticResource defaultButton}" Click="PlaylistsManageButton_Click" Height="58" Width="144"/>
+                            <Button x:Name="PlaylistsManageButton" Content="Manage Playlists" Style="{StaticResource defaultButton}" Click="PlaylistsManageButton_Click" Height="53" Width="144"/>
                         </StackPanel>
                     </Border>
                 </WrapPanel>

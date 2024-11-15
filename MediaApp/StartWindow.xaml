@@ -8,7 +8,7 @@
         AllowsTransparency="True" 
         Background="Transparent" 
         WindowStyle="None" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
 
     <Window.Resources>
         <!-- Animation for button hover -->
@@ -42,6 +42,115 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+
+        <!-- Style mới cho User Icon Button -->
+        <Style x:Key="UserIconButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="35"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="17.5"
+                                BorderThickness="1"
+                                BorderBrush="#e4e6eb">
+                            <Grid>
+                                <Ellipse Width="30" Height="30">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="Images/Logo.jpg"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#f0f2f5"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="#000000" Opacity="0.1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style mới cho Logout Popup -->
+        <Style x:Key="LogoutPopupStyle" TargetType="Popup">
+            <Setter Property="AllowsTransparency" Value="True"/>
+            <Setter Property="PopupAnimation" Value="Fade"/>
+            <Setter Property="Placement" Value="Bottom"/>
+            <Setter Property="PlacementTarget" Value="{Binding ElementName=UserIcon}"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="StaysOpen" Value="False"/>
+        </Style>
+
+        <!-- Style mới cho Menu Button -->
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#ffffff" 
+                        CornerRadius="10" 
+                        BorderThickness="1" 
+                        BorderBrush="#e4e6eb">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" 
+                                        ShadowDepth="3" 
+                                        Direction="315" 
+                                        Opacity="0.2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" 
+                                  VerticalAlignment="Center" 
+                                  Margin="20,0">
+                                    <Image Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" 
+                                   Width="30" Height="30"/>
+                                    <TextBlock Text="{TemplateBinding Content}" 
+                                     Margin="15,0,0,0" 
+                                     FontSize="16" 
+                                     FontWeight="Medium" 
+                                     VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="15" 
+                                                ShadowDepth="5" 
+                                                Direction="315" 
+                                                Opacity="0.3"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard Storyboard="{StaticResource ButtonHoverAnimation}"/>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard Storyboard="{StaticResource ButtonUnhoverAnimation}"/>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Border x:Name="MainBorder" 
@@ -104,9 +213,8 @@
                             </Button.Template>
                         </Button>
 
-                        <Button Background="#ffbf2f" 
+                        <Button x:Name="ToggleWindowStateButton" Background="#ffbf2f" 
         Width="12" Height="12" 
-        Click="ToggleWindowStateButton_Click" 
         Margin="0,0,8,0">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
@@ -165,9 +273,17 @@
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        <!-- Similar changes for other window control buttons... -->
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                              HorizontalAlignment="Right"
+                              Margin="0,0,20,0"
+                              VerticalAlignment="Center">
+                        <Button x:Name="UserIcon"
+                                Style="{StaticResource UserIconButtonStyle}"
+                                Click="UserIcon_Click"/>
                     </StackPanel>
 
+                    <!-- Window Title -->
                     <TextBlock Text="Media Player" 
                              HorizontalAlignment="Center" 
                              VerticalAlignment="Center" 
@@ -175,10 +291,7 @@
                              FontWeight="SemiBold"
                              Foreground="#1a1a1a">
                         <TextBlock.Effect>
-                            <DropShadowEffect BlurRadius="2" 
-                                            ShadowDepth="1" 
-                                            Direction="315" 
-                                            Opacity="0.2"/>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="1" Direction="315" Opacity="0.2"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
@@ -186,240 +299,127 @@
 
             <!-- Main Content -->
             <Grid Margin="0,50,0,0">
-                <!-- App Logo/Icon with animation -->
-                <Image Source="Images/logo.jpg" 
-                       Width="120" Height="120" 
-                       VerticalAlignment="Top" 
-                       Margin="339,10,339,0">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="15" 
-                                        ShadowDepth="5" 
-                                        Direction="315" 
-                                        Opacity="0.3"/>
-                    </Image.Effect>
-                    <Image.RenderTransform>
-                        <ScaleTransform/>
-                    </Image.RenderTransform>
-                    <Image.Triggers>
-                        <EventTrigger RoutedEvent="MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation 
-                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                        To="1.1" Duration="0:0:0.2"/>
-                                    <DoubleAnimation 
-                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                        To="1.1" Duration="0:0:0.2"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation 
-                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                        To="1.0" Duration="0:0:0.2"/>
-                                    <DoubleAnimation 
-                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                        To="1.0" Duration="0:0:0.2"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Image.Triggers>
-                </Image>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <!-- Menu Buttons -->
-                <StackPanel HorizontalAlignment="Center" 
-                          VerticalAlignment="Center" 
-                          Margin="0,50,0,0" 
-                          Width="600">
-                    <!-- Enhanced Menu Button Template -->
-                    <Button x:Name="MP3" 
-                            Height="70" 
-                            Margin="0,0,0,20" 
-                            Click="MP3_Click">
-                        <Button.RenderTransform>
+                <!-- App Logo Section -->
+                <Border Grid.Row="0" 
+                        Background="Transparent" 
+                        VerticalAlignment="Top">
+                    <Image Source="Images/logo.jpg" 
+                           Width="120" Height="120" 
+                           Margin="0,20,0,0">
+                        <Image.Effect>
+                            <DropShadowEffect BlurRadius="15" 
+                                            ShadowDepth="5" 
+                                            Direction="315" 
+                                            Opacity="0.3"/>
+                        </Image.Effect>
+                        <Image.RenderTransform>
                             <ScaleTransform/>
-                        </Button.RenderTransform>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="#ffffff" 
-                                        CornerRadius="10" 
-                                        BorderThickness="1" 
-                                        BorderBrush="#e4e6eb">
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="10" 
-                                                        ShadowDepth="3" 
-                                                        Direction="315" 
-                                                        Opacity="0.2"/>
-                                    </Border.Effect>
-                                    <Grid>
-                                        <StackPanel Orientation="Horizontal" 
-                                                  VerticalAlignment="Center" 
-                                                  Margin="20,0">
-                                            <Image Source="Images/Mp3Icon.webp" 
-                                                   Width="30" Height="30"/>
-                                            <TextBlock Text="Play MP3" 
-                                                     Margin="15,0,0,0" 
-                                                     FontSize="16" 
-                                                     FontWeight="Medium" 
-                                                     VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#f8f9fa"/>
-                                                    <Setter Property="Effect">
-                                                        <Setter.Value>
-                                                            <DropShadowEffect BlurRadius="15" 
-                                                                            ShadowDepth="5" 
-                                                                            Direction="315" 
-                                                                            Opacity="0.3"/>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Triggers>
+                        </Image.RenderTransform>
+                        <Image.Triggers>
                             <EventTrigger RoutedEvent="MouseEnter">
                                 <BeginStoryboard Storyboard="{StaticResource ButtonHoverAnimation}"/>
                             </EventTrigger>
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard Storyboard="{StaticResource ButtonUnhoverAnimation}"/>
                             </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
+                        </Image.Triggers>
+                    </Image>
+                </Border>
+
+                <!-- Menu Buttons Section -->
+                <StackPanel Grid.Row="1" 
+                          HorizontalAlignment="Center" 
+                          Width="600" 
+                          Margin="0,20,0,0">
+                    <Button x:Name="MP3" 
+                            Style="{StaticResource MenuButtonStyle}"
+                            Content="Play MP3"
+                            Tag="Images/Mp3Icon.webp"
+                            Click="MP3_Click"/>
 
                     <Button x:Name="MP4" 
-        Height="70" 
-        Margin="0,0,0,20" 
-        Click="MP4_Click">
-                        <Button.RenderTransform>
-                            <ScaleTransform/>
-                        </Button.RenderTransform>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="#ffffff" 
-                    CornerRadius="10" 
-                    BorderThickness="1" 
-                    BorderBrush="#e4e6eb">
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="10" 
-                                    ShadowDepth="3" 
-                                    Direction="315" 
-                                    Opacity="0.2"/>
-                                    </Border.Effect>
-                                    <Grid>
-                                        <StackPanel Orientation="Horizontal" 
-                              VerticalAlignment="Center" 
-                              Margin="20,0">
-                                            <Image Source="Images/Mp4Icon.webp" 
-                               Width="30" Height="30"/>
-                                            <TextBlock Text="Play MP4" 
-                                 Margin="15,0,0,0" 
-                                 FontSize="16" 
-                                 FontWeight="Medium" 
-                                 VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#f8f9fa"/>
-                                                    <Setter Property="Effect">
-                                                        <Setter.Value>
-                                                            <DropShadowEffect BlurRadius="15" 
-                                                        ShadowDepth="5" 
-                                                        Direction="315" 
-                                                        Opacity="0.3"/>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource ButtonHoverAnimation}"/>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource ButtonUnhoverAnimation}"/>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
+                            Style="{StaticResource MenuButtonStyle}"
+                            Content="Play MP4"
+                            Tag="Images/Mp4Icon.webp"
+                            Click="MP4_Click"/>
 
                     <Button x:Name="Storage" 
-        Height="70" 
-        Margin="0,0,0,20" 
-        Click="Storage_Click">
-                        <Button.RenderTransform>
-                            <ScaleTransform/>
-                        </Button.RenderTransform>
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="#ffffff" 
-                    CornerRadius="10" 
-                    BorderThickness="1" 
-                    BorderBrush="#e4e6eb">
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="10" 
-                                    ShadowDepth="3" 
-                                    Direction="315" 
-                                    Opacity="0.2"/>
-                                    </Border.Effect>
-                                    <Grid>
-                                        <StackPanel Orientation="Horizontal" 
-                              VerticalAlignment="Center" 
-                              Margin="20,0">
-                                            <Image Source="Images/storageIcon.png" Width="30" Height="30"/>
-                                            <TextBlock Text="Media Player Storage" 
-                                 Margin="15,0,0,0" 
-                                 FontSize="16" 
-                                 FontWeight="Medium" 
-                                 VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#f8f9fa"/>
-                                                    <Setter Property="Effect">
-                                                        <Setter.Value>
-                                                            <DropShadowEffect BlurRadius="15" 
-                                                        ShadowDepth="5" 
-                                                        Direction="315" 
-                                                        Opacity="0.3"/>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource ButtonHoverAnimation}"/>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource ButtonUnhoverAnimation}"/>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
+                            Style="{StaticResource MenuButtonStyle}"
+                            Content="Media Player Storage"
+                            Tag="Images/storageIcon.png"
+                            Click="Storage_Click"/>
                 </StackPanel>
             </Grid>
+
+            <!-- User Popup -->
+            <Popup x:Name="LogoutPopup" 
+                   Style="{StaticResource LogoutPopupStyle}">
+                <Border Background="White" 
+                        CornerRadius="10" 
+                        BorderThickness="1"
+                        BorderBrush="#e4e6eb"
+                        Padding="15">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                        ShadowDepth="3" 
+                                        Direction="315" 
+                                        Opacity="0.2"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="User Profile" 
+                                 FontWeight="SemiBold" 
+                                 FontSize="16" 
+                                 Margin="0,0,0,10"/>
+
+                        <Separator Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="TxtUserName" 
+                                 FontSize="14" 
+                                 Margin="0,0,0,5"/>
+
+                        <TextBlock x:Name="TxtEmail" 
+                                 FontSize="12" 
+                                 Foreground="#666666" 
+                                 Margin="0,0,0,15"/>
+
+                        <Button Content="Logout" 
+                                Click="LogoutButton_Click"
+                                Height="35"
+                                Background="#f0f2f5"
+                                BorderThickness="0"
+                                Foreground="#1a1a1a"
+                                FontSize="14"
+                                Cursor="Hand">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        CornerRadius="8"
+                                                        Padding="15,0">
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                                    VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#e4e6eb"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Popup>
         </Grid>
     </Border>
 </Window>

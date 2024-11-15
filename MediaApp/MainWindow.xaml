@@ -4,9 +4,7 @@
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls" xmlns:local="clr-namespace:video_media_player"
         Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded">
-    <!--<Window.Resources>
-        <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
-    </Window.Resources>-->
+    
     <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
         <Grid Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
@@ -25,90 +23,183 @@
 
             <!--Menu-->
             <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="3" Margin="0,0,10,0">
-                <StackPanel Margin="0 30 0 0">
-                    <!-- Ellipses-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="35 10 0 10">
-                        <Button Background="#ff6258" Width="10" Height="10" Click="CloseButton_Click">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Window Control Buttons -->
+                    <StackPanel Orientation="Horizontal" 
+                    Margin="20,20,0,30" 
+                    HorizontalAlignment="Left">
+                        <Button Background="#ff6258" 
+                    Width="15" Height="15" 
+                    Click="CloseButton_Click" 
+                    Margin="0,0,10,0">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                    <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="7.5"
+                                BorderThickness="1"
+                                BorderBrush="#e4432e">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#ff7b73"/>
+                                                        <Setter Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect BlurRadius="5" 
+                                                                    ShadowDepth="0" 
+                                                                    Color="#ff6258"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        <Button Background="#ffbf2f" Width="10" Height="10" Margin="7 0" Click="ToggleWindowStateButton_Click">
+
+                        <Button Background="#ffbf2f" 
+                    Width="15" Height="15" 
+                    Margin="0,0,10,0" Click="ToggleWindowStateButton_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                    <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="7.5"
+                                BorderThickness="1"
+                                BorderBrush="#e0a626">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#ffd154"/>
+                                                        <Setter Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect BlurRadius="5" 
+                                                                    ShadowDepth="0" 
+                                                                    Color="#ffbf2f"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        <Button Background="#2acb42" Width="10" Height="10" Click="MinimizeButton_Click">
+
+                        <Button Background="#2acb42" 
+                    Width="15" Height="15" 
+                    Click="MinimizeButton_Click">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                    <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="7.5"
+                                BorderThickness="1"
+                                BorderBrush="#23a937">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#4cd964"/>
+                                                        <Setter Property="Effect">
+                                                            <Setter.Value>
+                                                                <DropShadowEffect BlurRadius="5" 
+                                                                    ShadowDepth="0" 
+                                                                    Color="#2acb42"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
                     </StackPanel>
 
-                    <TextBlock Text="LIBRARY" Style="{StaticResource menuTitle}"/>
+                    <!-- Library Section -->
+                    <StackPanel Grid.Row="1" Margin="0,0,0,20">
+                        <TextBlock Text="LIBRARY" Style="{StaticResource menuTitle}"/>
+                        <Button Style="{StaticResource menuButton}" Click="HomeButton_Click">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Home" 
+                                             Width="20" Height="20" 
+                                             Margin="0,0,15,0"
+                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="Home" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                            </Grid>
+                        </Button>
 
-                    <Button Style="{StaticResource menuButton}" Click="HomeButton_Click">
-                        <Grid>
-                            <TextBlock Text="Home" Margin="0,0,0,2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
+                        <Button Style="{StaticResource menuButton}" Click="PlaylistsButton_Click">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="PlaylistMusic" 
+                                             Width="20" Height="20" 
+                                             Margin="0,0,15,0"
+                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="Playlists" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                            </Grid>
+                        </Button>
 
-                    <Button Style="{StaticResource menuButton}" Click="PlaylistsButton_Click">
-                        <Grid>
-                            <TextBlock Text="PlayLists" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
+                        <Button Style="{StaticResource menuButton}" Click="AlbumsButton_Click">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Album" 
+                                             Width="20" Height="20" 
+                                             Margin="0,0,15,0"
+                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="Albums" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                            </Grid>
+                        </Button>
 
-                    <Button Style="{StaticResource menuButton}" Click="AlbumsButton_Click">
-                        <Grid>
-                            <TextBlock Text="Albums" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
+                        <Button Style="{StaticResource menuButton}" Click="SongsButton_Click">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Music" 
+                                             Width="20" Height="20" 
+                                             Margin="0,0,15,0"
+                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="Songs" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
 
-                    <Button Style="{StaticResource menuButton}" Click="SongsButton_Click">
-                        <Grid>
-                            <TextBlock Text="Songs" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-
-                    <TextBlock Text="Customize" Style="{StaticResource menuTitle}"/>
-                    <Button Style="{StaticResource menuButton}">
-                        <Grid>
-                            <TextBlock Text="Theme" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-
-                    <Button Style="{StaticResource menuButton}" Click="SettingsButton_Click">
-                        <Grid>
-                            <TextBlock Text="Settings" Margin="0 0 0 2"/>
-                            <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}"/>
-                        </Grid>
-                    </Button>
-                    <!-- User Info Popup -->
-                    <Popup x:Name="UserInfoPopup" Placement="MousePoint" StaysOpen="False">
-                        <Border Background="White" CornerRadius="10" Padding="10">
-                            <StackPanel>
-                                <TextBlock Text="User Information" FontWeight="Bold" Margin="0,0,0,10"/>
-                                <TextBlock Text="UserName: John Doe"/>
-                                <TextBlock Text="Email: john.doe@example.com"/>
-                                <Button Content="Logout" Click="LogoutButton_Click"/>
-                            </StackPanel>
-                        </Border>
-                    </Popup>
-
-                </StackPanel>
-
+                    <!-- Customize Section -->
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Customize" Style="{StaticResource menuTitle}"/>
+                        <Button Style="{StaticResource menuButton}">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Palette" 
+                                             Width="20" Height="20" 
+                                             Margin="0,0,15,0"
+                                             VerticalAlignment="Center"/>
+                                    <TextBlock Text="Theme" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
             </Border>
 
             <!--Player-->

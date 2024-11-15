@@ -52,11 +52,13 @@ namespace video_media_player
             ForwardStackPanel.Visibility = Visibility.Hidden;
             _skipTimer.Stop();
         }
-
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            StartWindow startWindow = (StartWindow)Application.Current.MainWindow;
-            startWindow.Hide();
             Application.Current.MainWindow = this;
             videoList = songService.GetMusicVideos();
             int number = 0;
@@ -229,10 +231,12 @@ namespace video_media_player
             if (WindowState == WindowState.Maximized)
             {
                 WindowState = WindowState.Normal;
+                MainBorder.CornerRadius = new CornerRadius(40);
             }
             else
             {
                 WindowState = WindowState.Maximized;
+                MainBorder.CornerRadius = new CornerRadius(0);
             }
         }
 
@@ -244,8 +248,6 @@ namespace video_media_player
         {
             VideoMediaPlayer.Stop();
             this.Close();
-            StartWindow startWindow = new();
-            startWindow.ShowDialog();
         }
 
         private void ScreenBorder_MouseDown(object sender, MouseButtonEventArgs e)

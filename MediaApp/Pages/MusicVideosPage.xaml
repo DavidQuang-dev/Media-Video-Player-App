@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
-      Height="700" Width="1050" Background="White" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" KeyUp="Window_KeyUp" KeyDown="Window_KeyDown" PreviewKeyDown="Window_PreviewKeyDown">
+      Height="700" Width="1050" Background="Transparent" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" KeyUp="Window_KeyUp" KeyDown="Window_KeyDown" PreviewKeyDown="Window_PreviewKeyDown">
     <Window.Resources>
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -60,110 +60,111 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <ScrollViewer x:Name="FullScreenScrollView" Margin="30,20,30,30" Style="{StaticResource CustomScrollViewer}">
-        <Grid x:Name="FullLayOutGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-
-            <!-- Video Player Section (Left) -->
-            <Grid x:Name="PlayerScreenGrid" Grid.Row="0" Margin="0">
+    <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
+        <ScrollViewer x:Name="FullScreenScrollView" Margin="30,20,30,30" Style="{StaticResource CustomScrollViewer}">
+            <Grid x:Name="FullLayOutGrid">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
 
-                <!-- Title -->
-                <TextBlock Style="{StaticResource titleText}" Grid.Row="0" 
+                <!-- Video Player Section (Left) -->
+                <Grid x:Name="PlayerScreenGrid" Grid.Row="0" Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Title -->
+                    <TextBlock Style="{StaticResource titleText}" Grid.Row="0" 
                     Margin="0,0,0,20" Text="Music Video And Chill" Grid.Column="0" FontWeight="ExtraBold"/>
-                <StackPanel Margin="5,10,10,20" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
-                    <!-- Ellipses-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="35 10 0 10" VerticalAlignment="Center">
-                        <Button Background="#ff6258" Width="10" Height="10" Click="CloseButton_Click">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button Background="#ffbf2f" Width="10" Height="10" Margin="7 0" Click="ToggleWindowStateButton_Click">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button Background="#2acb42" Width="10" Height="10" Click="MinimizeButton_Click">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                    <StackPanel Margin="5,10,10,20" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
+                        <!-- Ellipses-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="35 10 0 10" VerticalAlignment="Center">
+                            <Button Background="#ff6258" Width="10" Height="10" Click="CloseButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button Background="#ffbf2f" Width="10" Height="10" Margin="7 0" Click="ToggleWindowStateButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button Background="#2acb42" Width="10" Height="10" Click="MinimizeButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="5"/>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                <!-- Video Player -->
-                <Border x:Name="ScreenBorder"
+                    <!-- Video Player -->
+                    <Border x:Name="ScreenBorder"
                         Grid.Row="1" Background="#202020" 
                         CornerRadius="0" Margin="0,2,0,0" Grid.ColumnSpan="2" MouseEnter="ScreenBorder_MouseEnter" MouseLeave="ScreenBorder_MouseLeave" MouseMove="ScreenBorder_MouseMove" 
                         >
-                    <StackPanel Orientation="Vertical">
-                        <Grid Height="{Binding ElementName=VideoMediaPlayer, Path=ActualHeight}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>  
-                            <StackPanel x:Name="PreviousStackPanel" Orientation="Vertical" Grid.Row="1" Grid.Column="0" Panel.ZIndex="1" Margin="30 0 0 0" Visibility="Hidden">
-                                <Label Content="- 10 giây" FontSize="30" FontWeight="Bold" Foreground="LightGray" Background="Transparent" HorizontalContentAlignment="Center"/>
-                            </StackPanel>
-                            <StackPanel x:Name="VolumeStackPanel" Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Panel.ZIndex="1" Visibility="Hidden">
-                                <Label x:Name="VolumePressUpLabel" Content="Volume" FontSize="30" FontWeight="Bold" Foreground="LightGray" Background="Transparent"/>
-                                <Icon:PackIconMaterial Kind="VolumeSource" Background="Transparent" Foreground="LightGray" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" Margin="20 0 0 0"/>
-                            </StackPanel>
-                            <StackPanel x:Name="ForwardStackPanel" Orientation="Vertical" Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" Margin="0 0 30 0" Visibility="Hidden">
-                                <Label Content="+ 10 giây" FontSize="30" FontWeight="Bold" Foreground="LightGray" Background="Transparent" HorizontalContentAlignment="Center"/>
-                            </StackPanel>
-                            <MediaElement VerticalAlignment="Top" x:Name="VideoMediaPlayer"
-                                            LoadedBehavior="Manual"
-                                            UnloadedBehavior="Stop"
-                                            Stretch="Uniform" Margin="0,-1,0,0" MouseLeftButtonUp="VideoMediaPlayer_MouseLeftButtonUp" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
-                            <Grid VerticalAlignment="Bottom" x:Name="TaskBarGrid" Visibility="Visible" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
-                                <Grid.RowDefinitions >
+                        <StackPanel Orientation="Vertical">
+                            <Grid Height="{Binding ElementName=VideoMediaPlayer, Path=ActualHeight}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Slider x:Name="TimeSlider" Grid.Row="0" Style="{DynamicResource SliderStyle1}" ValueChanged="TimeSlider_ValueChanged" PreviewMouseDown="TimeSlider_PreviewMouseDown" PreviewMouseUp="TimeSlider_PreviewMouseUp" Cursor="Hand"/>
-                                <StackPanel Grid.Row="1">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                            <Button x:Name="PlayButton" Style="{StaticResource playButton}" Click="PlayButton_Click" Cursor="Hand">
-                                                <Icon:PackIconMaterial x:Name="PlayIcon" Kind="Pause" Style="{StaticResource playerButtonIcon}" Cursor="Hand"/>
-                                            </Button>
-                                            <StackPanel Grid.Column="0">
-                                                <Button Style="{StaticResource playButton}" x:Name="volumeButton" HorizontalAlignment="Left" Click="volumeButton_Click" Cursor="Hand">
-                                                    <Icon:PackIconMaterial x:Name="VolumeIcon" Kind="VolumeMedium" Style="{StaticResource playerButtonIcon}" />
+                                <StackPanel x:Name="PreviousStackPanel" Orientation="Vertical" Grid.Row="1" Grid.Column="0" Panel.ZIndex="1" Margin="30 0 0 0" Visibility="Hidden">
+                                    <Label Content="- 10 giây" FontSize="30" FontWeight="Bold" Foreground="LightGray" Background="Transparent" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel x:Name="VolumeStackPanel" Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Panel.ZIndex="1" Visibility="Hidden">
+                                    <Label x:Name="VolumePressUpLabel" Content="Volume" FontSize="30" FontWeight="Bold" Foreground="LightGray" Background="Transparent"/>
+                                    <Icon:PackIconMaterial Kind="VolumeSource" Background="Transparent" Foreground="LightGray" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" Margin="20 0 0 0"/>
+                                </StackPanel>
+                                <StackPanel x:Name="ForwardStackPanel" Orientation="Vertical" Grid.Row="1" Grid.Column="2" Panel.ZIndex="1" Margin="0 0 30 0" Visibility="Hidden">
+                                    <Label Content="+ 10 giây" FontSize="30" FontWeight="Bold" Foreground="LightGray" Background="Transparent" HorizontalContentAlignment="Center"/>
+                                </StackPanel>
+                                <MediaElement VerticalAlignment="Top" x:Name="VideoMediaPlayer"
+                                            LoadedBehavior="Manual"
+                                            UnloadedBehavior="Stop"
+                                            Stretch="Uniform" Margin="0,-1,0,0" MouseLeftButtonUp="VideoMediaPlayer_MouseLeftButtonUp" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
+                                <Grid VerticalAlignment="Bottom" x:Name="TaskBarGrid" Visibility="Visible" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Slider x:Name="TimeSlider" Grid.Row="0" Style="{DynamicResource SliderStyle1}" ValueChanged="TimeSlider_ValueChanged" PreviewMouseDown="TimeSlider_PreviewMouseDown" PreviewMouseUp="TimeSlider_PreviewMouseUp" Cursor="Hand"/>
+                                    <StackPanel Grid.Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                                <Button x:Name="PlayButton" Style="{StaticResource playButton}" Click="PlayButton_Click" Cursor="Hand">
+                                                    <Icon:PackIconMaterial x:Name="PlayIcon" Kind="Pause" Style="{StaticResource playerButtonIcon}" Cursor="Hand"/>
                                                 </Button>
-                                                <Popup x:Name="volumePopup" Placement="Top" PlacementTarget="{Binding ElementName=volumeButton}" StaysOpen="False" AllowsTransparency="True" >
-                                                    <Border Background="Black" BorderBrush="Transparent" CornerRadius="8" Padding="5">
-                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                            <Slider x:Name="VolumeSlider" 
+                                                <StackPanel Grid.Column="0">
+                                                    <Button Style="{StaticResource playButton}" x:Name="volumeButton" HorizontalAlignment="Left" Click="volumeButton_Click" Cursor="Hand">
+                                                        <Icon:PackIconMaterial x:Name="VolumeIcon" Kind="VolumeMedium" Style="{StaticResource playerButtonIcon}" />
+                                                    </Button>
+                                                    <Popup x:Name="volumePopup" Placement="Top" PlacementTarget="{Binding ElementName=volumeButton}" StaysOpen="False" AllowsTransparency="True" >
+                                                        <Border Background="Black" BorderBrush="Transparent" CornerRadius="8" Padding="5">
+                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                                <Slider x:Name="VolumeSlider" 
                                                                     Style="{StaticResource VerticalSliderStyle}" 
                                                                     IsSelectionRangeEnabled="True" 
                                                                     HorizontalAlignment="Center" 
@@ -173,62 +174,63 @@
                                                                     Maximum="100" 
                                                                     TickFrequency="1" 
                                                                     ValueChanged="VolumeSlider_ValueChanged" />
-                                                        </StackPanel>
-                                                    </Border>
-                                                </Popup>
-                                            </StackPanel>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </Popup>
+                                                </StackPanel>
 
-                                            <Label x:Name="TimeLabel" Content="Time" Background="Transparent" Foreground="White" FontSize="20"/>
-                                            <Label x:Name="MaxTimeLabel" Content="/ Max Time" Background="Transparent" Foreground="White" FontSize="20"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
-                                            <Button x:Name="ZoomButton" Style="{StaticResource playButton}" Margin="0 0 10 0" Cursor="Hand" Click="ZoomButton_Click">
-                                                <Icon:PackIconMaterial Kind="Fullscreen" Style="{StaticResource playerButtonIcon}"/>
-                                            </Button>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
+                                                <Label x:Name="TimeLabel" Content="Time" Background="Transparent" Foreground="White" FontSize="20"/>
+                                                <Label x:Name="MaxTimeLabel" Content="/ Max Time" Background="Transparent" Foreground="White" FontSize="20"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                                                <Button x:Name="ZoomButton" Style="{StaticResource playButton}" Margin="0 0 10 0" Cursor="Hand" Click="ZoomButton_Click">
+                                                    <Icon:PackIconMaterial Kind="Fullscreen" Style="{StaticResource playerButtonIcon}"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </StackPanel>
-                </Border>
-            </Grid>
-            <Label x:Name="VideoNameLabel" Content="" FontSize="25" Background="Transparent" Foreground="Black" FontWeight="Bold" Grid.Row="1"/>
-            <!-- Playlist Section (Right) -->
-            <Border Grid.Row="2" 
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <Label x:Name="VideoNameLabel" Content="" FontSize="25" Background="Transparent" Foreground="Black" FontWeight="Bold" Grid.Row="1"/>
+                <!-- Playlist Section (Right) -->
+                <Border Grid.Row="2" 
              CornerRadius="20" 
              Margin="0,30,0,30">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="#30ad9a" Offset="0"/>
-                        <GradientStop Color="#18c274" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Border.Effect>
-                    <DropShadowEffect Color="#1fae7e" 
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#30ad9a" Offset="0"/>
+                            <GradientStop Color="#18c274" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Effect>
+                        <DropShadowEffect Color="#1fae7e" 
                              Direction="320" 
                              ShadowDepth="0" 
                              BlurRadius="20" 
                              Opacity="0.4"/>
-                </Border.Effect>
+                    </Border.Effect>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- Playlist Header -->
-                    <StackPanel Margin="30,30,30,0">
-                        <TextBlock Text="List Videos" 
+                        <!-- Playlist Header -->
+                        <StackPanel Margin="30,30,30,0">
+                            <TextBlock Text="List Videos" 
                           Foreground="White" 
                           FontSize="26" 
                           FontWeight="Bold"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" x:Name="ListVideos">
-                    </StackPanel>
-                </Grid>
-            </Border>
-        </Grid>
-    </ScrollViewer>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" x:Name="ListVideos">
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+    </Border>
 </Window>

@@ -47,21 +47,22 @@ namespace MediaApp
                 MessageBox.Show("Invalid email or password!", "Wrong credentials", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MainWindow detail = new();
-            detail.AuthenticatedUser = acc;
+            StartWindow startWindow = new();
+            startWindow.AuthenticatedUser = acc;
             this.Close();
-            detail.ShowDialog();
+            startWindow.ShowDialog();
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Application.Current.Shutdown();
         }
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             RegisterPage detail = new();
             detail.ShowDialog();
-            this.Close();
+            this.Show();
         }
     }
 }
