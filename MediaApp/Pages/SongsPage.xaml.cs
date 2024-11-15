@@ -1,5 +1,6 @@
 ﻿using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +32,15 @@ namespace video_media_player
         }
 
         public string Artist { get; internal set; }
-
+        private double GetDurationFromUrl(string url)
+        {
+            using (var mf = new MediaFoundationReader(url))
+            {
+                return mf.TotalTime.TotalSeconds;
+            }
+        }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //SongsList.ItemsSource = _songService.GetAll();
             List<TbSong> songs = _songService.GetAllSongs();
             int number = 0;
             foreach (var song in songs)
@@ -43,7 +49,7 @@ namespace video_media_player
                 {
                     Title = song.SongName,
                     Number = (++number).ToString(),
-                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
+                    Time = ConvertTimeFormat(GetDurationFromUrl(song.FilePath)),
                     Tag = song.FilePath
                 };
                 songItem.Click += SongItem_Click;

@@ -1,8 +1,10 @@
 ﻿using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,6 +32,13 @@ namespace video_media_player
         {
             InitializeComponent();
         }
+        private double GetDurationFromUrl(string url)
+        {
+            using (var mf = new MediaFoundationReader(url))
+            {
+                return mf.TotalTime.TotalSeconds;
+            }
+        }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -37,12 +46,19 @@ namespace video_media_player
             int number = 0;
             foreach (var song in songs)
             {
+                string filePath = song.FilePath;
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    // Handle the case where the file path is invalid or the file could not be downloaded
+                    continue;
+                }
+
                 var songItem = new video_media_player.UserControls.SongItem
                 {
                     Title = song.SongName,
                     Number = (++number).ToString(),
-                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
-                    Tag = song.FilePath
+                    Time = ConvertTimeFormat(GetDurationFromUrl(filePath)),
+                    Tag = filePath
                 };
                 songItem.Click += SongItem_Click;
                 SongItemList.Children.Add(songItem);
@@ -54,7 +70,7 @@ namespace video_media_player
                 var popularSongItem = new video_media_player.UserControls.PopularSong
                 {
                     Title = song.SongName,
-                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
+                    Time = ConvertTimeFormat(GetDurationFromUrl(song.FilePath)),
                     Tag = song.FilePath
                 };
                 popularSongItem.Click += PopularSongItem_Click;

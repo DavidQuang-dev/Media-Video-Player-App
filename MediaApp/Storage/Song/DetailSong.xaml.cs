@@ -1,4 +1,6 @@
-﻿using MediaApp.BLL.Services;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,7 @@ namespace MediaApp
 {
     public partial class DetailSong : Window
     {
+        private Cloudinary _cloudinary;
         private SongService _service = new();
         private ArtistService _artistService = new();
         private AlbumService _albumService = new();
@@ -28,6 +31,7 @@ namespace MediaApp
         public DetailSong()
         {
             InitializeComponent();
+            SetupCloudinary();
         }
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -44,7 +48,29 @@ namespace MediaApp
                 this.Close();
             }
         }
+        private void SetupCloudinary()
+        {
+            _cloudinary = new Cloudinary(new Account("dpfj7qsae", "464938966635639", "U4sYEHIN4mLuQ4abxneX08e49qs"));
+        }
 
+        private string UploadFileToCloudinary(string filePath, string songName)
+        {
+            var uploadParams = new VideoUploadParams()
+            {
+                File = new FileDescription(filePath),
+                PublicId = songName.Trim(),
+                EagerTransforms = new List<Transformation>()
+                {
+                new EagerTransformation().Width(300).Height(300).Crop("pad").AudioCodec("none"),
+                new EagerTransformation().Width(160).Height(100).Crop("crop").Gravity("south").AudioCodec("none"),
+                },
+                EagerAsync = true,
+                EagerNotificationUrl = "https://mysite.example.com/my_notification_endpoint"
+            };
+            var uploadResult = _cloudinary.Upload(uploadParams);
+            string fileUrl = uploadResult.Url.ToString();
+            return fileUrl;
+        }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtSongName.Text))
@@ -67,6 +93,7 @@ namespace MediaApp
 
             if (EditSong == null)
             {
+                song.FilePath = UploadFileToCloudinary(txtFilePath.Text, txtSongName.Text);
                 _service.Create(song);
             }
             else
@@ -89,7 +116,7 @@ namespace MediaApp
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                    txtFilePath.Text = openFileDialog.FileName;
+                txtFilePath.Text = openFileDialog.FileName;
                 try
                 {
                     var file = TagLib.File.Create(txtFilePath.Text);
