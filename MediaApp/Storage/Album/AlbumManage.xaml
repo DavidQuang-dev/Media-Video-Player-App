@@ -98,48 +98,124 @@
                 Margin="0,0,0,20" 
                 HorizontalAlignment="Center" Foreground="#000080"/>
             <!-- Search Box and Button -->
-    <StackPanel 
-        Grid.Row="0" 
-        Orientation="Horizontal" 
-        HorizontalAlignment="Center" 
-        Margin="0,50,0,10">
+            <StackPanel 
+                    Grid.Row="0" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,50,0,20">
 
-        <Grid>
-             <TextBox 
-             x:Name="SearchAlbumTextBox" 
-             Width="200" 
-             Height="30" 
-             VerticalAlignment="Center" 
-             VerticalContentAlignment="Center" 
-             HorizontalContentAlignment="Left"
-             TextChanged="SearchAlbumTextBox_TextChanged"/>
+                <!-- Search Container -->
+                <Border 
+                        Width="300"
+                        Height="40"
+                        Background="#F5F5F5"
+                        CornerRadius="20"
+                        BorderBrush="#E0E0E0"
+                        BorderThickness="1">
 
-        <TextBlock 
-            Foreground="Gray" 
-            VerticalAlignment="Center" 
-            Margin="5,0,0,0" 
-            IsHitTestVisible="False"
-            Visibility="{Binding Text, ElementName=SearchTextBox}"/>
-            </Grid>
+                    <Grid>
+                        <!-- Search Icon -->
+                        <Path
+                            Data="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                            Fill="#757575"
+                            Width="18"
+                            Height="18"
+                            Margin="15,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"/>
 
-        <Button 
-            Content="Search" 
-            Style="{StaticResource ModernButton}" 
-            Background="#4CAF50" 
-            Click="SearchButton_Click" 
-            Height="30" Width="75"/>
-    </StackPanel>
+                        <!-- Search TextBox -->
+                        <TextBox 
+                                x:Name="SearchAlbumTextBox"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="45,0,15,0"
+                                VerticalContentAlignment="Center"
+                                FontSize="14"
+                                TextChanged="SearchAlbumTextBox_TextChanged">
+                        </TextBox>
+
+                        <!-- Clear Button -->
+
+                        <Button   x:Name="ClearSearchButton"
+                                Width="16" 
+                                Height="16"
+                                Margin="0,0,15,0"
+                                HorizontalAlignment="Right"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Visibility="{Binding Text.Length, ElementName=SearchAlbumTextBox}" Click="ClearSearchButton_Click">
+                            <Path 
+                                Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                                Fill="#757575"
+                                Stretch="Uniform"/>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Opacity" Value="0.7"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <!-- Search Button -->
+                <Button 
+                        Content="Search"
+                        Height="40"
+                        Width="100"
+                        Margin="10,0,0,0"
+                        Background="#2196F3"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Click="SearchButton_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20">
+                                            <ContentPresenter 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#1976D2"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
             <!-- DataGrid -->
             <DataGrid 
-    Grid.Row="1" 
-    x:Name="AlbumDataGrid"
-    AutoGenerateColumns="False"
-    SelectionMode="Single"
-    IsReadOnly="True"
-    RowHeight="40"
-    HeadersVisibility="Column"
-    Background="Transparent"
-    BorderThickness="0">
+                    Grid.Row="1" 
+                    x:Name="AlbumDataGrid"
+                    AutoGenerateColumns="False"
+                    SelectionMode="Single"
+                    IsReadOnly="True"
+                    RowHeight="40"
+                    HeadersVisibility="Column"
+                    Background="Transparent"
+                    BorderThickness="0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ALbum ID" Binding="{Binding AlbumId}" Width="*"/>
                     <DataGridTextColumn Header="Album Name" Binding="{Binding Title}" Width="2*"/>

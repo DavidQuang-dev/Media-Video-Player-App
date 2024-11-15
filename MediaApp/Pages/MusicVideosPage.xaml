@@ -19,6 +19,32 @@
             </Setter>
         </Style>
 
+        <Style x:Key="SpeedOptionStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#ffffff"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="3 0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Tag" Value="Collapsed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#080808"/>
+                    <Setter Property="Foreground" Value="#fffafa "/>
+                    <Setter Property="Tag" Value="Visible"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Style x:Key="CustomScrollBar" TargetType="{x:Type ScrollBar}">
             <Setter Property="Width" Value="8"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -83,7 +109,7 @@
 
                     <!-- Title -->
                     <TextBlock Style="{StaticResource titleText}" Grid.Row="0" 
-                    Margin="0,0,0,20" Text="Music Video And Chill" Grid.Column="0" FontWeight="ExtraBold"/>
+                    Margin="0,0,0,20" Text="Video And Chill" Grid.Column="0" FontWeight="ExtraBold"/>
                     <StackPanel Margin="5,10,10,20" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
                         <!-- Ellipses-->
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="35 10 0 10" VerticalAlignment="Center">
@@ -146,10 +172,11 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Slider x:Name="TimeSlider" Grid.Row="0" Style="{DynamicResource SliderStyle1}" ValueChanged="TimeSlider_ValueChanged" PreviewMouseDown="TimeSlider_PreviewMouseDown" PreviewMouseUp="TimeSlider_PreviewMouseUp" Cursor="Hand"/>
+                                    <Slider x:Name="TimeSlider" Grid.Row="0" Style="{DynamicResource SliderStyle1}" PreviewMouseDown="TimeSlider_PreviewMouseDown" PreviewMouseUp="TimeSlider_PreviewMouseUp" Cursor="Hand"/>
                                     <StackPanel Grid.Row="1">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="auto"/>
                                             </Grid.ColumnDefinitions>
@@ -182,7 +209,25 @@
                                                 <Label x:Name="TimeLabel" Content="Time" Background="Transparent" Foreground="White" FontSize="20"/>
                                                 <Label x:Name="MaxTimeLabel" Content="/ Max Time" Background="Transparent" Foreground="White" FontSize="20"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                                            <Grid Grid.Column="1" HorizontalAlignment="Right">
+                                                <Button x:Name="SpeedButton" Style="{StaticResource playButton}" Click="SpeedButton_Click" Cursor="Hand">
+                                                    <Icon:PackIconMaterial Kind="PlaySpeed" Style="{StaticResource playerButtonIcon}"/>
+                                                </Button>
+
+                                                <Popup x:Name="SpeedPopup" Placement="Top" PlacementTarget="{Binding ElementName=SpeedButton}"                              StaysOpen="False" AllowsTransparency="True" >
+                                                    <Border Background="#3b3c36" BorderBrush="Transparent" CornerRadius="8" Padding="2">
+                                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                                            <Button x:Name="SpeedX2Button" Content="2" Margin="2" Style="{StaticResource SpeedOptionStyle}" Click="SpeedX2Button_Click" Cursor="Hand"/>
+                                                            <Button x:Name="SpeedX175Button" Content="1.75" Margin="2" Style="{StaticResource SpeedOptionStyle}" Click="SpeedX175Button_Click" Cursor="Hand"/>
+                                                            <Button x:Name="SpeedX15Button" Content="1.5" Margin="2" Style="{StaticResource SpeedOptionStyle}" Click="SpeedX15Button_Click" Cursor="Hand"/>
+                                                            <Button x:Name="SpeedX1Button" Content="1" Margin="2" Style="{StaticResource SpeedOptionStyle}" Click="SpeedX1Button_Click" Cursor="Hand"/>
+                                                            <Button x:Name="SpeedX05Button" Content="0.5" Margin="2" Style="{StaticResource SpeedOptionStyle}" Click="SpeedX05Button_Click" Cursor="Hand"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </Popup>
+                                            </Grid>
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
                                                 <Button x:Name="ZoomButton" Style="{StaticResource playButton}" Margin="0 0 10 0" Cursor="Hand" Click="ZoomButton_Click">
                                                     <Icon:PackIconMaterial Kind="Fullscreen" Style="{StaticResource playerButtonIcon}"/>
                                                 </Button>

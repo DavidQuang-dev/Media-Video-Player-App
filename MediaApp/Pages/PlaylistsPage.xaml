@@ -126,7 +126,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- PLaylist List Panel -->
-        <Border Background="White" Margin="30,60,15,30" CornerRadius="20" Grid.Column="0">
+        <Border Background="White" Margin="30,10,15,30" CornerRadius="20" Grid.Column="0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -134,7 +134,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Playlist" Style="{StaticResource titleText}" 
-                         Margin="20,20,20,10"/>
+                         Margin="0,20,20,10"/>
 
                 <!-- PLaylist List -->
                 <ScrollViewer Grid.Row="1" Margin="10,0,10,10" VerticalScrollBarVisibility="Visible" MaxHeight="300">
@@ -267,10 +267,8 @@
                 </Grid>
             </ContentControl>
         </Border>
-        <Button Content="+" HorizontalAlignment="Left" Height="40" Margin="195,86,0,0" VerticalAlignment="Top" Width="70" Style="{StaticResource defaultButton}" FontWeight="Bold" Click="CreateButton_Click" RenderTransformOrigin="-0.329,0.515" />
-        <!--
-        <Button x:Name="EditButton" Content="Edit" HorizontalAlignment="Left" Height="20" Margin="113,128,0,0" VerticalAlignment="Top" Width="37" Click="EditButton_Click"/>
-        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Height="20" Margin="173,128,0,0" VerticalAlignment="Top" Width="47" Click="DeleteButton_Click"/>
-        -->
+        <Button Content="+" HorizontalAlignment="Left" Height="40" Margin="10,78,0,0" VerticalAlignment="Top" Width="70" Style="{StaticResource defaultButton}" FontWeight="Bold" Click="CreateButton_Click" RenderTransformOrigin="-0.329,0.515" />
+        <Button x:Name="EditButton" Content="✏️" Style="{StaticResource defaultButton}" HorizontalAlignment="Left" FontWeight="Bold" Margin="88,78,0,0" VerticalAlignment="Top" Height="40" Width="70" Click="EditButton_Click" RenderTransformOrigin="-0.257,0.575"/>
+        <Button x:Name="DeleteButton" Style="{StaticResource defaultButton}" Content="🗑️" HorizontalAlignment="Left" Margin="163,78,0,0" VerticalAlignment="Top" Height="40" Width="70" Click="DeleteButton_Click"/>
     </Grid>
 </Page>

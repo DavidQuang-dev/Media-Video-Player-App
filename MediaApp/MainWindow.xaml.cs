@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using NAudio.Wave;
 using MediaApp;
+using System.Windows.Media;
 
 namespace video_media_player
 {
@@ -28,14 +29,12 @@ namespace video_media_player
     public partial class MainWindow : Window
     {
         public List<TbSong> ListSongs { get; set; }
-        public TbSong ChooseSong { get; set; }        
+        public TbSong ChooseSong { get; set; }
         private readonly SongService _songService = new();
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;
         public int CurrentIndex { get; set; }
-
         private readonly DispatcherTimer _timer;
-        private Mp3FileReader _reader;
 
         public MainWindow()
         {
@@ -240,17 +239,8 @@ namespace video_media_player
             MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
-            if(song.Type == "mp3")
-            {
-                PlayerMediaElement.Source = new Uri(song.FilePath);
-                PlayerMediaElement.Play();
-            } else
-            {
-                MusicVideosPage musicVideosPage = new();
-                MainFrame.Navigate(musicVideosPage);
-                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
-                musicVideosPage.VideoMediaPlayer.Play();
-            }
+            PlayerMediaElement.Source = new Uri(song.FilePath);
+            PlayerMediaElement.Play();
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
@@ -266,18 +256,8 @@ namespace video_media_player
             MaxTimeTextBlock.Text = FormatTime(duration);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
-            if (song.Type == "mp3")
-            {
-                PlayerMediaElement.Source = new Uri(song.FilePath);
-                PlayerMediaElement.Play();
-            }
-            else
-            {
-                MusicVideosPage musicVideosPage = new();
-                MainFrame.Navigate(musicVideosPage);
-                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
-                musicVideosPage.VideoMediaPlayer.Play();
-            }
+            PlayerMediaElement.Source = new Uri(song.FilePath);
+            PlayerMediaElement.Play();
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
@@ -292,18 +272,8 @@ namespace video_media_player
             MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
-            if (song.Type == "mp3")
-            {
-                PlayerMediaElement.Source = new Uri(song.FilePath);
-                PlayerMediaElement.Play();
-            }
-            else
-            {
-                MusicVideosPage musicVideosPage = new();
-                MainFrame.Navigate(musicVideosPage);
-                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
-                musicVideosPage.VideoMediaPlayer.Play();
-            }
+            PlayerMediaElement.Source = new Uri(song.FilePath);
+            PlayerMediaElement.Play();
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
@@ -408,6 +378,24 @@ namespace video_media_player
             if (CurrentIndex >= 1)
                 --CurrentIndex;
             LoadSong(CurrentIndex);
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Space:
+                    {
+                        PlayButton_Click(sender, e);
+                        break;
+                    }
+            }
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
     }
 }

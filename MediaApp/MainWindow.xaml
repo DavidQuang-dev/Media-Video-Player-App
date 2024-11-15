@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls" xmlns:local="clr-namespace:video_media_player"
-        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded">
+        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded" KeyUp="Window_KeyUp" PreviewKeyDown="Window_PreviewKeyDown" >
     
     <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
         <Grid Margin="10,0,0,0">
@@ -184,7 +184,7 @@
                     </StackPanel>
 
                     <!-- Customize Section -->
-                    <StackPanel Grid.Row="2">
+                    <!--<StackPanel Grid.Row="2">
                         <TextBlock Text="Customize" Style="{StaticResource menuTitle}"/>
                         <Button Style="{StaticResource menuButton}">
                             <Grid>
@@ -198,7 +198,7 @@
                                 <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                             </Grid>
                         </Button>
-                    </StackPanel>
+                    </StackPanel>-->
                 </Grid>
             </Border>
 

@@ -12,6 +12,7 @@ namespace MediaApp
     public partial class RegisterPage : Window
     {
         private UserService _userService = new();
+        public TbUser Registered { get; set; }
         public RegisterPage()
         {
             InitializeComponent();
@@ -51,10 +52,12 @@ namespace MediaApp
             {
                 UserName = userName,
                 Email = email,
-                Password = pass
+                Password = pass,
+                Role = "user"
             };
             _userService.CreateUser(user);
             MessageBox.Show("User created successfully!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            Registered = user;
             this.Close();
         }
     }

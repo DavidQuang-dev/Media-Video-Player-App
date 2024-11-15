@@ -123,7 +123,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Background="White" Margin="30,30,15,30" CornerRadius="20" Grid.Column="0">
+        <Border Background="White" Margin="30,10,15,30" CornerRadius="20" Grid.Column="0">
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -140,6 +140,7 @@
                     <ListBox x:Name="AlbumsListBox" 
                      BorderThickness="0"
                      Background="Transparent"
+                     Cursor="Hand"
                      ItemContainerStyle="{StaticResource AlbumListItem}"
                      SelectionChanged="AlbumsListBox_SelectionChanged">
                         <!-- Thêm sự kiện SelectionChanged -->
@@ -151,9 +152,9 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <!-- Hiển thị tên album -->
-                                    <TextBlock Text="{Binding Title}" Grid.Column="0" FontWeight="Bold" FontSize="16" MaxWidth="50" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Title}" Grid.Column="0" FontWeight="Bold" FontSize="16" MaxWidth="50"                       TextWrapping="Wrap"/>
                                     <!-- Hiển thị tên nghệ sĩ -->
-                                    <TextBlock Text="{Binding Artist.Name}" Grid.Column="1" HorizontalAlignment="Right" FontSize="14" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding Artist.Name}" Grid.Column="1" HorizontalAlignment="Right" FontSize="14"                     Foreground="Gray"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -163,19 +164,19 @@
         </Border>
 
         <!-- Album Detail Panel -->
-        <Border Grid.Column="1" Background="White" Margin="-30,30,30,30" CornerRadius="20">
-            <ContentControl x:Name="AlbumDetail" Margin="0,0,0,110">
+        <Border Grid.Column="1" Background="White" Margin="-30,10,30,0" CornerRadius="20">
+            <ContentControl x:Name="AlbumDetail" Margin="0,0,0,20">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <Border CornerRadius="20" Margin="20" Grid.RowSpan="2">
                         <Border.Background>
                             <LinearGradientBrush>
-                                <GradientStop Color="#30ad9a" Offset="0"/>
-                                <GradientStop Color="#18c274" Offset="1"/>
+                                <GradientStop Color="#3b3c36 " Offset="0"/>
+                                <GradientStop Color="#1fae7e " Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
 
@@ -193,57 +194,75 @@
                             <!-- Album Header -->
                             <StackPanel Grid.Row="0" Margin="30,30,30,0">
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                    <TextBlock x:Name="AlbumDetailNameTextBlock" HorizontalAlignment="Left" Text="{Binding ElementName=AlbumsListBox, Path=SelectedItem.Title}" 
-                                       Foreground="White" FontSize="26" FontWeight="Bold" MaxWidth="300" TextWrapping="Wrap"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding ElementName=AlbumsListBox, Path=SelectedItem.Artist.ArtistName}" 
-                                                   Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
-                                        <Button HorizontalAlignment="Left" x:Name="PlayAlbumButton" Width="40" Height="40" Margin="10,0,0,0" 
-                                                Background="Transparent" BorderThickness="0" Click="PlayAlbumButton_Click"
-                                                Cursor="Hand" Visibility="Hidden">
-                                            <!-- Play Button Template -->
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Grid>
-                                                        <Ellipse x:Name="ellipse" Width="40" Height="40">
-                                                            <Ellipse.Fill>
-                                                                <LinearGradientBrush>
-                                                                    <GradientStop Color="#30ad9a" Offset="0"/>
-                                                                    <GradientStop Color="#18c274" Offset="1"/>
-                                                                </LinearGradientBrush>
-                                                            </Ellipse.Fill>
-                                                        </Ellipse>
-                                                        <Icon:PackIconMaterial x:Name="icon" Kind="Play" 
-                                                                               Width="25"
-                                                                               Height="25"
-                                                                                 Foreground="White" 
-                                                                                 HorizontalAlignment="Center" 
-                                                                                 VerticalAlignment="Center"/>
-                                                    </Grid>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="ellipse" Property="Fill">
-                                                                <Setter.Value>
-                                                                    <LinearGradientBrush>
-                                                                        <GradientStop Color="#18c274" Offset="0"/>
-                                                                        <GradientStop Color="#30ad9a" Offset="1"/>
-                                                                    </LinearGradientBrush>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                            <Setter TargetName="icon" Property="Foreground" Value="#c0e6de"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                        </Button>
-                                    </StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding ElementName=AlbumsListBox, Path=SelectedItem.CoverImage}" 
+                                                   Width="300"
+                                                   Height="300"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="25 0 0 0"
+                                                    Grid.Column="0"
+                                                   />
+                                        <StackPanel x:Name="InfoStackPanel" Grid.Column="1" VerticalAlignment="Center" Margin="20 0 0 0">
+                                            <TextBlock x:Name="AlbumDetailNameTextBlock" HorizontalAlignment="Left" Text="{Binding ElementName=AlbumsListBox, Path=SelectedItem.Title}" 
+                                                         Foreground="White" FontSize="26" FontWeight="Bold" MaxWidth="300" TextWrapping="Wrap"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding ElementName=AlbumsListBox, Path=SelectedItem.Artist.ArtistName}" 
+                                                           Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
+                                                <Button HorizontalAlignment="Left" x:Name="PlayAlbumButton" Width="40" Height="40" Margin="10,0,0,0" 
+                                                         Background="Transparent" BorderThickness="0" Click="PlayAlbumButton_Click"
+                                                         Cursor="Hand" Visibility="Hidden">
+                                                    <!-- Play Button Template -->
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Grid>
+                                                                <Ellipse x:Name="ellipse" Width="40" Height="40">
+                                                                    <Ellipse.Fill>
+                                                                        <LinearGradientBrush>
+                                                                            <GradientStop Color="#30ad9a" Offset="0"/>
+                                                                            <GradientStop Color="#18c274" Offset="1"/>
+                                                                        </LinearGradientBrush>
+                                                                    </Ellipse.Fill>
+                                                                </Ellipse>
+                                                                <Icon:PackIconMaterial x:Name="icon" Kind="Play" 
+                                                                                         Width="25"
+                                                                                         Height="25"
+                                                                                         Foreground="White" 
+                                                                                         HorizontalAlignment="Center" 
+                                                                                         VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter TargetName="ellipse" Property="Fill">
+                                                                        <Setter.Value>
+                                                                            <LinearGradientBrush>
+                                                                                <GradientStop Color="#18c274" Offset="0"/>
+                                                                                <GradientStop Color="#30ad9a" Offset="1"/>
+                                                                            </LinearGradientBrush>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                    <Setter TargetName="icon" Property="Foreground" Value="#c0e6de"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </Grid>
 
                                 </StackPanel>
                             </StackPanel>
 
                             <!-- Song List -->
                             <ScrollViewer Grid.Row="1" Style="{StaticResource CustomScrollViewer}" 
-                                   Margin="30,20,30,30" 
+                                   Margin="30,10,30,10" 
                                    VerticalScrollBarVisibility="Auto" 
                                    MaxHeight="350">
                                 <ItemsControl x:Name="SongItemsControl" ItemsSource="{Binding ElementName=AlbumsListBox, Path=SelectedItem.TbSongs}">
