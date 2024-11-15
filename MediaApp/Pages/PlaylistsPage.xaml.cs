@@ -59,8 +59,6 @@ namespace video_media_player
             PlaylistsListBox.ItemsSource = _playlistService.GetAllWithSongs();
         }
 
-        //helper function
-
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (PlaylistsListBox.SelectedItem is TbPlaylist selected)

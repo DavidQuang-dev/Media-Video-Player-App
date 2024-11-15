@@ -184,7 +184,7 @@
                     </StackPanel>
 
                     <!-- Customize Section -->
-                    <StackPanel Grid.Row="2">
+                    <!--<StackPanel Grid.Row="2">
                         <TextBlock Text="Customize" Style="{StaticResource menuTitle}"/>
                         <Button Style="{StaticResource menuButton}">
                             <Grid>
@@ -198,7 +198,7 @@
                                 <Icon:PackIconMaterial Style="{StaticResource menuButtonIcon}"/>
                             </Grid>
                         </Button>
-                    </StackPanel>
+                    </StackPanel>-->
                 </Grid>
             </Border>
 

@@ -39,7 +39,7 @@ namespace MediaApp.UserControls
         }
 
         private void LoadSongs() { 
-            var songs = _songService.GetAll(); 
+            var songs = _songService.GetAllSongs(); 
             Songs = new ObservableCollection<TbSong>(songs); 
         }
 
