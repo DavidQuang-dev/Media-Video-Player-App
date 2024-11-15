@@ -268,9 +268,7 @@
             </ContentControl>
         </Border>
         <Button Content="+" HorizontalAlignment="Left" Height="40" Margin="180,33,0,0" VerticalAlignment="Top" Width="70" Style="{StaticResource defaultButton}" FontWeight="Bold" Click="CreateButton_Click" RenderTransformOrigin="-0.329,0.515" />
-        <Button x:Name="EditButton" Content="Edit" HorizontalAlignment="Left" Height="20" Margin="196,78,0,0" VerticalAlignment="Top" Width="38" Click="EditButton_Click"/>
-        <!--
-        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Height="20" Margin="173,128,0,0" VerticalAlignment="Top" Width="47" Click="DeleteButton_Click"/>
-        -->
+        <Button x:Name="EditButton" Content="✏️" Style="{StaticResource defaultButton}" HorizontalAlignment="Left" FontWeight="Bold" Margin="180,78,0,0" VerticalAlignment="Top" Height="40" Width="70" Click="EditButton_Click"/>
+        <Button x:Name="DeleteButton" Style="{StaticResource defaultButton}" Content="🗑️" HorizontalAlignment="Left" Margin="180,123,0,0" VerticalAlignment="Top" Height="40" Width="70" Click="DeleteButton_Click"/>
     </Grid>
 </Page>

@@ -128,5 +128,17 @@ namespace MediaApp.UserControls
                 }
             }
         }
+
+        private void CheckBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.DataContext is TbSong song)
+            {
+                if (EditedOne != null)
+                {
+                    var isSongInPlaylist = _playlistSongService.GetByPlaylistAndSong(EditedOne.PlaylistId, song.SongId) != null;
+                    checkBox.IsChecked = isSongInPlaylist;
+                }
+            }
+        }
     }
 }
