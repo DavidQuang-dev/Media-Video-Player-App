@@ -123,5 +123,10 @@ namespace MediaApp
             var searchText = ((TextBox)sender).Text;
             // TODO: Thực hiện tìm kiếm dựa trên searchText
         }
+
+        private void ClearSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchTextBox.Text = string.Empty;
+        }
     }
 }

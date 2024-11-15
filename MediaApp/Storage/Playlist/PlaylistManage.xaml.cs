@@ -126,7 +126,10 @@ namespace MediaApp
             PlayListDataGrid.ItemsSource = playlists;
         }
 
-
+        private void ClearSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchPlaylistTextBox.Text = string.Empty;
+        }
     }
 }
 
