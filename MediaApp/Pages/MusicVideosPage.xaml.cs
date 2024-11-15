@@ -33,6 +33,7 @@ namespace video_media_player
         private DispatcherTimer _timeMouseEnter;
         private List<TbSong> videoList;
         private DispatcherTimer _skipTimer;
+        private Button selectedButton = null;
         public MusicVideosPage()
         {
             InitializeComponent();
@@ -74,6 +75,9 @@ namespace video_media_player
                 songItem.Click += SongItem_Click;
                 ListVideos.Children.Add(songItem);
             }
+
+            selectedButton = SpeedX1Button;
+            ChangeSelectedColorButton(selectedButton);
         }
 
         private void SongItem_Click(object sender, RoutedEventArgs e)
@@ -166,15 +170,6 @@ namespace video_media_player
             else
             {
                 volumePopup.IsOpen = true;
-            }
-
-        }
-
-        private void TimeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (!isDragging)
-            {
-                VideoMediaPlayer.Position = TimeSpan.FromSeconds(TimeSlider.Value);
             }
         }
 
@@ -416,6 +411,70 @@ namespace video_media_player
             {
                 e.Handled = true;
             }
+        }
+
+        private void SpeedButton_Click(object sender, RoutedEventArgs e)
+        {
+            SpeedPopup.IsOpen = !SpeedPopup.IsOpen;
+        }
+
+        private bool isTimerRunning = false;  // Biến để theo dõi trạng thái của timer
+
+        private void SpeedX2Button_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeSpeed(2, sender);
+        }
+
+        private void SpeedX175Button_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeSpeed(1.75, sender); 
+        }
+
+        private void SpeedX15Button_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeSpeed(1.5, sender);
+        }
+
+        private void SpeedX1Button_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeSpeed(1,sender);
+        }
+
+        private void SpeedX05Button_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeSpeed(0.5, sender);
+        }
+
+        // Hàm thay đổi tốc độ và Interval của timer
+        private void ChangeSpeed(double speed, Object sender)
+        {
+            if (isTimerRunning) 
+            {
+                _timer.Stop(); 
+                isTimerRunning = false;  
+            }
+            VideoMediaPlayer.SpeedRatio = speed;
+            _timer.Interval = TimeSpan.FromSeconds(1 / speed);
+            _timer.Start(); 
+            isTimerRunning = true;  
+            ChangeSelectedColorButton(sender);
+        }
+
+        private void ChangeSelectedColorButton(object sender)
+        {
+            
+            Button clickedButton = sender as Button;
+
+            if (selectedButton != null)
+            {
+                selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3b3c36"));
+            }
+
+            clickedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#080808"));
+            selectedButton = clickedButton;
+
+            // Set lai isOpen
+            SpeedPopup.IsOpen = false;
         }
     }
 }
