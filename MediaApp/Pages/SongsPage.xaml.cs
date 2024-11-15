@@ -35,7 +35,7 @@ namespace video_media_player
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //SongsList.ItemsSource = _songService.GetAll();
-            List<TbSong> songs = _songService.GetAll();
+            List<TbSong> songs = _songService.GetAllSongs();
             int number = 0;
             foreach (var song in songs)
             {

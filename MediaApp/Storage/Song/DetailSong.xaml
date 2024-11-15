@@ -197,9 +197,10 @@
                 <StackPanel>
                     <TextBlock Text="Type:" 
                          FontWeight="SemiBold"/>
-                    <ComboBox x:Name="TypeCombobox" 
-                         Height="30"
-                         Padding="5"/>
+                    <TextBox x:Name="txtFileType" 
+                             Height="30" 
+                             Padding="5" 
+                             IsReadOnly="True"/>
                 </StackPanel>
 
                 <!-- Artist Selection -->

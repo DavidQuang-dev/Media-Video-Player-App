@@ -14,6 +14,10 @@ namespace MediaApp.BLL.Services
         private SongRepository _songRepository = new ();
         public List<TbSong> GetAll()
         {
+            return _songRepository.GetAll();
+        }
+        public List<TbSong> GetAllSongs()
+        {
             return _songRepository.GetAllSongs();
         }
         public List<TbSong> GetPopularSong()
@@ -70,6 +74,15 @@ namespace MediaApp.BLL.Services
         public List<TbSong> GetAvailableSongsForPlaylist(List<int> excludedSongIds)
         {
             return _songRepository.GetAvailableSongsForPlaylist(excludedSongIds);
+        }
+
+        public List<TbSong> GetSongsByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return new List<TbSong>();
+
+            // Gọi phương thức GetSongByName từ _songRepository
+            return _songRepository.GetSongsByName(name);
         }
     }
 }

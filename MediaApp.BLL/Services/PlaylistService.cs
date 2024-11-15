@@ -1,5 +1,6 @@
 ﻿using MediaApp.DAL.Entities;
 using MediaApp.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +39,19 @@ namespace MediaApp.BLL.Services
             return _repo.GetAllWithSongs();
         }
 
-        public TbPlaylist GetPlaylistByName(string name)
+        //public TbPlaylist GetPlaylistByName(string name)
+        //{
+        //    return _repo.GetPlaylistByName(name);
+        //}
+
+        public List<TbPlaylist> GetPlaylistByName(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                return new List<TbPlaylist>();
+
+            // Gọi phương thức GetPlaylistsByName từ _repo
             return _repo.GetPlaylistByName(name);
         }
+
     }
 }

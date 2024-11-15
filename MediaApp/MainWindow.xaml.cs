@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using NAudio.Wave;
+using MediaApp;
 
 namespace video_media_player
 {
@@ -27,7 +28,7 @@ namespace video_media_player
     public partial class MainWindow : Window
     {
         public List<TbSong> ListSongs { get; set; }
-        public TbSong ChooseSong { get; set; }
+        public TbSong ChooseSong { get; set; }        
         private readonly SongService _songService = new();
         private PlaybackMode backMode = PlaybackMode.RepeatOff;
         private PlayMode playMode = PlayMode.Sequential;
@@ -48,6 +49,15 @@ namespace video_media_player
             };
             _timer.Tick += Timer_Tick;
         }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow = this;
+        }
         public void SetChosenSong(TbSong song)
         {
             ChooseSong = song;
@@ -55,22 +65,12 @@ namespace video_media_player
             {
                 LoadSingleSong(ChooseSong);
             }
-            if(ChooseSong.SongName == "video")
-            {
 
-            }
         }
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                DragMove();
-        }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.Close();
         }
-
         private void ToggleWindowStateButton_Click(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
@@ -132,11 +132,6 @@ namespace video_media_player
         {
             MainFrame.Navigate(new MusicVideosPage());
         }
-        private void StoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new StorePage());
-        }
-
         private void VolumeButton_Click(object sender, RoutedEventArgs e)
         {
             volumePopup.IsOpen = !volumePopup.IsOpen;
@@ -243,10 +238,19 @@ namespace video_media_player
             if (song == null) return;
             TimeSlider.Maximum = double.Parse(song.Duration.ToString());
             MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
-            PlayerMediaElement.Source = new Uri(song.FilePath);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
-            PlayerMediaElement.Play();
+            if(song.Type == "mp3")
+            {
+                PlayerMediaElement.Source = new Uri(song.FilePath);
+                PlayerMediaElement.Play();
+            } else
+            {
+                MusicVideosPage musicVideosPage = new();
+                MainFrame.Navigate(musicVideosPage);
+                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
+                musicVideosPage.VideoMediaPlayer.Play();
+            }
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
@@ -260,11 +264,20 @@ namespace video_media_player
 
             TimeSlider.Maximum = duration;
             MaxTimeTextBlock.Text = FormatTime(duration);
-            PlayerMediaElement.Source = new Uri(song.FilePath);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
-            // MessageBox.Show("Current Index Of Load Song: " + CurrentIndex);
-            PlayerMediaElement.Play();
+            if (song.Type == "mp3")
+            {
+                PlayerMediaElement.Source = new Uri(song.FilePath);
+                PlayerMediaElement.Play();
+            }
+            else
+            {
+                MusicVideosPage musicVideosPage = new();
+                MainFrame.Navigate(musicVideosPage);
+                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
+                musicVideosPage.VideoMediaPlayer.Play();
+            }
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
@@ -277,10 +290,20 @@ namespace video_media_player
 
             TimeSlider.Maximum = double.Parse(song.Duration.ToString());
             MaxTimeTextBlock.Text = FormatTime(double.Parse(song.Duration.ToString()));
-            PlayerMediaElement.Source = new Uri(song.FilePath);
             SongNameTextBlock.Text = song.SongName;
             ArtistNameTextBlock.Text = song.Artist.ArtistName;
-            PlayerMediaElement.Play();
+            if (song.Type == "mp3")
+            {
+                PlayerMediaElement.Source = new Uri(song.FilePath);
+                PlayerMediaElement.Play();
+            }
+            else
+            {
+                MusicVideosPage musicVideosPage = new();
+                MainFrame.Navigate(musicVideosPage);
+                musicVideosPage.VideoMediaPlayer.Source = new Uri(song.FilePath);
+                musicVideosPage.VideoMediaPlayer.Play();
+            }
             int plays = song.Plays.HasValue ? song.Plays.Value : 0;
             _songService.UpdatePlaysSong(plays + 1, song.SongId);
             PlayIcon.Kind = PackIconMaterialKind.Pause;
@@ -384,10 +407,7 @@ namespace video_media_player
             ChooseSong = null;
             if (CurrentIndex >= 1)
                 --CurrentIndex;
-            //MessageBox.Show("Current index : " + CurrentIndex);
             LoadSong(CurrentIndex);
         }
-
-       
     }
 }

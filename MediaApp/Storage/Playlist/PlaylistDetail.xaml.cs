@@ -55,6 +55,7 @@ namespace MediaApp
 
                     //xóa bài đc thêm vào khỏi ds bài hát cbi xóa
                     _songsToRemove.Remove(selectedItem);
+                    RefreshSongComboBox();
                 }
             }
             else
@@ -87,6 +88,13 @@ namespace MediaApp
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            // Kiểm tra nếu Playlist Name để trống
+            if (string.IsNullOrWhiteSpace(PlaylistNameTextBox.Text))
+            {
+                MessageBox.Show("Playlist Name cannot be empty. Please enter a name for the playlist.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             TbPlaylist tbPlaylist = new()
             {
                 PlaylistName = PlaylistNameTextBox.Text

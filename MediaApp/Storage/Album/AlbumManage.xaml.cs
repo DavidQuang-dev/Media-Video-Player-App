@@ -55,7 +55,7 @@ namespace MediaApp
         {
             if (AlbumDataGrid.SelectedItem == null)
             {
-                MessageBox.Show("Vui lòng chọn album trước khi cập nhật");
+                MessageBox.Show("Please select an album before update", "Select", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -97,6 +97,40 @@ namespace MediaApp
                 AlbumDataGrid.ItemsSource = null;
                 AlbumDataGrid.ItemsSource = arr;
             }
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchQuery = SearchAlbumTextBox.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+            if (string.IsNullOrWhiteSpace(searchQuery)) // Nếu không có từ khóa tìm kiếm
+            {
+                Helper(_albumService.GetAllAlbums());
+                return;
+            }
+
+            // Giả sử _playlistService có phương thức GetPlaylistsByName để tìm Playlist theo tên
+            var filteredAlbum = _albumService.GetAlbumByName(searchQuery);
+            if (filteredAlbum == null || filteredAlbum.Count == 0) // Nếu không tìm thấy Playlist nào
+            {
+                System.Windows.MessageBox.Show($"No playlists found with the keyword '{searchQuery}'.", "No Results", MessageBoxButton.OK, MessageBoxImage.Information);
+                FillData(new List<TbAlbum>()); // Xóa dữ liệu khỏi DataGrid nếu không có kết quả
+            }
+            else
+            {
+                FillData(filteredAlbum); // Chuyển TbPlaylist thành List<TbPlaylist>
+
+            }
+        }
+
+        private void SearchAlbumTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((System.Windows.Controls.TextBox)sender).Text.Trim(); // Lấy văn bản từ TextBox            
+        }
+
+        private void FillData(List<TbAlbum> songs)
+        {
+            // Cập nhật UI với danh sách Playlist
+            AlbumDataGrid.ItemsSource = songs;
         }
     }
 }

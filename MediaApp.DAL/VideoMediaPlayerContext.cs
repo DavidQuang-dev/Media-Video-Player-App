@@ -27,6 +27,8 @@ public partial class VideoMediaPlayerContext : DbContext
 
     public virtual DbSet<TbSong> TbSongs { get; set; }
 
+    public virtual DbSet<TbUser> TbUsers { get; set; }
+
     private string GetConnectionString()
     {
         IConfiguration config = new ConfigurationBuilder()
@@ -45,11 +47,14 @@ public partial class VideoMediaPlayerContext : DbContext
         modelBuilder.Entity<TbAlbum>(entity =>
         {
             entity.HasKey(e => e.AlbumId);
+
             entity.ToTable("tb_Albums");
+
             entity.Property(e => e.AlbumId).HasColumnName("Album_Id");
             entity.Property(e => e.ArtistId).HasColumnName("Artist_Id");
             entity.Property(e => e.CoverImage).HasMaxLength(250);
             entity.Property(e => e.Title).HasMaxLength(250);
+
             entity.HasOne(d => d.Artist).WithMany(p => p.TbAlbums)
                 .HasForeignKey(d => d.ArtistId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -116,6 +121,7 @@ public partial class VideoMediaPlayerContext : DbContext
             entity.Property(e => e.SongName)
                 .HasMaxLength(250)
                 .HasColumnName("Song_Name");
+            entity.Property(e => e.Type).HasMaxLength(50);
 
             entity.HasOne(d => d.Album).WithMany(p => p.TbSongs)
                 .HasForeignKey(d => d.AlbumId)
@@ -125,6 +131,23 @@ public partial class VideoMediaPlayerContext : DbContext
                 .HasForeignKey(d => d.ArtistId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tb_Songs_tb_Artists");
+        });
+
+        modelBuilder.Entity<TbUser>(entity =>
+        {
+            entity.HasKey(e => e.UserId);
+
+            entity.ToTable("tb_User");
+
+            entity.Property(e => e.UserId).HasColumnName("User_Id");
+            entity.Property(e => e.Email).HasMaxLength(250);
+            entity.Property(e => e.Password).HasMaxLength(250);
+            entity.Property(e => e.Role)
+                .HasMaxLength(10)
+                .IsFixedLength();
+            entity.Property(e => e.UserName)
+                .HasMaxLength(50)
+                .HasColumnName("User_Name");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -13,10 +13,21 @@ namespace MediaApp.DAL.Repositories
     {
         private VideoMediaPlayerContext _context;
 
-        public List<TbSong> GetAllSongs()
+        public List<TbSong> GetAll()
         {
             _context = new();
             return _context.TbSongs.Include("Album").Include("Artist").ToList();
+        }
+
+        public List<TbSong> GetAllSongs()
+        {
+            _context = new();
+            return _context.TbSongs.Include("Album").Include("Artist").Where(a => a.Type == "mp3").ToList();
+        }
+        public List<TbSong> GetMusicVideos()
+        {
+            _context = new();
+            return _context.TbSongs.Where(a => a.Type == "mp4").ToList();
         }
         public List<TbSong> GetAvailableSongsForPlaylist(List<int> excludedSongIds)
         {
@@ -30,13 +41,9 @@ namespace MediaApp.DAL.Repositories
         public List<TbSong> GetPopularSongs()
         {
             _context = new();
-            return _context.TbSongs.OrderByDescending(a => a.Plays).Take(4).ToList();
+            return _context.TbSongs.OrderByDescending(a => a.Plays).Where(a => a.Type == "mp3").Take(4).ToList();
         }
-        public List<TbSong> GetMusicVideos()
-        {
-            _context = new();
-            return _context.TbSongs.Where(a => a.Type == "mp4").ToList();
-        }
+
 
         public void CreateSong(TbSong song)
         {
@@ -139,6 +146,16 @@ namespace MediaApp.DAL.Repositories
                            .Include(song => song.Artist)
                            .Include(song => song.Album)
                            .FirstOrDefault(s => s.SongName.Equals(songName));
+        }
+        public List<TbSong> GetSongsByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return new List<TbSong>();
+
+            var searchQuery = name.ToLower();
+
+            return _context.Set<TbSong>()
+                             .Where(s => s.SongName.ToLower().Contains(searchQuery))
+                             .ToList();
         }
 
     }

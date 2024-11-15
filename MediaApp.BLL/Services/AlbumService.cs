@@ -41,5 +41,14 @@ namespace MediaApp.BLL.Services
         {
             return _repository.GetCreatedAlbum();
         }
+
+        public List<TbAlbum> GetAlbumByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return new List<TbAlbum>();
+
+            // Gọi phương thức GetAlbumByName từ _repository
+            return _repository.GetAlbumByName(name);
+        }
     }
 }

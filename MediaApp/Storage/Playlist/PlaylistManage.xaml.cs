@@ -64,7 +64,7 @@ namespace MediaApp
             TbPlaylist? selected = PlayListDataGrid.SelectedItem as TbPlaylist;
             if (selected == null)
             {
-                MessageBox.Show("Please select a playlist before editing!!", "Select One", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("Please select a playlist before editing!!", "Select One", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             PlaylistDetail plDetail = new();
@@ -91,5 +91,42 @@ namespace MediaApp
             _playlistService.DeletePlayList(selected);
             FillDataGrid(_playlistService.GetAllPlayList());
         }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchQuery = SearchPlaylistTextBox.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+            if (string.IsNullOrWhiteSpace(searchQuery)) // Nếu không có từ khóa tìm kiếm
+            {
+                FillDataGrid(_playlistService.GetAllPlayList());
+                return;
+            }
+
+            // Giả sử _playlistService có phương thức GetPlaylistsByName để tìm Playlist theo tên
+            var filteredPlaylists = _playlistService.GetPlaylistByName(searchQuery);
+            if (filteredPlaylists == null || filteredPlaylists.Count == 0) // Nếu không tìm thấy Playlist nào
+            {
+                MessageBox.Show($"No playlists found with the keyword '{searchQuery}'.", "No Results", MessageBoxButton.OK, MessageBoxImage.Information);
+                FillData(new List<TbPlaylist>()); // Xóa dữ liệu khỏi DataGrid nếu không có kết quả
+            }
+            else
+            {
+                FillData( filteredPlaylists ); // Chuyển TbPlaylist thành List<TbPlaylist>
+
+            }
+        }
+
+        private void SearchPlaylistTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((TextBox)sender).Text.Trim(); // Lấy văn bản từ TextBox            
+        }
+
+        private void FillData(List<TbPlaylist> playlists)
+        {
+            // Cập nhật UI với danh sách Playlist
+            PlayListDataGrid.ItemsSource = playlists;
+        }
+
+
     }
 }
+

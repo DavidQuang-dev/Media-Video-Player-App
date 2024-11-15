@@ -93,5 +93,38 @@ namespace MediaApp
             SongsDataGrid.ItemsSource = null;
             SongsDataGrid.ItemsSource = tbSongs;
         }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            string searchQuery = SearchSongsTextBox.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+            if (string.IsNullOrWhiteSpace(searchQuery)) // Nếu không có từ khóa tìm kiếm
+            {
+                FillData(_service.GetAll());
+                return;
+            }
+
+            // Giả sử _playlistService có phương thức GetPlaylistsByName để tìm Playlist theo tên
+            var filteredSongs = _service.GetSongsByName(searchQuery);
+            if (filteredSongs == null || filteredSongs.Count == 0) // Nếu không tìm thấy Playlist nào
+            {
+                System.Windows.MessageBox.Show($"No playlists found with the keyword '{searchQuery}'.", "No Results", MessageBoxButton.OK, MessageBoxImage.Information);
+                FillData(new List<TbSong>()); // Xóa dữ liệu khỏi DataGrid nếu không có kết quả
+            }
+            else
+            {
+                FillData(filteredSongs); // Chuyển TbPlaylist thành List<TbPlaylist>
+
+            }
+        }
+        private void SearchSongsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((System.Windows.Controls.TextBox)sender).Text.Trim(); // Lấy văn bản từ TextBox            
+        }
+
+        //private void FillData(List<TbSong> songs)
+        //{
+        //    // Cập nhật UI với danh sách Playlist
+        //    SongsDataGrid.ItemsSource = songs;
+        //}
     }
 }

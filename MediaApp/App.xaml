@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:video_media_player"
-             StartupUri="MainWindow.xaml">
+             StartupUri="LoginPage.xaml">
     <Application.Resources>
-        <local:SliderValueToHeightConverter x:Key="SliderValueToHeightConverter"/>
-        
         <Style x:Key="menuTitle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#97e6c1"/>
             <Setter Property="FontSize" Value="22"/>
@@ -258,7 +256,7 @@
                                 <!-- Track Background for Vertical Slider -->
                                 <Border x:Name="TrackBackground" Background="White" BorderThickness="0" CornerRadius="2.5" Width="4" Margin="0,15" Grid.Row="1" HorizontalAlignment="Center">
                                     <Border x:Name="PART_SelectionRange" Background="#49d092" CornerRadius="1" VerticalAlignment="Bottom"
-            Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Converter={StaticResource SliderValueToHeightConverter}, ConverterParameter=200, FallbackValue=0}" />
+            Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, ConverterParameter=200, FallbackValue=0}" />
                                 </Border>
 
 
@@ -317,6 +315,71 @@
                                 <Setter Property="Foreground" Value="#c0e6de"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--Login & Register Style-->
+        <LinearGradientBrush x:Key="GreenGradientBrush" StartPoint="0,0" EndPoint="1,1  ">
+           <!-- <GradientStop Color="#248c7c" Offset="0"/> -->
+            <GradientStop Color="White" Offset="0"/>
+
+        </LinearGradientBrush>
+        <Style x:Key="GradientButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource GreenGradientBrush}"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GradientButtonRegister" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GradientTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource GreenGradientBrush}"/>
+            <Setter Property="Foreground" Value="#18c274" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="20" BorderThickness="1" BorderBrush="#30ad9a">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="GradientPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Background" Value="{StaticResource GreenGradientBrush}"/>
+            <Setter Property="Foreground" Value="#18c274" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="20" BorderThickness="1" BorderBrush="#30ad9a">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
