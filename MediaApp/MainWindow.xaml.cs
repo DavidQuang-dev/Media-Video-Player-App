@@ -379,23 +379,5 @@ namespace video_media_player
                 --CurrentIndex;
             LoadSong(CurrentIndex);
         }
-
-        private void Window_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.Space:
-                    {
-                        PlayButton_Click(sender, e);
-                        break;
-                    }
-            }
-        }
-
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-                e.Handled = true;
-        }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace video_media_player
 {
@@ -25,6 +26,8 @@ namespace video_media_player
     {
         private SongService _songService = new();
         public TbSong ChooseSong { get; set; }
+
+        public bool IsTyping { get; set; }
 
         public SongsPage()
         {
@@ -73,6 +76,81 @@ namespace video_media_player
             TimeSpan timeSpan = TimeSpan.FromSeconds(value);
             string timeFormated = string.Format("{0}:{1:D2}", (int)timeSpan.TotalMinutes, timeSpan.Seconds);
             return timeFormated;
+        }
+
+        private void SearchSongTextBox_TextChanged(Object sender, TextChangedEventArgs e)
+        {
+            IsTyping = true;
+            string searchText = ((System.Windows.Controls.TextBox)sender).Text.Trim(); // Lấy văn bản từ TextBox    
+        }
+
+        private void ClearSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchSongTextBox.Text = string.Empty;
+        }
+
+        private void FillData(List<TbSong> songList)
+        {
+            if (songList == null) return;
+            SongItemList.Children.Clear();
+            int number = 0;
+            foreach (var song in songList)
+            {
+                var songItem = new video_media_player.UserControls.SongItem
+                {
+                    Title = song.SongName,
+                    Number = (++number).ToString(),
+                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
+                    Tag = song.FilePath
+                };
+                songItem.Click += SongItem_Click;
+                SongItemList.Children.Add(songItem);
+            }
+        }
+
+        private void SearchButton_Click(Object sender, RoutedEventArgs e)
+        {
+            string searchQuery = SearchSongTextBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(searchQuery))
+            {
+                FillData(_songService.GetAll());
+                return;
+            }
+
+            var filteredSongs = _songService.GetSongsByName(searchQuery);
+            if (filteredSongs == null || filteredSongs.Count == 0)
+            {
+                System.Windows.MessageBox.Show($"No songs found with the keyword '{searchQuery}'.", "No Results", MessageBoxButton.OK, MessageBoxImage.Information);
+                FillData(new List<TbSong>());
+            }
+            else
+            {
+                FillData(filteredSongs); // Chuyển TbPlaylist thành List<TbPlaylist>
+            }
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+            if (mainWindow.WindowState == WindowState.Maximized)
+            {
+                SongListBorder.MaxHeight = 600;
+            }
+            else
+            {
+                SongListBorder.MaxHeight = 350;
+            }
+        }
+
+        private void SearchSongTextBox_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void SearchSongTextBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            IsTyping = true;
         }
     }
 }

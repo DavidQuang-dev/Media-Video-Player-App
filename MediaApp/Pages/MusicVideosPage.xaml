@@ -87,7 +87,7 @@
         </Style>
     </Window.Resources>
     <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
-        <ScrollViewer x:Name="FullScreenScrollView" Margin="30,20,30,30" Style="{StaticResource CustomScrollViewer}">
+        <ScrollViewer x:Name="FullScreenScrollView" Margin="30,30,30,30" Style="{StaticResource CustomScrollViewer}">
             <Grid x:Name="FullLayOutGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

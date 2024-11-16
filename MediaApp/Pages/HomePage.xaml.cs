@@ -1,4 +1,5 @@
-﻿using MediaApp.BLL.Services;
+﻿using MediaApp;
+using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
 using NAudio.Wave;
 using System;
@@ -76,17 +77,7 @@ namespace video_media_player
                 popularSongItem.Click += PopularSongItem_Click;
                 PopularSongItemList.Children.Add(popularSongItem);
             }
-
-            List<TbPlaylist> playlists = playlistService.Get2Playlist();
-            foreach (var playlist in playlists)
-            {
-                var playlistItem = new video_media_player.UserControls.Playlist
-                {
-                    Title = playlist.PlaylistName,
-                };
-                playlistItem.Click += Playlist_Click;
-                PlaylistItems.Children.Add(playlistItem);
-            }
+            PlaylistsListBox.ItemsSource = playlistService.Get2Playlist();
         }
 
         private void SongItem_Click(object sender, RoutedEventArgs e)
@@ -119,14 +110,15 @@ namespace video_media_player
 
         private void Playlist_Click(object sender, RoutedEventArgs e)
         {
-            video_media_player.UserControls.Playlist playlist = (video_media_player.UserControls.Playlist)sender;
-            string playlistName = playlist.Title.ToString();
-            if (!string.IsNullOrEmpty(playlistName))
+            if (sender is video_media_player.UserControls.Playlist playlist)
             {
-                PlaylistsPage playlistsPage = new();
-                //playlistsPage.SetChosenPlaylist(playlistService.GetPlaylistByName(playlistName));
-                NavigationService.Navigate(playlistsPage);
-
+                string playlistName = playlist.Title;
+                if (!string.IsNullOrEmpty(playlistName))
+                {
+                    PlaylistsPage playlistsPage = new();
+                    // playlistsPage.SetChosenPlaylist(playlistService.GetPlaylistByName(playlistName));
+                    NavigationService.Navigate(playlistsPage);
+                }
             }
         }
 
@@ -135,6 +127,16 @@ namespace video_media_player
             TimeSpan timeSpan = TimeSpan.FromSeconds(value);
             string timeFormated = string.Format("{0}:{1:D2}", (int)timeSpan.TotalMinutes, timeSpan.Seconds);
             return timeFormated;
+        }
+
+        private void PlaylistsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PlaylistsListBox.SelectedItem is TbPlaylist selectedPlaylist)
+            {
+                PlaylistsPage playlistsPage = new();
+                NavigationService.Navigate(playlistsPage);
+                playlistsPage.SetChosenPlaylist(selectedPlaylist);
+            }
         }
     }
 }

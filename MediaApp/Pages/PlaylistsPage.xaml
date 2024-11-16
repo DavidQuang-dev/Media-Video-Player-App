@@ -53,7 +53,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="0"/>
                             </Grid.ColumnDefinitions>
                             <ScrollContentPresenter Grid.Column="0"/>
                             <ScrollBar x:Name="PART_VerticalScrollBar"
@@ -69,54 +69,7 @@
         </Style>
 
         <!-- PLaylist List Item Style -->
-        <Style x:Key="PlaylistsListItem" TargetType="{x:Type ListBoxItem}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <Border x:Name="border" Padding="15" Margin="0,5" CornerRadius="10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <!-- PLaylist Cover -->
-                                <Border Width="50" Height="50" CornerRadius="5">
-                                    <Border.Background>
-                                        <LinearGradientBrush>
-                                            <GradientStop Color="#30ad9a" Offset="0"/>
-                                            <GradientStop Color="#18c274" Offset="1"/>
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                    <Icon:PackIconMaterial Kind="Album" Width="24" Height="24" 
-                                                         Foreground="White" 
-                                                         HorizontalAlignment="Center" 
-                                                         VerticalAlignment="Center"/>
-                                </Border>
-
-                                <!-- PLaylist Info -->
-                                <StackPanel Grid.Column="1" Margin="15,0,0,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding PlaylistName}" Foreground="#2b2b2b"
-                                             FontSize="16" FontWeight="SemiBold"/>
-                                    <!-- <TextBlock Text="{Binding Artist}" Foreground="#787878" 
-                                             FontSize="14" Margin="0,5,0,0"/> -->
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#f0f9f7"/>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#30ad9a"/>
-                                <Setter TargetName="border" Property="BorderThickness" Value="1"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#f5f5f5"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
     </Page.Resources>
 
     <Grid>
@@ -137,7 +90,7 @@
                          Margin="0,20,20,10"/>
 
                 <!-- PLaylist List -->
-                <ScrollViewer Grid.Row="1" Margin="10,0,10,10" VerticalScrollBarVisibility="Visible" MaxHeight="300">
+                <ScrollViewer Grid.Row="1" Margin="10,0,10,10" VerticalScrollBarVisibility="Visible" MaxHeight="300" Style="{StaticResource CustomScrollViewer}">       
                     <ListBox x:Name="PlaylistsListBox"
              BorderThickness="0"
              Background="Transparent"
@@ -187,7 +140,7 @@
                     <Border CornerRadius="20" Margin="20" Grid.RowSpan="2">
                         <Border.Background>
                             <LinearGradientBrush>
-                                <GradientStop Color="#30ad9a" Offset="0"/>
+                                <GradientStop Color="#3b3c36" Offset="0"/>
                                 <GradientStop Color="#18c274" Offset="1"/>
                             </LinearGradientBrush>
                         </Border.Background>
