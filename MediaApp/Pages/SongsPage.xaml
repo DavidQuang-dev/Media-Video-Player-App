@@ -4,7 +4,9 @@
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:uc="clr-namespace:video_media_player.UserControls"
       xmlns:local="clr-namespace:MediaApp.Converters"
-      Background="Transparent" Loaded="Page_Loaded">
+      Background="Transparent" Loaded="Page_Loaded" SizeChanged="Page_SizeChanged"
+      
+      >
 
     <Page.Resources>
         <local:TimeConverter x:Key="TimeConverter"/>
@@ -69,24 +71,125 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="565" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" MinHeight="107" />
         </Grid.RowDefinitions>
 
-        <Grid Background="White" Margin="30,60,35,0">
+        <Grid Background="Transparent" Margin="30,60,35,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" MinHeight="115.767" />
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource titleText}" Grid.Row="0" Margin="0,0,865,20">
+            <TextBlock Style="{StaticResource titleText}" Grid.Row="0" Margin="119,23,746,17" Height="70" Panel.ZIndex="1" Foreground="Black">
                 <Run Language="vi-vn" Text="Songs"/>
-                <LineBreak/>
-                <Run Language="vi-vn"/>
             </TextBlock>
-            <Border CornerRadius="20" Margin="0,65,0,3" Grid.RowSpan="2">
+            <!--Search bar-->
+            <StackPanel Grid.Row="1" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,0,0,0">
+                <Border Width="300"
+                    Height="40"
+                    Background="#F5F5F5"
+                    CornerRadius="20"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1">
+                    <Grid>
+                        <!-- Search Icon -->
+                        <Path
+                    Data="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                            Fill="#757575"
+                            Width="18"
+                            Height="18"
+                            Margin="15,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"/>
+
+                        <!-- Search TextBox -->
+                        <TextBox 
+                                x:Name="SearchSongTextBox"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="45,0,15,0"
+                                VerticalContentAlignment="Center"
+                                FontSize="14"
+                                TextChanged="SearchSongTextBox_TextChanged" MouseLeftButtonUp="SearchSongTextBox_MouseLeftButtonUp">
+                        </TextBox>
+
+                        <!-- Clear Button -->
+
+                        <Button   x:Name="ClearSearchButton"
+                        Width="16" 
+                        Height="16"
+                        Margin="0,0,15,0"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Visibility="{Binding Text.Length, ElementName=SearchAlbumTextBox}" Click="ClearSearchButton_Click">
+                            <Path 
+                        Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                        Fill="#757575"
+                        Stretch="Uniform"/>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Opacity" Value="0.7"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </Border>
+                <!-- Search Button -->
+                <Button 
+                        Content="Search"
+                        Height="40"
+                        Width="100"
+                        Margin="10,0,0,0"
+                        Background="#2196F3"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Click="SearchButton_Click">
+                    <Button.Style>  
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border 
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="20">
+                                            <ContentPresenter 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#1976D2"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+
+            <Border x:Name="SongListBorder" CornerRadius="20" Margin="0,10,0,20" Grid.Row="2" MaxHeight="350">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#30ad9a" Offset="0"/>
+                        <GradientStop Color="#3b3c36 " Offset="0"/>
                         <GradientStop Color="#18c274" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>

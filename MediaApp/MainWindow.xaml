@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:uc="clr-namespace:video_media_player.UserControls" xmlns:local="clr-namespace:video_media_player"
-        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded" KeyUp="Window_KeyUp" PreviewKeyDown="Window_PreviewKeyDown" >
-    
+        Height="710" Width="1050" AllowsTransparency="True" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" Loaded="Window_Loaded" >
+
     <Border x:Name="MainBorder" Background="White" CornerRadius="40" MouseDown="Border_MouseDown" BorderBrush="Black" BorderThickness="2">
         <Grid Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
@@ -22,7 +22,7 @@
                           UnloadedBehavior="Stop" Margin="110,258,110,303" Grid.Row="1"/>
 
             <!--Menu-->
-            <Border Background="White" CornerRadius="40 0 0 40" Grid.RowSpan="3" Margin="0,0,10,0">
+            <Border Background="WHite" CornerRadius="40 0 0 40" Grid.RowSpan="3" Margin="0,0,10,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -203,13 +203,8 @@
             </Border>
 
             <!--Player-->
-            <Border x:Name="PlayerBorder" Grid.Row="2" Background="#03bf69" CornerRadius="40 0 40 0" Grid.Column="1">
+            <Border x:Name="PlayerBorder" Background="#18c274" Grid.Row="2" CornerRadius="40 0 40 0" Grid.Column="1">
                 <StackPanel VerticalAlignment="Center">
-                    <!--<Ellipse Width="60" Height="60" Margin="30 0 0 0">
-                        <Ellipse.Fill>
-                            <ImageBrush/>
-                        </Ellipse.Fill>
-                    </Ellipse>-->
                     <Grid x:Name="FooterGrid" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1.5*" />
@@ -297,16 +292,15 @@
                         <Border Background="Green" BorderBrush="Transparent" CornerRadius="8" Padding="5">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Slider x:Name="VolumeSlider" 
-                    Style="{StaticResource VerticalSliderStyle}" 
-                    IsSelectionRangeEnabled="True" 
-                    HorizontalAlignment="Center" 
-                    Height="150" 
-                    Minimum="0" 
-                    Value="50"
-                    Maximum="100" 
-                    TickFrequency="1" 
-                    
-                    ValueChanged="VolumeSlider_ValueChanged" />
+                                        Style="{StaticResource VerticalSliderStyle}" 
+                                        IsSelectionRangeEnabled="True" 
+                                        HorizontalAlignment="Center" 
+                                        Height="150" 
+                                        Minimum="0" 
+                                        Value="50"
+                                        Maximum="100" 
+                                        TickFrequency="1" 
+                                        ValueChanged="VolumeSlider_ValueChanged" />
                             </StackPanel>
                         </Border>
                     </Popup>

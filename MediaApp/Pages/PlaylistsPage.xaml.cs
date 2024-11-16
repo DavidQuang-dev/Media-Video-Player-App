@@ -89,7 +89,7 @@ namespace video_media_player
             PlaylistsListBox.ItemsSource = list;
         }
 
-        private void PlaylistsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void PlaylistsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PlaylistsListBox.SelectedItem is TbPlaylist selectedPlaylist)
             {

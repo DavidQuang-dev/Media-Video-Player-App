@@ -48,7 +48,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="0"/>
                             </Grid.ColumnDefinitions>
                             <ScrollContentPresenter Grid.Column="0"/>
                             <ScrollBar x:Name="PART_VerticalScrollBar"
@@ -65,11 +65,10 @@
     </Page.Resources>
 
     <Border Background="White" CornerRadius="40" >
-        <Grid Margin="-10,0,0,0">
+        <Grid x:Name="FullGrid" Margin="-10,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
-                <ColumnDefinition Width="13*" />
-                <ColumnDefinition Width="20*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -78,13 +77,13 @@
             </Grid.RowDefinitions>
 
             <!--Music Section-->
-            <StackPanel Grid.Column="0" Grid.ColumnSpan="2"  Background="White" Margin="11,40,10,0" Grid.RowSpan="2">
+            <StackPanel Grid.Column="0" Background="White" Margin="11,40,10,0" Grid.RowSpan="2">
                 <TextBlock Text="Home" Style="{StaticResource titleText}" Width="580"/>
 
-                <Border CornerRadius="20" Margin="0 20 0 0" Width="586" Height="437">
+                <Border CornerRadius="20" Margin="0 20 0 0" Height="437">
                     <Border.Background>
                         <LinearGradientBrush>
-                            <GradientStop Color="#30ad9a" Offset="0"/>
+                            <GradientStop Color="#3b3c36" Offset="0"/>
                             <GradientStop Color="#18c274" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
@@ -94,10 +93,7 @@
                     </Border.Effect>
 
                     <Grid>
-                        <Border Opacity="0.07" CornerRadius="20" Margin="30,0,0,-30">
-                            <!--<Border.Background>
-                <ImageBrush ImageSource=""/>
-            </Border.Background>-->
+                        <Border Opacity="0.07" CornerRadius="20" Margin="30,0,10,30">
                         </Border>
 
                         <!--Music List-->
@@ -115,22 +111,61 @@
             </StackPanel>
 
             <!--Right Section-->
-            <Border Grid.Column="2" CornerRadius="0 40 0 0" Background="White" Margin="0,10,0,0" Grid.RowSpan="2">
-                <ScrollViewer Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="536">
-                    <StackPanel Margin=" 30 50 30 0">
-                        <TextBlock Text="Popular" Style="{StaticResource titleText}" Margin="0 0 0 10" FontSize="28"/>
+            <Border Grid.Column="1" CornerRadius="0 40 0 0" Background="White" Margin="0,10,0,0" Grid.RowSpan="2">
 
-                        <StackPanel x:Name="PopularSongItemList" >
-                            <!---Populars-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--Show Popular Song-->
+                    <ScrollViewer Grid.Row="0" Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="536">
+                        <StackPanel Margin=" 30 30 30 0">
+                            <TextBlock Text="Popular" Style="{StaticResource titleText}" Margin="0 0 0 10" FontSize="28"/>
 
+                            <StackPanel x:Name="PopularSongItemList" >
+                                <!---Populars-->
+
+                            </StackPanel>
+                            <TextBlock Text="Playlists" Style="{StaticResource titleText}" Margin="0 30 0 20" FontSize="24"/>
                         </StackPanel>
-                        <TextBlock Text="Playlists" Style="{StaticResource titleText}" Margin="0 30 0 20" FontSize="24"/>
-                        <!--Playlists-->
-                        <StackPanel Orientation="Horizontal" x:Name="PlaylistItems">
+                    </ScrollViewer>
+                    
+                    <!--Show Playlists-->
 
-                        </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
+                    <ScrollViewer Grid.Row="1" Margin="10,0,10,10" VerticalScrollBarVisibility="Visible" MaxHeight="300" Style="{StaticResource CustomScrollViewer}">
+                        <ListBox x:Name="PlaylistsListBox"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    ItemContainerStyle="{StaticResource PlaylistsListItem}" SelectionChanged="PlaylistsListBox_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="5" Background="#f0f0f0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Playlist Icon -->
+                                        <Border Width="40" Height="40" Background="Green" CornerRadius="5" Grid.Column="0" Margin="5">
+                                            <!-- This is where you might put an Image or icon for the playlist -->
+                                            <TextBlock Text="🎶" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="20"/>
+                                        </Border>
+                                        
+                                        <!-- Playlist Name -->
+                                        <TextBlock Text="{Binding PlaylistName}" 
+                                                  Grid.Column="1" 
+                                                  VerticalAlignment="Center" 
+                                                  Margin="10,0,0,0" 
+                                                  FontSize="16" 
+                                                  FontWeight="Bold" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Grid>
+                
             </Border>
         </Grid>
     </Border>
