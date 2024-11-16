@@ -72,7 +72,16 @@ namespace MediaApp.DAL.Repositories
         public void DeleteSong(TbSong song)
         {
             _context = new();
+            foreach (var playlistSong in _context.TbPlaylistSongs.Where(ps => ps.SongId == song.SongId))
+            {
+                _context.TbPlaylistSongs.Remove(playlistSong);
+            }
+            foreach(var songInAlbum in _context.TbAlbums.Where(a => a.AlbumId == song.AlbumId).SelectMany(a => a.TbSongs))
+            {
+                _context.TbSongs.Remove(songInAlbum);
+            }
             _context.TbSongs.Remove(song);
+
             _context.SaveChanges();
         }
         public List<TbSong> GetSongByPlaylist(TbPlaylist playlist)

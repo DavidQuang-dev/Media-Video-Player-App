@@ -52,7 +52,6 @@ namespace MediaApp
         {
             _cloudinary = new Cloudinary(new Account("dpfj7qsae", "464938966635639", "U4sYEHIN4mLuQ4abxneX08e49qs"));
         }
-
         private string UploadFileToCloudinary(string filePath, string songName)
         {
             var uploadParams = new VideoUploadParams()
@@ -82,7 +81,6 @@ namespace MediaApp
             TbSong song = EditSong ?? new TbSong();
             song.SongName = txtSongName.Text;
             song.FilePath = txtFilePath.Text;
-
             var file = TagLib.File.Create(txtFilePath.Text);
             TimeSpan duration = file.Properties.Duration;
             song.Duration = (decimal)duration.TotalSeconds;
@@ -98,6 +96,7 @@ namespace MediaApp
             }
             else
             {
+                song.FilePath = UploadFileToCloudinary(txtFilePath.Text, txtSongName.Text);
                 _service.Update(song);
             }
 
@@ -157,6 +156,7 @@ namespace MediaApp
                 txtSongName.Text = EditSong.SongName;
                 txtDuration.Text = EditSong.Duration.ToString();
                 txtFilePath.Text = EditSong.FilePath;
+                txtFileType.Text = EditSong.Type;
                 ArtistCombobox.SelectedValue = EditSong.ArtistId;
                 AlbumCombobox.SelectedValue = EditSong.AlbumId;
                 Header.Text = $"Update Song {EditSong.SongName}";
