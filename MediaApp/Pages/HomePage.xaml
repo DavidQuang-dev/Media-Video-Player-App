@@ -98,8 +98,8 @@
 
                         <!--Music List-->
                         <StackPanel Margin="30,30,20,30">
-                            <TextBlock Text="Daily Singer" Foreground="White" FontSize="26" FontWeight="Bold"/>
-                            <TextBlock Text="Taylor Swift" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
+                            <TextBlock Text="Daily Songs" Foreground="White" FontSize="26" FontWeight="Bold"/>
+                            <TextBlock Text="Fall Vibe 🎶" Foreground="#c0e6de" FontSize="26" FontWeight="SemiBold"/>
                             <ScrollViewer Style="{StaticResource CustomScrollViewer}"  VerticalScrollBarVisibility="Auto" Margin="0,0,10,0" MaxHeight="290" Height="303">
                                 <StackPanel x:Name="SongItemList" Margin="0, 10, 0, 0">
                                     <!--<uc:SongItem Number="02" Title="You Need To Calm" Time="3:39"/>-->
