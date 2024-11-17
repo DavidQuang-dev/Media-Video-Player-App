@@ -2,6 +2,7 @@
 using MediaApp;
 using MediaApp.BLL.Services;
 using MediaApp.DAL.Entities;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
@@ -45,7 +46,13 @@ namespace video_media_player
             _skipTimer.Interval = TimeSpan.FromSeconds(1);
             _skipTimer.Tick += SkipTimer_Tick;
         }
-
+        private double GetDurationFromUrl(string url)
+        {
+            using (var mf = new MediaFoundationReader(url))
+            {
+                return mf.TotalTime.TotalSeconds;
+            }
+        }
         void SkipTimer_Tick(object sender, EventArgs e)
         {
             PreviousStackPanel.Visibility = Visibility.Hidden;
@@ -69,7 +76,7 @@ namespace video_media_player
                 {
                     Title = song.SongName,
                     Number = (++number).ToString(),
-                    Time = ConvertTimeFormat(TagLib.File.Create(song.FilePath).Properties.Duration.TotalSeconds),
+                    Time = ConvertTimeFormat(GetDurationFromUrl(song.FilePath)),
                     Tag = song.FilePath
                 };
                 songItem.Click += SongItem_Click;
