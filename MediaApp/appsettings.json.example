@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "User Id=postgres.lmbowphiuygfxlmhfyyi;Password=quangtran12@;Server=aws-0-us-west-1.pooler.supabase.com;Port=5432;Database=postgres"
+  }
+}

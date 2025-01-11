@@ -37,11 +37,20 @@ namespace video_media_player
         public string Artist { get; internal set; }
         private double GetDurationFromUrl(string url)
         {
+            Dictionary<string, double> _cache = new Dictionary<string, double>();
+            // Check if duration is already cached
+            if (_cache.ContainsKey(url))
+                return _cache[url];
+
+            // If not cached, fetch the duration
             using (var mf = new MediaFoundationReader(url))
             {
-                return mf.TotalTime.TotalSeconds;
+                double duration = mf.TotalTime.TotalSeconds;
+                _cache[url] = duration; // Cache the result
+                return duration;
             }
         }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             List<TbSong> songs = _songService.GetAllSongs();
@@ -142,12 +151,6 @@ namespace video_media_player
                 SongListBorder.MaxHeight = 350;
             }
         }
-
-        private void SearchSongTextBox_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
         private void SearchSongTextBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             IsTyping = true;
