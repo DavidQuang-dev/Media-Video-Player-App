@@ -28,7 +28,7 @@ Before you begin, ensure you have the following installed:
 
 - [.NET SDK](https://dotnet.microsoft.com/download)
 - [Visual Studio](https://visualstudio.microsoft.com/) (Recommended for WPF development)
-- [PostgreSQL](https://www.postgresql.org/download/)
+- [PostgreSQL](https://supabase.com/))
 - [Cloudinary Account](https://cloudinary.com/) (For media storage and streaming)
 
 ### Installation
@@ -40,7 +40,7 @@ Before you begin, ensure you have the following installed:
    ```
 
 2. **Set up the database**:
-   - Create a new PostgreSQL database
+   - Create a new PostgreSQL database on supabase
    - Update the connection string in `appsettings.json` with your database credentials
 
 3. **Configure Cloudinary**:
@@ -81,4 +81,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 - David Quang- tranngvietquang04@gmail.com
-- Project Link: https://github.com/your-username/media-video-player-app
+- Project Link: [media-video-player-app](https://github.com/DavidQuang-dev/Media-Video-Player-App)
