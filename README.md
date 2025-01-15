@@ -1,3 +1,4 @@
+[![CI For Media-Video-Player-App](https://github.com/DavidQuang-dev/Media-Video-Player-App/actions/workflows/CI-Script.yml/badge.svg)](https://github.com/DavidQuang-dev/Media-Video-Player-App/actions/workflows/CI-Script.yml)
 # Media Video Player App
 
 Welcome to the **Media Video Player App**, a modern media player application built using WPF (Windows Presentation Foundation), integrated with Cloudinary for media storage and PostgreSQL for database management. This application provides basic functionalities of an online music and video player, allowing users to stream and manage their media files seamlessly.
